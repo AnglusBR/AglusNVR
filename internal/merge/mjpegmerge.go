@@ -8,8 +8,8 @@ import (
 	"sort"
 	"time"
 
-	"github.com/seu-usuario/AglusNVR/internal/model"
-	"github.com/seu-usuario/AglusNVR/internal/storage"
+	"github.com/mms1688/AglusNVR/internal/model"
+	"github.com/mms1688/AglusNVR/internal/storage"
 )
 
 // MergeMJPEGSegments merges multiple MJPEG segment directories into a single

@@ -1,6 +1,6 @@
 # AglusNVR
-[![Versão](https://img.shields.io/github/v/release/seu-usuario/AglusNVR?style=flat&label=versão)](https://github.com/seu-usuario/AglusNVR/releases)
-[![CI](https://img.shields.io/github/actions/workflow/status/seu-usuario/AglusNVR/ci.yml?style=flat&label=CI)](https://github.com/seu-usuario/AglusNVR/actions/workflows/ci.yml)
+[![Versão](https://img.shields.io/github/v/release/mms1688/AglusNVR?style=flat&label=versão)](https://github.com/mms1688/AglusNVR/releases)
+[![CI](https://img.shields.io/github/actions/workflow/status/mms1688/AglusNVR/ci.yml?style=flat&label=CI)](https://github.com/mms1688/AglusNVR/actions/workflows/ci.yml)
 [![Go](https://img.shields.io/badge/Go-00ADD8?style=flat&logo=go&logoColor=white)](https://go.dev/)
 [![Svelte](https://img.shields.io/badge/Svelte-FF3E00?style=flat&logo=svelte&logoColor=white)](https://svelte.dev/)
 [![SQLite](https://img.shields.io/badge/SQLite-003B57?style=flat&logo=sqlite&logoColor=white)](https://www.sqlite.org/)
@@ -18,7 +18,7 @@
 ### Instalar com um clique (Recomendado)
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/seu-usuario/AglusNVR/main/install.sh | sudo bash
+curl -fsSL https://raw.githubusercontent.com/mms1688/AglusNVR/main/install.sh | sudo bash
 ```
 
 O instalador detecta a arquitetura, baixa e verifica o binário, cria o usuário
@@ -28,32 +28,32 @@ o AglusNVR. O diretório padrão de dados é `/var/lib/aglus-nvr`.
 Para uma instalação não interativa:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/seu-usuario/AglusNVR/main/install.sh \
+curl -fsSL https://raw.githubusercontent.com/mms1688/AglusNVR/main/install.sh \
   | sudo AGLUS_PASSWORD='uma-senha-segura' bash
 ```
 
 Para desinstalar sem apagar as gravações:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/seu-usuario/AglusNVR/main/install.sh \
+curl -fsSL https://raw.githubusercontent.com/mms1688/AglusNVR/main/install.sh \
   | sudo bash -s -- --desinstalar
 ```
 
 ### Opção 1: Binário pré-construído
 
-Baixe o binário mais recente do [GitHub Releases](https://github.com/seu-usuario/AglusNVR/releases):
+Baixe o binário mais recente do [GitHub Releases](https://github.com/mms1688/AglusNVR/releases):
 
 ```bash
 # AMD64 (maioria dos PCs e servidores)
-wget https://github.com/seu-usuario/AglusNVR/releases/latest/download/aglus-nvr-amd64
+wget https://github.com/mms1688/AglusNVR/releases/latest/download/aglus-nvr-amd64
 chmod +x aglus-nvr-amd64
 
 # ARM64 (Raspberry Pi 4/5 etc.)
-wget https://github.com/seu-usuario/AglusNVR/releases/latest/download/aglus-nvr-arm64
+wget https://github.com/mms1688/AglusNVR/releases/latest/download/aglus-nvr-arm64
 chmod +x aglus-nvr-arm64
 
 # ARMv7 (Raspberry Pi 2/3 etc.)
-wget https://github.com/seu-usuario/AglusNVR/releases/latest/download/aglus-nvr-armv7
+wget https://github.com/mms1688/AglusNVR/releases/latest/download/aglus-nvr-armv7
 chmod +x aglus-nvr-armv7
 ```
 
@@ -86,7 +86,7 @@ Para armazenar gravações em um drive externo, edite a montagem de volume em `d
 ### Opção 3: Construir a partir da Fonte
 
 ```bash
-git clone https://github.com/seu-usuario/AglusNVR.git
+git clone https://github.com/mms1688/AglusNVR.git
 cd AglusNVR
 make build
 ./aglus-nvr init --password sua-senha
@@ -234,7 +234,7 @@ Docker implantação:
 docker compose up -d
 ```
 
-Imagens publicadas para `ghcr.io/seu-usuario/aglusnvr` com tags: `latest`, `v1.2.3`, `sha-abc1234`
+Imagens publicadas para `ghcr.io/mms1688/aglusnvr` com tags: `latest`, `v1.2.3`, `sha-abc1234`
 
 ## Estrutura do Projeto
 

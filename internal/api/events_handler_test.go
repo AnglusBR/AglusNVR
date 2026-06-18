@@ -10,7 +10,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/seu-usuario/AglusNVR/internal/event"
+	"github.com/mms1688/AglusNVR/internal/event"
 	"github.com/stretchr/testify/require"
 )
 

@@ -13,9 +13,9 @@ import (
 	"time"
 
 	"github.com/google/uuid"
-	"github.com/seu-usuario/AglusNVR/internal/camera"
-	"github.com/seu-usuario/AglusNVR/internal/model"
-	"github.com/seu-usuario/AglusNVR/internal/storage"
+	"github.com/mms1688/AglusNVR/internal/camera"
+	"github.com/mms1688/AglusNVR/internal/model"
+	"github.com/mms1688/AglusNVR/internal/storage"
 	"golang.org/x/net/webdav"
 )
 

@@ -7,7 +7,7 @@ import (
 	"time"
 
 	"github.com/go-chi/chi/v5"
-	"github.com/seu-usuario/AglusNVR/internal/event"
+	"github.com/mms1688/AglusNVR/internal/event"
 )
 
 // handleEvents handles GET /api/events.

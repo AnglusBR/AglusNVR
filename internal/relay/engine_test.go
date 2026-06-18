@@ -10,8 +10,8 @@ import (
 	"github.com/bluenviron/gortsplib/v5/pkg/description"
 	"github.com/bluenviron/gortsplib/v5/pkg/format"
 	"github.com/bluenviron/mediacommon/v2/pkg/codecs/mpeg4audio"
-	"github.com/seu-usuario/AglusNVR/internal/model"
-	"github.com/seu-usuario/AglusNVR/internal/transcoding"
+	"github.com/mms1688/AglusNVR/internal/model"
+	"github.com/mms1688/AglusNVR/internal/transcoding"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )

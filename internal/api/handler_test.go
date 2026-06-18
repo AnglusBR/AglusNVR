@@ -16,13 +16,13 @@ import (
 	"testing"
 	"time"
 
-	"github.com/seu-usuario/AglusNVR/internal/camera"
-	"github.com/seu-usuario/AglusNVR/internal/config"
-	"github.com/seu-usuario/AglusNVR/internal/hls"
-	"github.com/seu-usuario/AglusNVR/internal/merge"
-	"github.com/seu-usuario/AglusNVR/internal/middleware"
-	"github.com/seu-usuario/AglusNVR/internal/model"
-	"github.com/seu-usuario/AglusNVR/internal/storage"
+	"github.com/mms1688/AglusNVR/internal/camera"
+	"github.com/mms1688/AglusNVR/internal/config"
+	"github.com/mms1688/AglusNVR/internal/hls"
+	"github.com/mms1688/AglusNVR/internal/merge"
+	"github.com/mms1688/AglusNVR/internal/middleware"
+	"github.com/mms1688/AglusNVR/internal/model"
+	"github.com/mms1688/AglusNVR/internal/storage"
 	"github.com/stretchr/testify/require"
 )
 

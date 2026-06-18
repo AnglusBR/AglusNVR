@@ -6,7 +6,7 @@ import (
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
-	"github.com/seu-usuario/AglusNVR/internal/webrtc"
+	"github.com/mms1688/AglusNVR/internal/webrtc"
 )
 
 // --- WHEP (WebRTC-HTTP Egress Protocol) endpoints ---

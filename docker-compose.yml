@@ -24,7 +24,7 @@
 #   e remova a seção "ports".
 services:
   aglus-nvr:
-    image: ghcr.io/seu-usuario/aglusnvr:latest
+    image: ghcr.io/mms1688/aglusnvr:latest
     container_name: aglus-nvr
     restart: unless-stopped
 

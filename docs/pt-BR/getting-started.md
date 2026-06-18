@@ -17,15 +17,15 @@ AglusNVR é um gravador de vídeo de rede leve escrito em Go. Ele grava os feeds
 
 ### Opção 1: Binário pré-montado (recomendado)
 
-Baixe o binário mais recente para sua arquitetura em [GitHub Releases](https://github.com/seu-usuario/AglusNVR/releases):
+Baixe o binário mais recente para sua arquitetura em [GitHub Releases](https://github.com/mms1688/AglusNVR/releases):
 
 ```bash
 # AMD64 (maioria dos PCs e servidores)
-wget https://github.com/seu-usuario/AglusNVR/releases/latest/download/aglus-nvr-amd64
+wget https://github.com/mms1688/AglusNVR/releases/latest/download/aglus-nvr-amd64
 chmod +x aglus-nvr-amd64
 
 # ARM64 (Raspberry Pi, etc.)
-wget https://github.com/seu-usuario/AglusNVR/releases/latest/download/aglus-nvr-arm64
+wget https://github.com/mms1688/AglusNVR/releases/latest/download/aglus-nvr-arm64
 chmod +x aglus-nvr-arm64
 ```
 
@@ -69,7 +69,7 @@ Para armazenar gravações em um disco externo ou em um diretório diferente, ed
 ### Opção 3: Script de Instalação com um clique
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/seu-usuario/AglusNVR/main/install.sh | sudo bash
+curl -fsSL https://raw.githubusercontent.com/mms1688/AglusNVR/main/install.sh | sudo bash
 ```
 
 Isso baixa o binário, cria um usuário do sistema (`nvr`), gera a configuração com senha, instala um serviço systemd e o inicia automaticamente. Diretório de dados: `/var/lib/aglus-nvr`.
@@ -77,7 +77,7 @@ Isso baixa o binário, cria um usuário do sistema (`nvr`), gera a configuraçã
 Para desinstalar (preservar gravações):
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/seu-usuario/AglusNVR/main/install.sh | sudo bash -s -- --uninstall
+curl -fsSL https://raw.githubusercontent.com/mms1688/AglusNVR/main/install.sh | sudo bash -s -- --uninstall
 ```
 
 ### Opção 4: Construir a partir da Fonte
@@ -85,7 +85,7 @@ curl -fsSL https://raw.githubusercontent.com/seu-usuario/AglusNVR/main/install.s
 Requer Go 1.26+ e Node.js (para frontend):
 
 ```bash
-git clone https://github.com/seu-usuario/AglusNVR.git
+git clone https://github.com/mms1688/AglusNVR.git
 cd AglusNVR
 make build
 ./aglus-nvr init --password sua-senha

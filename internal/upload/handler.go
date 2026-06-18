@@ -11,8 +11,8 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"github.com/google/uuid"
-	"github.com/seu-usuario/AglusNVR/internal/model"
-	"github.com/seu-usuario/AglusNVR/internal/storage"
+	"github.com/mms1688/AglusNVR/internal/model"
+	"github.com/mms1688/AglusNVR/internal/storage"
 )
 
 // Handler handles HTTP upload endpoints for camera frames and videos.

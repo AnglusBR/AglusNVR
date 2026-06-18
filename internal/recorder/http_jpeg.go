@@ -17,9 +17,9 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/seu-usuario/AglusNVR/internal/event"
-	"github.com/seu-usuario/AglusNVR/internal/metrics"
-	"github.com/seu-usuario/AglusNVR/internal/model"
+	"github.com/mms1688/AglusNVR/internal/event"
+	"github.com/mms1688/AglusNVR/internal/metrics"
+	"github.com/mms1688/AglusNVR/internal/model"
 )
 
 var httpJpegLogger = slog.Default().With("component", "http-jpeg-recorder")

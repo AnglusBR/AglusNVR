@@ -7,10 +7,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/seu-usuario/AglusNVR/internal/config"
-	"github.com/seu-usuario/AglusNVR/internal/event"
-	"github.com/seu-usuario/AglusNVR/internal/metrics"
-	"github.com/seu-usuario/AglusNVR/internal/storage"
+	"github.com/mms1688/AglusNVR/internal/config"
+	"github.com/mms1688/AglusNVR/internal/event"
+	"github.com/mms1688/AglusNVR/internal/metrics"
+	"github.com/mms1688/AglusNVR/internal/storage"
 	"github.com/stretchr/testify/require"
 )
 

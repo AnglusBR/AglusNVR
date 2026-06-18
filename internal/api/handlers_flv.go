@@ -5,7 +5,7 @@ import (
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
-	"github.com/seu-usuario/AglusNVR/internal/flv"
+	"github.com/mms1688/AglusNVR/internal/flv"
 )
 
 // --- HTTP-FLV streaming endpoint ---

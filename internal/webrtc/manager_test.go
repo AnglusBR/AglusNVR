@@ -10,8 +10,8 @@ import (
 	"github.com/pion/webrtc/v4"
 	"github.com/stretchr/testify/require"
 
-	"github.com/seu-usuario/AglusNVR/internal/model"
-	"github.com/seu-usuario/AglusNVR/internal/model/nalutil"
+	"github.com/mms1688/AglusNVR/internal/model"
+	"github.com/mms1688/AglusNVR/internal/model/nalutil"
 )
 
 // --- Test Helpers ---

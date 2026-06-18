@@ -7,8 +7,8 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/seu-usuario/AglusNVR/internal/camera"
-	"github.com/seu-usuario/AglusNVR/internal/config"
+	"github.com/mms1688/AglusNVR/internal/camera"
+	"github.com/mms1688/AglusNVR/internal/config"
 )
 
 // --- Xiaomi cloud endpoints ---

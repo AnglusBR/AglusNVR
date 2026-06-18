@@ -3,7 +3,7 @@ package relay
 import (
 	"testing"
 
-	"github.com/seu-usuario/AglusNVR/internal/config"
+	"github.com/mms1688/AglusNVR/internal/config"
 	"github.com/stretchr/testify/require"
 )
 

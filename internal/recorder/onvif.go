@@ -14,10 +14,10 @@ import (
 	"github.com/bluenviron/gortsplib/v5/pkg/base"
 	"github.com/bluenviron/gortsplib/v5/pkg/format"
 
-	"github.com/seu-usuario/AglusNVR/internal/event"
-	"github.com/seu-usuario/AglusNVR/internal/metrics"
-	"github.com/seu-usuario/AglusNVR/internal/model"
-	"github.com/seu-usuario/AglusNVR/internal/onvif"
+	"github.com/mms1688/AglusNVR/internal/event"
+	"github.com/mms1688/AglusNVR/internal/metrics"
+	"github.com/mms1688/AglusNVR/internal/model"
+	"github.com/mms1688/AglusNVR/internal/onvif"
 )
 
 var onvifRecLogger = slog.Default().With("component", "onvif-recorder")

@@ -767,8 +767,8 @@
 #BB>
 #YJ>### Apoio da comunidade
 #POR>
-#JB>- Problemas GitHub: [Problemas AglusNVR](https://github.com/seu-usuario/AglusNVR/issues)
-#QW>- Discussões: [Discussões AglusNVR](https://github.com/seu-usuario/AglusNVR/discussions)
+#JB>- Problemas GitHub: [Problemas AglusNVR](https://github.com/mms1688/AglusNVR/issues)
+#QW>- Discussões: [Discussões AglusNVR](https://github.com/mms1688/AglusNVR/discussions)
 #SX>- Discord: Junte-se ao nosso servidor da comunidade para obter ajuda
 #BB>
 #YJ>### Suporte Profissional

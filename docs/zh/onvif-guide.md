@@ -688,8 +688,8 @@ services:
 - [AglusNVR API 参考](./api/README.md)
 
 ### 社区支持
-- GitHub Issues：[AglusNVR Issues](https://github.com/seu-usuario/AglusNVR/issues)
-- 讨论区：[AglusNVR Discussions](https://github.com/seu-usuario/AglusNVR/discussions)
+- GitHub Issues：[AglusNVR Issues](https://github.com/mms1688/AglusNVR/issues)
+- 讨论区：[AglusNVR Discussions](https://github.com/mms1688/AglusNVR/discussions)
 
 ### ONVIF 资源
 - ONVIF 官方网站：https://www.onvif.org/

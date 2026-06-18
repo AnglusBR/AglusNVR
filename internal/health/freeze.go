@@ -6,7 +6,7 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/seu-usuario/AglusNVR/internal/model"
+	"github.com/mms1688/AglusNVR/internal/model"
 )
 
 // cameraFreezeState tracks per-camera freeze detection state.

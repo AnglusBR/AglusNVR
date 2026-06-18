@@ -12,8 +12,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/seu-usuario/AglusNVR/internal/metrics"
-	"github.com/seu-usuario/AglusNVR/internal/model"
+	"github.com/mms1688/AglusNVR/internal/metrics"
+	"github.com/mms1688/AglusNVR/internal/model"
 )
 
 var snapshotCapturerLogger = slog.Default().With("component", "snapshot-capturer")

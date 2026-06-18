@@ -10,7 +10,7 @@ import (
 
 	_ "modernc.org/sqlite"
 
-	"github.com/seu-usuario/AglusNVR/internal/model"
+	"github.com/mms1688/AglusNVR/internal/model"
 )
 
 var logger = slog.Default().With("component", "storage")

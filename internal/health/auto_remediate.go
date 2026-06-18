@@ -7,8 +7,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/seu-usuario/AglusNVR/internal/config"
-	"github.com/seu-usuario/AglusNVR/internal/model"
+	"github.com/mms1688/AglusNVR/internal/config"
+	"github.com/mms1688/AglusNVR/internal/model"
 )
 
 // RestartRecorderFunc is the function signature for restarting a camera recorder.

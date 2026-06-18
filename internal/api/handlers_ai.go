@@ -8,10 +8,10 @@ import (
 	"time"
 
 	"github.com/go-chi/chi/v5"
-	"github.com/seu-usuario/AglusNVR/internal/event"
-	"github.com/seu-usuario/AglusNVR/internal/metrics"
-	"github.com/seu-usuario/AglusNVR/internal/middleware"
-	"github.com/seu-usuario/AglusNVR/internal/storage"
+	"github.com/mms1688/AglusNVR/internal/event"
+	"github.com/mms1688/AglusNVR/internal/metrics"
+	"github.com/mms1688/AglusNVR/internal/middleware"
+	"github.com/mms1688/AglusNVR/internal/storage"
 )
 
 // apiMetrics holds the optional metrics instance for AI event tracking.

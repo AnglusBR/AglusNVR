@@ -10,7 +10,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/seu-usuario/AglusNVR/internal/muxer"
+	"github.com/mms1688/AglusNVR/internal/muxer"
 	"github.com/stretchr/testify/require"
 )
 

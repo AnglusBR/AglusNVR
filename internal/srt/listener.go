@@ -8,8 +8,8 @@ import (
 
 	"github.com/datarhei/gosrt"
 
-	"github.com/seu-usuario/AglusNVR/internal/config"
-	"github.com/seu-usuario/AglusNVR/internal/model"
+	"github.com/mms1688/AglusNVR/internal/config"
+	"github.com/mms1688/AglusNVR/internal/model"
 )
 
 // Listener manages an SRT listener that accepts incoming connections,

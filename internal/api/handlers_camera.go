@@ -12,12 +12,12 @@ import (
 	"time"
 
 	"github.com/go-chi/chi/v5"
-	"github.com/seu-usuario/AglusNVR/internal/camera"
-	"github.com/seu-usuario/AglusNVR/internal/config"
-	"github.com/seu-usuario/AglusNVR/internal/model"
-	"github.com/seu-usuario/AglusNVR/internal/onvif"
-	"github.com/seu-usuario/AglusNVR/internal/storage"
-	"github.com/seu-usuario/AglusNVR/internal/transcoding"
+	"github.com/mms1688/AglusNVR/internal/camera"
+	"github.com/mms1688/AglusNVR/internal/config"
+	"github.com/mms1688/AglusNVR/internal/model"
+	"github.com/mms1688/AglusNVR/internal/onvif"
+	"github.com/mms1688/AglusNVR/internal/storage"
+	"github.com/mms1688/AglusNVR/internal/transcoding"
 )
 
 // --- Camera and stats endpoints ---

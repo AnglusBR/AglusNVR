@@ -6,10 +6,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/seu-usuario/AglusNVR/internal/config"
-	"github.com/seu-usuario/AglusNVR/internal/model"
-	"github.com/seu-usuario/AglusNVR/internal/recorder"
-	"github.com/seu-usuario/AglusNVR/internal/timelapse"
+	"github.com/mms1688/AglusNVR/internal/config"
+	"github.com/mms1688/AglusNVR/internal/model"
+	"github.com/mms1688/AglusNVR/internal/recorder"
+	"github.com/mms1688/AglusNVR/internal/timelapse"
 )
 
 // deriveProtocolForSnapshot returns the effective protocol to use for snapshot URL

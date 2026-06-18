@@ -13,7 +13,7 @@ import (
 
 	"github.com/bluenviron/gohlslib/v2"
 
-	"github.com/seu-usuario/AglusNVR/internal/metrics"
+	"github.com/mms1688/AglusNVR/internal/metrics"
 )
 
 // newTestManager creates a Manager with a writable temp directory.

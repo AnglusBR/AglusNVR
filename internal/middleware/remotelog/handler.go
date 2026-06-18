@@ -13,7 +13,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/seu-usuario/AglusNVR/internal/metrics"
+	"github.com/mms1688/AglusNVR/internal/metrics"
 )
 
 const (

@@ -769,7 +769,7 @@ curl -X POST -H "Content-Type: application/json" \
 ./aglus-nvr --version
 
 # 检查更新
-curl -s https://api.github.com/repos/seu-usuario/AglusNVR/releases/latest | grep 'tag_name'
+curl -s https://api.github.com/repos/mms1688/AglusNVR/releases/latest | grep 'tag_name'
 ```
 
 ### 备份配置

@@ -9,7 +9,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/seu-usuario/AglusNVR/internal/transcoding"
+	"github.com/mms1688/AglusNVR/internal/transcoding"
 )
 
 func TestFFmpegMerge_CanMerge(t *testing.T) {

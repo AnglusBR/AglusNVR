@@ -16,9 +16,9 @@ import (
 	"github.com/bluenviron/gortsplib/v5/pkg/format"
 	"github.com/pion/rtp"
 
-	"github.com/seu-usuario/AglusNVR/internal/event"
-	"github.com/seu-usuario/AglusNVR/internal/metrics"
-	"github.com/seu-usuario/AglusNVR/internal/model"
+	"github.com/mms1688/AglusNVR/internal/event"
+	"github.com/mms1688/AglusNVR/internal/metrics"
+	"github.com/mms1688/AglusNVR/internal/model"
 )
 
 var mjpegLogger = slog.Default().With("component", "mjpeg-recorder")

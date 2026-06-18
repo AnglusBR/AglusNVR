@@ -10,8 +10,8 @@ import (
 	"github.com/datarhei/gosrt/packet"
 	"github.com/stretchr/testify/require"
 
-	"github.com/seu-usuario/AglusNVR/internal/config"
-	"github.com/seu-usuario/AglusNVR/internal/model"
+	"github.com/mms1688/AglusNVR/internal/config"
+	"github.com/mms1688/AglusNVR/internal/model"
 )
 
 // mockConn implements srt.Conn for testing purposes.

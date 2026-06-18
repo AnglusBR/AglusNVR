@@ -750,7 +750,7 @@ curl -X POST -H "Content-Type: application/json" \
 ./aglus-nvr --version
 
 # Check for updates
-curl -s https://api.github.com/repos/seu-usuario/AglusNVR/releases/latest | grep 'tag_name'
+curl -s https://api.github.com/repos/mms1688/AglusNVR/releases/latest | grep 'tag_name'
 ```
 
 ### Backup Configuration

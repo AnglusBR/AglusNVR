@@ -13,7 +13,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/seu-usuario/AglusNVR/internal/config"
+	"github.com/mms1688/AglusNVR/internal/config"
 )
 
 func buildBinary(t *testing.T) string {

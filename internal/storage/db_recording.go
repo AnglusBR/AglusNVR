@@ -8,7 +8,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/seu-usuario/AglusNVR/internal/model"
+	"github.com/mms1688/AglusNVR/internal/model"
 )
 
 // mergeStatusFromBool converts the legacy Merged bool to a merge_status string.

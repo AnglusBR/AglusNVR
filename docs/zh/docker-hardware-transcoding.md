@@ -29,7 +29,7 @@ v4l2-ctl -d /dev/video10 --list-formats-ext
 ```yaml
 services:
   aglus-nvr:
-    image: ghcr.io/seu-usuario/aglusnvr:latest
+    image: ghcr.io/mms1688/aglusnvr:latest
     container_name: aglus-nvr
     restart: unless-stopped
     
@@ -102,7 +102,7 @@ vainfo
 ```yaml
 services:
   aglus-nvr:
-    image: ghcr.io/seu-usuario/aglusnvr:latest
+    image: ghcr.io/mms1688/aglusnvr:latest
     container_name: aglus-nvr
     restart: unless-stopped
     
@@ -173,7 +173,7 @@ sudo systemctl restart docker
 ```yaml
 services:
   aglus-nvr:
-    image: ghcr.io/seu-usuario/aglusnvr:latest
+    image: ghcr.io/mms1688/aglusnvr:latest
     container_name: aglus-nvr
     restart: unless-stopped
     
@@ -246,7 +246,7 @@ docker exec aglus-nvr ffmpeg -encoders | grep nvenc
 ```yaml
 services:
   aglus-nvr:
-    image: ghcr.io/seu-usuario/aglusnvr:latest
+    image: ghcr.io/mms1688/aglusnvr:latest
     container_name: aglus-nvr
     restart: unless-stopped
     

@@ -24,16 +24,16 @@ import (
 	"github.com/stretchr/testify/require"
 
 	"github.com/gorilla/websocket"
-	"github.com/seu-usuario/AglusNVR/internal/api"
-	"github.com/seu-usuario/AglusNVR/internal/camera"
-	"github.com/seu-usuario/AglusNVR/internal/config"
-	"github.com/seu-usuario/AglusNVR/internal/hls"
-	"github.com/seu-usuario/AglusNVR/internal/model"
-	"github.com/seu-usuario/AglusNVR/internal/onvif"
-	"github.com/seu-usuario/AglusNVR/internal/recorder"
-	"github.com/seu-usuario/AglusNVR/internal/storage"
-	"github.com/seu-usuario/AglusNVR/internal/upload"
-	"github.com/seu-usuario/AglusNVR/internal/wsstream"
+	"github.com/mms1688/AglusNVR/internal/api"
+	"github.com/mms1688/AglusNVR/internal/camera"
+	"github.com/mms1688/AglusNVR/internal/config"
+	"github.com/mms1688/AglusNVR/internal/hls"
+	"github.com/mms1688/AglusNVR/internal/model"
+	"github.com/mms1688/AglusNVR/internal/onvif"
+	"github.com/mms1688/AglusNVR/internal/recorder"
+	"github.com/mms1688/AglusNVR/internal/storage"
+	"github.com/mms1688/AglusNVR/internal/upload"
+	"github.com/mms1688/AglusNVR/internal/wsstream"
 )
 
 // --- Shared helpers ---

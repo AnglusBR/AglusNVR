@@ -6,8 +6,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/seu-usuario/AglusNVR/internal/model"
-	"github.com/seu-usuario/AglusNVR/internal/recorder"
+	"github.com/mms1688/AglusNVR/internal/model"
+	"github.com/mms1688/AglusNVR/internal/recorder"
 )
 
 var mjpegLogger = slog.Default().With("component", "mjpeg-proxy")

@@ -10,7 +10,7 @@ The install script downloads the latest release binary, creates the `nvr` system
 
 ```bash
 # Install latest version
-curl -fsSL https://raw.githubusercontent.com/seu-usuario/AglusNVR/main/install.sh | sudo bash
+curl -fsSL https://raw.githubusercontent.com/mms1688/AglusNVR/main/install.sh | sudo bash
 ```
 
 Install a specific version:
@@ -46,7 +46,7 @@ docker run -d \
   --restart unless-stopped \
   -p 9090:9090 \
   -v ./data:/data \
-  ghcr.io/seu-usuario/aglusnvr:latest
+  ghcr.io/mms1688/aglusnvr:latest
 
 # Option B: With initial password
 docker run -d \
@@ -55,7 +55,7 @@ docker run -d \
   -p 9090:9090 \
   -e NVR_PASSWORD=yourpassword \
   -v ./data:/data \
-  ghcr.io/seu-usuario/aglusnvr:latest
+  ghcr.io/mms1688/aglusnvr:latest
 
 # Option C: With docker-compose.yml
 mkdir -p data
@@ -76,7 +76,7 @@ Full configuration with annotated fields:
 services:
   aglus-nvr:
     # Docker image — official pre-built image
-    image: ghcr.io/seu-usuario/aglusnvr:latest
+    image: ghcr.io/mms1688/aglusnvr:latest
 
     # Container name (for easier management and log viewing)
     container_name: aglus-nvr
@@ -113,7 +113,7 @@ services:
 
 **Option A: Use pre-built image (recommended)**
 
-- Image: `ghcr.io/seu-usuario/aglusnvr:latest`
+- Image: `ghcr.io/mms1688/aglusnvr:latest`
 - Architecture tags: `latest (multi-arch: amd64 + arm64)`
 
 No extra steps needed — the `docker-compose.yml` uses the pre-built image by default.
@@ -178,7 +178,7 @@ If you prefer not to use Docker Compose, you can run the container directly:
 echo YOUR_GITHUB_TOKEN | docker login ghcr.io -u USERNAME --password-stdin
 
 # 2. Pull the image
-docker pull ghcr.io/seu-usuario/aglusnvr:latest
+docker pull ghcr.io/mms1688/aglusnvr:latest
 
 # 3. Run the container
 docker run -d \
@@ -190,7 +190,7 @@ docker run -d \
   -v ./data:/data \
   -e NVR_DATA_DIR=/data \
   -e TZ=Asia/Shanghai \
-  ghcr.io/seu-usuario/aglusnvr:latest
+  ghcr.io/mms1688/aglusnvr:latest
 
 # 4. Check status
 docker ps
@@ -201,8 +201,8 @@ docker inspect --format='{{.State.Health.Status}}' aglus-nvr
 **Run a specific version:**
 
 ```bash
-docker pull ghcr.io/seu-usuario/aglusnvr:v0.2.0
-docker run -d --name aglus-nvr ... ghcr.io/seu-usuario/aglusnvr:v0.2.0
+docker pull ghcr.io/mms1688/aglusnvr:v0.2.0
+docker run -d --name aglus-nvr ... ghcr.io/mms1688/aglusnvr:v0.2.0
 ```
 
 **Stop and remove:**
@@ -217,8 +217,8 @@ docker rm aglus-nvr
 ```bash
 docker stop aglus-nvr
 docker rm aglus-nvr
-docker pull ghcr.io/seu-usuario/aglusnvr:latest
-docker run -d ... ghcr.io/seu-usuario/aglusnvr:latest
+docker pull ghcr.io/mms1688/aglusnvr:latest
+docker run -d ... ghcr.io/mms1688/aglusnvr:latest
 ```
 #### Data Backup and Restore
 
@@ -256,7 +256,7 @@ Raspberry Pi requires the ARM64 image:
 # docker-compose.yml — Raspberry Pi configuration
 services:
   aglus-nvr:
-    image: ghcr.io/seu-usuario/aglusnvr:latest
+    image: ghcr.io/mms1688/aglusnvr:latest
     deploy:
       resources:
         limits:
@@ -332,7 +332,7 @@ If you prefer full control or the install script doesn't cover your use case:
 
 ```bash
 # 1. Download binary from GitHub Releases
-#    https://github.com/seu-usuario/AglusNVR/releases
+#    https://github.com/mms1688/AglusNVR/releases
 sudo cp aglus-nvr /usr/local/bin/aglus-nvr
 sudo chmod +x /usr/local/bin/aglus-nvr
 
@@ -357,7 +357,7 @@ sudo systemctl enable --now aglus-nvr
 ### Building from Source
 
 ```bash
-git clone https://github.com/seu-usuario/AglusNVR.git
+git clone https://github.com/mms1688/AglusNVR.git
 cd AglusNVR
 
 # Build for current architecture

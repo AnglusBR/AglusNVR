@@ -1,4 +1,4 @@
-module github.com/seu-usuario/AglusNVR
+module github.com/mms1688/AglusNVR
 
 go 1.26.2
 

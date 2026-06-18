@@ -29,7 +29,7 @@ Adicione mapeamento de dispositivos ao seu `docker-compose.yml`:
 ```yaml
 services:
   aglus-nvr:
-    image: ghcr.io/seu-usuario/aglusnvr:latest
+    image: ghcr.io/mms1688/aglusnvr:latest
     container_name: aglus-nvr
     restart: unless-stopped
     
@@ -102,7 +102,7 @@ Adicione mapeamento de dispositivo DRI:
 ```yaml
 services:
   aglus-nvr:
-    image: ghcr.io/seu-usuario/aglusnvr:latest
+    image: ghcr.io/mms1688/aglusnvr:latest
     container_name: aglus-nvr
     restart: unless-stopped
     
@@ -173,7 +173,7 @@ Use o tempo de execução NVIDIA para acesso à GPU:
 ```yaml
 services:
   aglus-nvr:
-    image: ghcr.io/seu-usuario/aglusnvr:latest
+    image: ghcr.io/mms1688/aglusnvr:latest
     container_name: aglus-nvr
     restart: unless-stopped
     
@@ -246,7 +246,7 @@ Nenhum mapeamento de dispositivo é necessário:
 ```yaml
 services:
   aglus-nvr:
-    image: ghcr.io/seu-usuario/aglusnvr:latest
+    image: ghcr.io/mms1688/aglusnvr:latest
     container_name: aglus-nvr
     restart: unless-stopped
     

@@ -3,7 +3,7 @@ package recorder
 import (
 	"time"
 
-	"github.com/seu-usuario/AglusNVR/internal/backoff"
+	"github.com/mms1688/AglusNVR/internal/backoff"
 )
 
 // TieredBackoff returns a retry delay based on attempt count.

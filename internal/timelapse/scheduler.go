@@ -5,7 +5,7 @@ import (
 	"sort"
 	"time"
 
-	"github.com/seu-usuario/AglusNVR/internal/config"
+	"github.com/mms1688/AglusNVR/internal/config"
 )
 
 // Scheduler evaluates timelapse recording schedules based on current time.

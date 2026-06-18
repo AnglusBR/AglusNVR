@@ -10,7 +10,7 @@
 
 ```bash
 # 安装最新版本
-curl -fsSL https://raw.githubusercontent.com/seu-usuario/AglusNVR/main/install.sh | sudo bash
+curl -fsSL https://raw.githubusercontent.com/mms1688/AglusNVR/main/install.sh | sudo bash
 ```
 
 安装指定版本：
@@ -46,7 +46,7 @@ docker run -d \
   --restart unless-stopped \
   -p 9090:9090 \
   -v ./data:/data \
-  ghcr.io/seu-usuario/aglusnvr:latest
+  ghcr.io/mms1688/aglusnvr:latest
 
 # 方式 B：带初始密码
 docker run -d \
@@ -55,7 +55,7 @@ docker run -d \
   -p 9090:9090 \
   -e NVR_PASSWORD=你的密码 \
   -v ./data:/data \
-  ghcr.io/seu-usuario/aglusnvr:latest
+  ghcr.io/mms1688/aglusnvr:latest
 
 # 方式 C：使用 docker-compose.yml
 mkdir -p data
@@ -76,7 +76,7 @@ docker compose up -d
 services:
   aglus-nvr:
     # 容器镜像：官方预构建镜像
-    image: ghcr.io/seu-usuario/aglusnvr:latest
+    image: ghcr.io/mms1688/aglusnvr:latest
 
     # 容器名称（便于管理和查看日志）
     container_name: aglus-nvr
@@ -113,7 +113,7 @@ services:
 
 **选项 A：使用预构建镜像（推荐）**
 
-- 镜像地址：`ghcr.io/seu-usuario/aglusnvr:latest`
+- 镜像地址：`ghcr.io/mms1688/aglusnvr:latest`
 - 架构标签：`latest`（多架构：amd64 + arm64）
 
 直接使用 `docker-compose.yml` 中的默认镜像地址即可，无需额外操作。
@@ -178,7 +178,7 @@ docker inspect --format='{{.State.Health.Status}}' aglus-nvr
 echo YOUR_GITHUB_TOKEN | docker login ghcr.io -u USERNAME --password-stdin
 
 # 2. 拉取镜像
-docker pull ghcr.io/seu-usuario/aglusnvr:latest
+docker pull ghcr.io/mms1688/aglusnvr:latest
 
 # 3. 运行容器
 docker run -d \
@@ -190,7 +190,7 @@ docker run -d \
   -v ./data:/data \
   -e NVR_DATA_DIR=/data \
   -e TZ=Asia/Shanghai \
-  ghcr.io/seu-usuario/aglusnvr:latest
+  ghcr.io/mms1688/aglusnvr:latest
 
 # 4. 查看状态
 docker ps
@@ -201,8 +201,8 @@ docker inspect --format='{{.State.Health.Status}}' aglus-nvr
 **运行指定版本：**
 
 ```bash
-docker pull ghcr.io/seu-usuario/aglusnvr:v0.2.0
-docker run -d --name aglus-nvr ... ghcr.io/seu-usuario/aglusnvr:v0.2.0
+docker pull ghcr.io/mms1688/aglusnvr:v0.2.0
+docker run -d --name aglus-nvr ... ghcr.io/mms1688/aglusnvr:v0.2.0
 ```
 
 **停止和删除：**
@@ -217,8 +217,8 @@ docker rm aglus-nvr
 ```bash
 docker stop aglus-nvr
 docker rm aglus-nvr
-docker pull ghcr.io/seu-usuario/aglusnvr:latest
-docker run -d ... ghcr.io/seu-usuario/aglusnvr:latest
+docker pull ghcr.io/mms1688/aglusnvr:latest
+docker run -d ... ghcr.io/mms1688/aglusnvr:latest
 ```
 #### 数据备份与恢复
 
@@ -256,7 +256,7 @@ docker compose up -d
 # docker-compose.yml — 树莓派配置
 services:
   aglus-nvr:
-    image: ghcr.io/seu-usuario/aglusnvr:latest
+    image: ghcr.io/mms1688/aglusnvr:latest
     deploy:
       resources:
         limits:
@@ -332,7 +332,7 @@ ONVIF 自动发现使用 WS-Discovery 协议（UDP 组播至 `239.255.255.250:37
 
 ```bash
 # 1. 从 GitHub Releases 下载二进制文件
-#    https://github.com/seu-usuario/AglusNVR/releases
+#    https://github.com/mms1688/AglusNVR/releases
 sudo cp aglus-nvr /usr/local/bin/aglus-nvr
 sudo chmod +x /usr/local/bin/aglus-nvr
 
@@ -357,7 +357,7 @@ sudo systemctl enable --now aglus-nvr
 ### 从源码编译
 
 ```bash
-git clone https://github.com/seu-usuario/AglusNVR.git
+git clone https://github.com/mms1688/AglusNVR.git
 cd AglusNVR
 
 # 编译当前架构版本

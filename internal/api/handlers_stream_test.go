@@ -5,8 +5,8 @@ import (
 	"net/http"
 	"testing"
 
-	"github.com/seu-usuario/AglusNVR/internal/hls"
-	"github.com/seu-usuario/AglusNVR/internal/model"
+	"github.com/mms1688/AglusNVR/internal/hls"
+	"github.com/mms1688/AglusNVR/internal/model"
 	"github.com/stretchr/testify/require"
 )
 

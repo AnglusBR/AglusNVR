@@ -6,7 +6,7 @@ RPi_BIN  := /mnt/data/nvr/bin/aglus-nvr
 RPi_SRV  := aglus-nvr
 
 # Docker image registry
-DOCKER_REGISTRY ?= ghcr.io/seu-usuario/aglusnvr
+DOCKER_REGISTRY ?= ghcr.io/mms1688/aglusnvr
 VERSION := $(shell git rev-parse --short HEAD 2>/dev/null || echo "dev")
 CONTAINER_RUNTIME := $(shell command -v docker 2>/dev/null || command -v podman 2>/dev/null)
 

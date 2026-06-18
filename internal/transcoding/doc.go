@@ -22,5 +22,5 @@
 // Each worker invokes FFmpeg as a subprocess with appropriate encoder flags based on
 // the hardware capabilities detected at startup.
 //
-// Module path: github.com/seu-usuario/AglusNVR
+// Module path: github.com/mms1688/AglusNVR
 package transcoding

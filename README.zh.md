@@ -1,7 +1,7 @@
 # AglusNVR
 
-[![GitHub Release](https://img.shields.io/github/v/release/seu-usuario/AglusNVR?style=flat&label=Release)](https://github.com/seu-usuario/AglusNVR/releases)
-[![CI](https://img.shields.io/github/actions/workflow/status/seu-usuario/AglusNVR/ci.yml?style=flat&label=CI)](https://github.com/seu-usuario/AglusNVR/actions/workflows/ci.yml)
+[![GitHub Release](https://img.shields.io/github/v/release/mms1688/AglusNVR?style=flat&label=Release)](https://github.com/mms1688/AglusNVR/releases)
+[![CI](https://img.shields.io/github/actions/workflow/status/mms1688/AglusNVR/ci.yml?style=flat&label=CI)](https://github.com/mms1688/AglusNVR/actions/workflows/ci.yml)
 [![Go](https://img.shields.io/badge/Go-00ADD8?style=flat&logo=go&logoColor=white)](https://go.dev/)
 [![Svelte](https://img.shields.io/badge/Svelte-FF3E00?style=flat&logo=svelte&logoColor=white)](https://svelte.dev/)
 [![SQLite](https://img.shields.io/badge/SQLite-003B57?style=flat&logo=sqlite&logoColor=white)](https://www.sqlite.org/)
@@ -58,19 +58,19 @@
 
 ### 方式 1：预编译二进制（推荐）
 
-从 [GitHub Releases](https://github.com/seu-usuario/AglusNVR/releases) 下载最新二进制文件：
+从 [GitHub Releases](https://github.com/mms1688/AglusNVR/releases) 下载最新二进制文件：
 
 ```bash
 # AMD64（大多数 PC/服务器）
-wget https://github.com/seu-usuario/AglusNVR/releases/latest/download/aglus-nvr-amd64
+wget https://github.com/mms1688/AglusNVR/releases/latest/download/aglus-nvr-amd64
 chmod +x aglus-nvr-amd64
 
 # ARM64（树莓派等）
-wget https://github.com/seu-usuario/AglusNVR/releases/latest/download/aglus-nvr-arm64
+wget https://github.com/mms1688/AglusNVR/releases/latest/download/aglus-nvr-arm64
 chmod +x aglus-nvr-arm64
 
 # ARMv7（树莓派 2/3 等）
-wget https://github.com/seu-usuario/AglusNVR/releases/latest/download/aglus-nvr-armv7
+wget https://github.com/mms1688/AglusNVR/releases/latest/download/aglus-nvr-armv7
 chmod +x aglus-nvr-armv7
 ```
 
@@ -105,7 +105,7 @@ docker compose up -d
 ### 方式 3：一键安装脚本
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/seu-usuario/AglusNVR/main/install.sh | sudo bash
+curl -fsSL https://raw.githubusercontent.com/mms1688/AglusNVR/main/install.sh | sudo bash
 ```
 
 自动下载二进制文件、创建系统用户（`nvr`）、生成配置、安装 systemd 服务并启动。数据目录：`/var/lib/aglus-nvr`。
@@ -113,7 +113,7 @@ curl -fsSL https://raw.githubusercontent.com/seu-usuario/AglusNVR/main/install.s
 ### 方式 4：源码编译
 
 ```bash
-git clone https://github.com/seu-usuario/AglusNVR.git
+git clone https://github.com/mms1688/AglusNVR.git
 cd AglusNVR
 make build
 ./aglus-nvr init --password yourpassword
@@ -184,7 +184,7 @@ make docker-release
 
 | 镜像 | 架构 |
 |------|------|
-| `ghcr.io/seu-usuario/aglusnvr:<tag>` | amd64, arm64, armv7 |
+| `ghcr.io/mms1688/aglusnvr:<tag>` | amd64, arm64, armv7 |
 
 可用标签：`latest`、`v1.2.3`（semver）、`sha-abc1234`
 

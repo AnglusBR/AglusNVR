@@ -8,7 +8,7 @@ import (
 	"time"
 
 	"github.com/go-chi/chi/v5"
-	"github.com/seu-usuario/AglusNVR/internal/wsstream"
+	"github.com/mms1688/AglusNVR/internal/wsstream"
 )
 
 // --- WebSocket streaming endpoint ---

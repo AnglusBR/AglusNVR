@@ -793,8 +793,8 @@ cameras:
 
 ### 社区支持
 
-- GitHub Issues：[AglusNVR Issues](https://github.com/seu-usuario/AglusNVR/issues)
-- 讨论区：[AglusNVR Discussions](https://github.com/seu-usuario/AglusNVR/discussions)
+- GitHub Issues：[AglusNVR Issues](https://github.com/mms1688/AglusNVR/issues)
+- 讨论区：[AglusNVR Discussions](https://github.com/mms1688/AglusNVR/discussions)
 - Discord：加入我们的社区服务器获取帮助
 
 ### 专业支持

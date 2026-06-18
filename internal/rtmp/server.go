@@ -12,8 +12,8 @@ import (
 	"github.com/bluenviron/gortmplib"
 	"github.com/bluenviron/gortmplib/pkg/codecs"
 
-	"github.com/seu-usuario/AglusNVR/internal/model"
-	"github.com/seu-usuario/AglusNVR/internal/model/nalutil"
+	"github.com/mms1688/AglusNVR/internal/model"
+	"github.com/mms1688/AglusNVR/internal/model/nalutil"
 )
 
 var logger = slog.Default().With("component", "rtmp-server")

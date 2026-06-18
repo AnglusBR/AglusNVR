@@ -4,10 +4,10 @@ import (
 	"errors"
 	"log/slog"
 
-	"github.com/seu-usuario/AglusNVR/internal/hls"
-	"github.com/seu-usuario/AglusNVR/internal/model"
-	"github.com/seu-usuario/AglusNVR/internal/recorder"
-	"github.com/seu-usuario/AglusNVR/internal/xiaomi"
+	"github.com/mms1688/AglusNVR/internal/hls"
+	"github.com/mms1688/AglusNVR/internal/model"
+	"github.com/mms1688/AglusNVR/internal/recorder"
+	"github.com/mms1688/AglusNVR/internal/xiaomi"
 )
 
 // StreamHandler is a protocol-agnostic interface for live streaming handlers.

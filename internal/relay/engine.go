@@ -11,10 +11,10 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/seu-usuario/AglusNVR/internal/backoff"
-	"github.com/seu-usuario/AglusNVR/internal/livetranscode"
-	"github.com/seu-usuario/AglusNVR/internal/model"
-	"github.com/seu-usuario/AglusNVR/internal/transcoding"
+	"github.com/mms1688/AglusNVR/internal/backoff"
+	"github.com/mms1688/AglusNVR/internal/livetranscode"
+	"github.com/mms1688/AglusNVR/internal/model"
+	"github.com/mms1688/AglusNVR/internal/transcoding"
 
 	"github.com/bluenviron/gortmplib"
 	"github.com/bluenviron/gortmplib/pkg/codecs"

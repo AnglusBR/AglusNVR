@@ -17,8 +17,8 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/seu-usuario/AglusNVR/internal/metrics"
-	"github.com/seu-usuario/AglusNVR/internal/storage"
+	"github.com/mms1688/AglusNVR/internal/metrics"
+	"github.com/mms1688/AglusNVR/internal/storage"
 )
 
 // CompletionFunc is called after a transcode task finishes (success or failure).

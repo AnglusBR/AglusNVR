@@ -688,8 +688,8 @@ services:
 - [AglusNVR Referência da API](./api/README.md)
 
 ### Apoio à comunidade
-- GitHub Questões: [AglusNVR Questões](https://github.com/seu-usuario/AglusNVR/issues)
-- Discussões: [AglusNVR Discussões](https://github.com/seu-usuario/AglusNVR/discussions)
+- GitHub Questões: [AglusNVR Questões](https://github.com/mms1688/AglusNVR/issues)
+- Discussões: [AglusNVR Discussões](https://github.com/mms1688/AglusNVR/discussions)
 
 ### ONVIF Recursos
 - ONVIF Site Oficial: https://www.onvif.org/

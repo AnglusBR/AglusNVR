@@ -12,10 +12,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/seu-usuario/AglusNVR/internal/config"
-	"github.com/seu-usuario/AglusNVR/internal/model"
-	"github.com/seu-usuario/AglusNVR/internal/storage"
-	"github.com/seu-usuario/AglusNVR/internal/transcoding"
+	"github.com/mms1688/AglusNVR/internal/config"
+	"github.com/mms1688/AglusNVR/internal/model"
+	"github.com/mms1688/AglusNVR/internal/storage"
+	"github.com/mms1688/AglusNVR/internal/transcoding"
 	"github.com/stretchr/testify/require"
 )
 

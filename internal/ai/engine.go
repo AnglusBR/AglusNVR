@@ -3,7 +3,7 @@ package ai
 import (
 	"sync"
 
-	"github.com/seu-usuario/AglusNVR/internal/event"
+	"github.com/mms1688/AglusNVR/internal/event"
 )
 
 // Config mirrors config.AIConfig fields needed by the AI manager.

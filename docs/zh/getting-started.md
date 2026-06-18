@@ -17,15 +17,15 @@ AglusNVR 是一个用 Go 语言编写的轻量级网络视频录像机。它将 
 
 ### 方式一：下载预编译二进制文件（推荐）
 
-从 [GitHub Releases](https://github.com/seu-usuario/AglusNVR/releases) 下载对应架构的最新版本：
+从 [GitHub Releases](https://github.com/mms1688/AglusNVR/releases) 下载对应架构的最新版本：
 
 ```bash
 # AMD64（大多数 PC/服务器）
-wget https://github.com/seu-usuario/AglusNVR/releases/latest/download/aglus-nvr-amd64
+wget https://github.com/mms1688/AglusNVR/releases/latest/download/aglus-nvr-amd64
 chmod +x aglus-nvr-amd64
 
 # ARM64（树莓派等）
-wget https://github.com/seu-usuario/AglusNVR/releases/latest/download/aglus-nvr-arm64
+wget https://github.com/mms1688/AglusNVR/releases/latest/download/aglus-nvr-arm64
 chmod +x aglus-nvr-arm64
 ```
 
@@ -68,7 +68,7 @@ docker compose up -d
 ### 方式三：一键安装脚本
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/seu-usuario/AglusNVR/main/install.sh | sudo bash
+curl -fsSL https://raw.githubusercontent.com/mms1688/AglusNVR/main/install.sh | sudo bash
 ```
 
 此脚本会自动下载二进制文件、创建系统用户（`nvr`）、生成配置、安装 systemd 服务并启动。数据目录：`/var/lib/aglus-nvr`。
@@ -76,7 +76,7 @@ curl -fsSL https://raw.githubusercontent.com/seu-usuario/AglusNVR/main/install.s
 卸载（保留录像数据）：
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/seu-usuario/AglusNVR/main/install.sh | sudo bash -s -- --uninstall
+curl -fsSL https://raw.githubusercontent.com/mms1688/AglusNVR/main/install.sh | sudo bash -s -- --uninstall
 ```
 
 ### 方式四：从源码编译
@@ -84,7 +84,7 @@ curl -fsSL https://raw.githubusercontent.com/seu-usuario/AglusNVR/main/install.s
 需要 Go 1.26+ 和 Node.js（编译前端）：
 
 ```bash
-git clone https://github.com/seu-usuario/AglusNVR.git
+git clone https://github.com/mms1688/AglusNVR.git
 cd AglusNVR
 make build
 ./aglus-nvr init --password 你的密码

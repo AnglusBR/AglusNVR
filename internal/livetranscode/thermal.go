@@ -17,7 +17,7 @@ import (
 
 	"github.com/prometheus/client_golang/prometheus"
 
-	"github.com/seu-usuario/AglusNVR/internal/backoff"
+	"github.com/mms1688/AglusNVR/internal/backoff"
 )
 
 // ---------------------------------------------------------------------------

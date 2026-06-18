@@ -12,7 +12,7 @@ import (
 	"github.com/bluenviron/gortmplib/pkg/codecs"
 	"github.com/stretchr/testify/require"
 
-	"github.com/seu-usuario/AglusNVR/internal/model"
+	"github.com/mms1688/AglusNVR/internal/model"
 )
 
 // helper: start an RTMP server on a random port for testing

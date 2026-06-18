@@ -14,7 +14,7 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/seu-usuario/AglusNVR/internal/transcoding"
+	"github.com/mms1688/AglusNVR/internal/transcoding"
 )
 
 // EncoderType represents the encoder selection strategy.

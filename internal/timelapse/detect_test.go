@@ -6,7 +6,7 @@ import (
 	"sync"
 	"testing"
 
-	"github.com/seu-usuario/AglusNVR/internal/transcoding"
+	"github.com/mms1688/AglusNVR/internal/transcoding"
 )
 
 func TestDetectTierFFmpeg(t *testing.T) {

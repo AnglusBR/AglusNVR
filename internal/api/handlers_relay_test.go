@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"testing"
 
-	"github.com/seu-usuario/AglusNVR/internal/relay"
+	"github.com/mms1688/AglusNVR/internal/relay"
 	"github.com/stretchr/testify/require"
 )
 

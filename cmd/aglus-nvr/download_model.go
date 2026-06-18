@@ -7,7 +7,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/seu-usuario/AglusNVR/internal/config"
+	"github.com/mms1688/AglusNVR/internal/config"
 )
 
 func cmdDownloadModel() {

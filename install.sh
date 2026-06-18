@@ -4,17 +4,17 @@ set -Eeuo pipefail
 # AglusNVR — instalador automático para Linux com systemd
 #
 # Instalação:
-#   curl -fsSL https://raw.githubusercontent.com/seu-usuario/AglusNVR/main/install.sh | sudo bash
+#   curl -fsSL https://raw.githubusercontent.com/mms1688/AglusNVR/main/install.sh | sudo bash
 #
 # Instalação não interativa:
-#   curl -fsSL https://raw.githubusercontent.com/seu-usuario/AglusNVR/main/install.sh |
+#   curl -fsSL https://raw.githubusercontent.com/mms1688/AglusNVR/main/install.sh |
 #     sudo AGLUS_PASSWORD='uma-senha-segura' bash
 #
 # Desinstalação (preserva gravações e configuração):
-#   curl -fsSL https://raw.githubusercontent.com/seu-usuario/AglusNVR/main/install.sh |
+#   curl -fsSL https://raw.githubusercontent.com/mms1688/AglusNVR/main/install.sh |
 #     sudo bash -s -- --desinstalar
 
-REPO="${AGLUS_REPO:-seu-usuario/AglusNVR}"
+REPO="${AGLUS_REPO:-mms1688/AglusNVR}"
 VERSION=""
 DATA_DIR="${AGLUS_DATA_DIR:-/var/lib/aglus-nvr}"
 PORT="${AGLUS_PORT:-9090}"

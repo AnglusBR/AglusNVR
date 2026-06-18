@@ -2,7 +2,7 @@ package health
 
 import (
 	"context"
-	"github.com/seu-usuario/AglusNVR/internal/model"
+	"github.com/mms1688/AglusNVR/internal/model"
 	"log/slog"
 	"sync"
 	"time"

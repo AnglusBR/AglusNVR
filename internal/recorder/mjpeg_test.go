@@ -19,8 +19,8 @@ import (
 	"github.com/bluenviron/gortsplib/v5/pkg/format/rtpmjpeg"
 	"github.com/stretchr/testify/require"
 
-	"github.com/seu-usuario/AglusNVR/internal/model"
-	"github.com/seu-usuario/AglusNVR/internal/storage"
+	"github.com/mms1688/AglusNVR/internal/model"
+	"github.com/mms1688/AglusNVR/internal/storage"
 )
 
 // generateTestJPEG creates a valid 16x16 JPEG image for testing.

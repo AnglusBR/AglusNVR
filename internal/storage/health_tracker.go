@@ -6,7 +6,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/seu-usuario/AglusNVR/internal/event"
+	"github.com/mms1688/AglusNVR/internal/event"
 )
 
 // HealthState represents the health state of the storage subsystem.

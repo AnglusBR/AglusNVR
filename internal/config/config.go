@@ -12,8 +12,8 @@ import (
 
 	"gopkg.in/yaml.v3"
 
-	"github.com/seu-usuario/AglusNVR/internal/ai"
-	"github.com/seu-usuario/AglusNVR/internal/model"
+	"github.com/mms1688/AglusNVR/internal/ai"
+	"github.com/mms1688/AglusNVR/internal/model"
 )
 
 type Config struct {

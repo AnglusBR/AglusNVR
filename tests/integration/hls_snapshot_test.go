@@ -9,9 +9,9 @@ package integration_test
 import (
 	"testing"
 
-	"github.com/seu-usuario/AglusNVR/internal/hls"
-	"github.com/seu-usuario/AglusNVR/internal/model"
-	"github.com/seu-usuario/AglusNVR/internal/storage"
+	"github.com/mms1688/AglusNVR/internal/hls"
+	"github.com/mms1688/AglusNVR/internal/model"
+	"github.com/mms1688/AglusNVR/internal/storage"
 )
 
 // ---------------------------------------------------------------------------

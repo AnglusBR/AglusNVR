@@ -7,8 +7,8 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/seu-usuario/AglusNVR/internal/config"
-	"github.com/seu-usuario/AglusNVR/internal/xiaomi"
+	"github.com/mms1688/AglusNVR/internal/config"
+	"github.com/mms1688/AglusNVR/internal/xiaomi"
 )
 
 // LocalXiaomiAuth implements CloudAuthProxy by calling the internal xiaomi package directly.

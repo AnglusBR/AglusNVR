@@ -10,11 +10,11 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/seu-usuario/AglusNVR/internal/config"
-	"github.com/seu-usuario/AglusNVR/internal/model"
-	"github.com/seu-usuario/AglusNVR/internal/recorder"
-	"github.com/seu-usuario/AglusNVR/internal/storage"
-	"github.com/seu-usuario/AglusNVR/internal/timelapse"
+	"github.com/mms1688/AglusNVR/internal/config"
+	"github.com/mms1688/AglusNVR/internal/model"
+	"github.com/mms1688/AglusNVR/internal/recorder"
+	"github.com/mms1688/AglusNVR/internal/storage"
+	"github.com/mms1688/AglusNVR/internal/timelapse"
 )
 
 // --- Timelapse createRecorder Tests ---

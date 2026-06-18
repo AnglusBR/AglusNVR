@@ -13,7 +13,7 @@ import (
 	"strings"
 	"syscall"
 
-	"github.com/seu-usuario/AglusNVR/internal/transcoding"
+	"github.com/mms1688/AglusNVR/internal/transcoding"
 )
 
 // FFmpegMerger implements TimelapseMerger using FFmpeg for JPEG→MP4 transcoding.

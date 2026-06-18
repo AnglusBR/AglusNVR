@@ -4,7 +4,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/seu-usuario/AglusNVR/internal/model"
+	"github.com/mms1688/AglusNVR/internal/model"
 )
 
 // cameraConnState tracks per-camera connection state.

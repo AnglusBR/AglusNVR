@@ -6,7 +6,7 @@ import (
 	"time"
 
 	"github.com/go-chi/chi/v5"
-	"github.com/seu-usuario/AglusNVR/internal/config"
+	"github.com/mms1688/AglusNVR/internal/config"
 )
 
 // --- Merge settings endpoints ---
