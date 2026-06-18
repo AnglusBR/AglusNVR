@@ -1,15 +1,15 @@
-# MiBee NVR MediaMTX 集成指南
+# AglusNVR MediaMTX 集成指南
 
 ## 概述
 
-MediaMTX 是一个功能强大的媒体服务器，可以作为 MiBee NVR 的 RTSP 代理服务器。它提供了 RTSP 到 WebRTC、HLS、WebRTC 等协议的转换功能，特别适合与 MiBee NVR 集成使用。
+MediaMTX 是一个功能强大的媒体服务器，可以作为 AglusNVR 的 RTSP 代理服务器。它提供了 RTSP 到 WebRTC、HLS、WebRTC 等协议的转换功能，特别适合与 AglusNVR 集成使用。
 
 MediaMTX 的主要优势：
 - 支持多种摄像头协议（RTSP、RTMP、HTTP-FLV、WebRTC）
 - 提供实时流转换功能
 - 支持负载均衡和故障转移
 - 易于配置和部署
-- 与 MiBee NVR 完美集成
+- 与 AglusNVR 完美集成
 
 ## MediaMTX 简介
 
@@ -125,12 +125,12 @@ logging:
   format: json
 ```
 
-## 与 MiBee NVR 集成
+## 与 AglusNVR 集成
 
 ### 集成架构
 
 ```
-摄像头 → MediaMTX → MiBee NVR
+摄像头 → MediaMTX → AglusNVR
        ↓    ↓         ↓
     RTSP  WebRTC     HTTP JPEG
     RTMP  HLS        MP4 录像
@@ -185,12 +185,12 @@ protocols:
     webrtcServerKey: mediamtx-key
 ```
 
-#### 2. MiBee NVR 配置
+#### 2. AglusNVR 配置
 
 使用 MediaMTX 作为 RTSP 源：
 
 ```yaml
-# config.yaml - MiBee NVR 配置
+# config.yaml - AglusNVR 配置
 
 cameras:
   - id: "cam1"
@@ -230,7 +230,7 @@ paths:
   # 摄像头 2
   cam2:
     source: rtsp://192.168.1.101:554/live
-    record: false  # 不录制，由 MiBee NVR 录制
+    record: false  # 不录制，由 AglusNVR 录制
     publishUser: admin
     publishPass: password123
     
@@ -302,7 +302,7 @@ After=network.target mediamtx.service
 
 [Service]
 Type=simple
-User=mibee
+User=aglus
 ExecStart=/usr/local/bin/csi-stream.sh
 Restart=always
 RestartSec=10
@@ -441,7 +441,7 @@ ffmpeg -rtsp_transport tcp -i "rtsp://admin:password123@localhost:8554/cam1" -t 
 ```bash
 # 检查存储权限
 ls -la /mnt/data/nvr/recordings/
-sudo chown -R mibee:mibee /mnt/data/nvr/recordings/
+sudo chown -R aglus:aglus /mnt/data/nvr/recordings/
 
 # 检查磁盘空间
 df -h /mnt/data/nvr
@@ -473,7 +473,7 @@ logging:
 # 查看 MediaMTX 统计信息
 curl http://localhost:8889/stats
 
-# 查看 MiBee NVR 统计信息
+# 查看 AglusNVR 统计信息
 curl http://localhost:9090/api/stats
 ```
 
@@ -532,7 +532,7 @@ paths:
 ### 1. 部署架构
 
 ```
-摄像头 → MediaMTX (负载均衡) → MiBee NVR
+摄像头 → MediaMTX (负载均衡) → AglusNVR
          ↓
       监控节点
          ↓
@@ -578,7 +578,7 @@ chmod +x update-mediamtx.sh
 
 ## 总结
 
-MediaMTX 为 MiBee NVR 提供了强大的媒体处理能力，通过合理的配置可以实现：
+MediaMTX 为 AglusNVR 提供了强大的媒体处理能力，通过合理的配置可以实现：
 
 - 更稳定的摄像头连接
 - 更多的协议支持

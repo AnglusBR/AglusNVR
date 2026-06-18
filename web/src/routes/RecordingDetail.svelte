@@ -113,7 +113,7 @@ let timelapsePreviewLoading = $state(false);
 let timelapsePreviewError = $state('');
 
 // SessionStorage merge tracking — survives navigation away and page refresh
-const MERGE_STORAGE_KEY = 'mibee_nvr_merge_active';
+const MERGE_STORAGE_KEY = 'aglus_nvr_merge_active';
 
 function saveMergeState(data: { cameraId: string; recordingId: string; progress: number; status: string }) {
   try {
@@ -612,7 +612,7 @@ async function handleMergeAndPlay() {
     startMergePolling(recording.id, recording.camera_id);
   } catch (e) {
     mergeInProgress = false;
-    mergeErrorMsg = e instanceof Error ? e.message : 'Failed to start merge';
+    mergeErrorMsg = e instanceof Error ? e.message : 'Falha ao iniciar a mesclagem';
     clearMergeState(recording.camera_id);
   }
 }
@@ -683,7 +683,7 @@ async function handleCancelMerge() {
     loadRecording();
     showToast(t('detail.mergeCancelled'), 'success');
   } catch (e) {
-    showToast(e instanceof Error ? e.message : 'Failed to cancel merge', 'error');
+    showToast(e instanceof Error ? e.message : 'Falha ao cancelar a mesclagem', 'error');
   }
 }
 
@@ -717,7 +717,7 @@ async function loadTimelapsePreview() {
   try {
     timelapsePreviewFrames = await fetchTimelapsePreview(currentId, 6);
   } catch (e) {
-    timelapsePreviewError = e instanceof Error ? e.message : 'Failed to load preview';
+    timelapsePreviewError = e instanceof Error ? e.message : 'Falha ao carregar a prévia';
     timelapsePreviewFrames = [];
   } finally {
     timelapsePreviewLoading = false;

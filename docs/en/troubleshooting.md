@@ -1,6 +1,6 @@
 # Troubleshooting Guide
 
-This guide helps you diagnose and resolve common issues with MiBee NVR. If you can't find a solution here, check the [Configuration Reference](configuration.md) or search existing issues on GitHub.
+This guide helps you diagnose and resolve common issues with AglusNVR. If you can't find a solution here, check the [Configuration Reference](configuration.md) or search existing issues on GitHub.
 
 ## Common Issues
 
@@ -20,18 +20,18 @@ This guide helps you diagnose and resolve common issues with MiBee NVR. If you c
 **Solution**:
 1. Check if the storage directory exists and is writable:
    ```bash
-   ls -la /var/lib/mibee-nvr/
-   sudo chown -R nvr:nvr /var/lib/mibee-nvr/
+   ls -la /var/lib/aglus-nvr/
+   sudo chown -R nvr:nvr /var/lib/aglus-nvr/
    ```
 2. Verify the database file isn't corrupted:
    ```bash
-   ls -la /var/lib/mibee-nvr/mibee-nvr.db
-   file /var/lib/mibee-nvr/mibee-nvr.db
+   ls -la /var/lib/aglus-nvr/aglus-nvr.db
+   file /var/lib/aglus-nvr/aglus-nvr.db
    ```
 3. Try reinitializing the database:
    ```bash
-   mv /var/lib/mibee-nvr/mibee-nvr.db /var/lib/mibee-nvr/mibee-nvr.db.backup
-   ./mibee-nvr -config mibee-nvr.yaml
+   mv /var/lib/aglus-nvr/aglus-nvr.db /var/lib/aglus-nvr/aglus-nvr.db.backup
+   ./aglus-nvr -config aglus-nvr.yaml
    ```
 
 #### Storage Space Issues
@@ -49,11 +49,11 @@ This guide helps you diagnose and resolve common issues with MiBee NVR. If you c
 1. Check disk usage:
    ```bash
    df -h
-   du -sh /var/lib/mibee-nvr/recordings/
+   du -sh /var/lib/aglus-nvr/recordings/
    ```
 2. Clean up old recordings:
    ```bash
-   find /var/lib/mibee-nvr/recordings/ -type f -mtime +30 -delete
+   find /var/lib/aglus-nvr/recordings/ -type f -mtime +30 -delete
    ```
 3. Adjust retention days in configuration:
    ```yaml
@@ -113,7 +113,7 @@ This guide helps you diagnose and resolve common issues with MiBee NVR. If you c
 **Solution**:
 1. Check camera logs for connection errors:
    ```bash
-   journalctl -u mibee-nvr -f
+   journalctl -u aglus-nvr -f
    ```
 2. Test camera stream manually:
    ```bash
@@ -136,7 +136,7 @@ This guide helps you diagnose and resolve common issues with MiBee NVR. If you c
 **Solution**:
 1. Check for configuration validation errors:
    ```bash
-   ./mibee-nvr -config mibee-nvr.yaml --validate
+   ./aglus-nvr -config aglus-nvr.yaml --validate
    ```
 2. Verify all required camera fields are present:
    ```yaml
@@ -150,7 +150,7 @@ This guide helps you diagnose and resolve common issues with MiBee NVR. If you c
    ```
 3. Check for duplicate camera IDs:
    ```bash
-   grep -r "id:" mibee-nvr.yaml
+   grep -r "id:" aglus-nvr.yaml
    ```
 
 #SX|## Live View Issues
@@ -162,7 +162,7 @@ This guide helps you diagnose and resolve common issues with MiBee NVR. If you c
 #SY|**Root Cause**: HLS.js 1.6+ uses `fetch` API by default instead of XHR. If auth headers are not injected into fetch requests, the server returns 401 Unauthorized, and the stream cannot load.
 #PR|
 #SY|**Solution**:
-#HB|1. Ensure you are running MiBee NVR v0.6.0 or later, which includes the `fetchSetup` auth fix
+#HB|1. Ensure you are running AglusNVR v0.6.0 or later, which includes the `fetchSetup` auth fix
 #RP|2. Check browser console (F12) for 401 errors on `.m3u8` or `.ts` requests
 #WW|3. Verify the camera is recording (status = "Recording") before attempting live view
 #SR|4. For cameras in "Reconnecting" state, wait for the camera to reconnect — HLS requires an active recording stream
@@ -306,15 +306,15 @@ This guide helps you diagnose and resolve common issues with MiBee NVR. If you c
 1. Check disk space:
    ```bash
    df -h
-   du -sh /var/lib/mibee-nvr/
+   du -sh /var/lib/aglus-nvr/
    ```
 2. Clean up disk space:
    ```bash
    # Find and delete old recordings
-   find /var/lib/mibee-nvr/recordings/ -type f -mtime +30 -delete
+   find /var/lib/aglus-nvr/recordings/ -type f -mtime +30 -delete
    
    # Clean up snapshots
-   find /var/lib/mibee-nvr/snapshots/ -type f -mtime +7 -delete
+   find /var/lib/aglus-nvr/snapshots/ -type f -mtime +7 -delete
    ```
 3. Lower disk threshold:
    ```yaml
@@ -328,18 +328,18 @@ This guide helps you diagnose and resolve common issues with MiBee NVR. If you c
 **Solution**:
 1. Check directory permissions:
    ```bash
-   ls -la /var/lib/mibee-nvr/
-   ls -la /var/lib/mibee-nvr/recordings/
+   ls -la /var/lib/aglus-nvr/
+   ls -la /var/lib/aglus-nvr/recordings/
    ```
 2. Fix permissions:
    ```bash
-   sudo chown -R nvr:nvr /var/lib/mibee-nvr/
-   sudo chmod -R 755 /var/lib/mibee-nvr/
+   sudo chown -R nvr:nvr /var/lib/aglus-nvr/
+   sudo chmod -R 755 /var/lib/aglus-nvr/
    ```
 3. Check if disk is mounted correctly:
    ```bash
-   mount | grep mibee-nvr
-   df -h /var/lib/mibee-nvr/
+   mount | grep aglus-nvr
+   df -h /var/lib/aglus-nvr/
    ```
 
 ### Corrupted Recordings
@@ -350,8 +350,8 @@ This guide helps you diagnose and resolve common issues with MiBee NVR. If you c
 **Solution**:
 1. Check file integrity:
    ```bash
-   file /var/lib/mibee-nvr/recordings/h264/cam_1704123456789012345.mp4
-   ffprobe -v quiet -show_format -show_streams /var/lib/mibee-nvr/recordings/h264/cam_1704123456789012345.mp4
+   file /var/lib/aglus-nvr/recordings/h264/cam_1704123456789012345.mp4
+   ffprobe -v quiet -show_format -show_streams /var/lib/aglus-nvr/recordings/h264/cam_1704123456789012345.mp4
    ```
 2. Adjust segment duration:
    ```yaml
@@ -376,7 +376,7 @@ This guide helps you diagnose and resolve common issues with MiBee NVR. If you c
 1. Check memory usage:
    ```bash
    free -h
-   ps aux | grep mibee-nvr
+   ps aux | grep aglus-nvr
    ```
 2. Reduce segment duration:
    ```yaml
@@ -458,8 +458,8 @@ This guide helps you diagnose and resolve common issues with MiBee NVR. If you c
 **Solution**:
 1. Monitor CPU usage:
    ```bash
-   top -p $(pgrep mibee-nvr)
-   htop -p $(pgrep mibee-nvr)
+   top -p $(pgrep aglus-nvr)
+   htop -p $(pgrep aglus-nvr)
    ```
 2. Reduce concurrent camera processing:
    - Disable unnecessary cameras
@@ -521,18 +521,18 @@ This guide helps you diagnose and resolve common issues with MiBee NVR. If you c
 **Solution**:
 1. Check container logs:
    ```bash
-   docker compose logs mibee-nvr
-   docker logs mibee-nvr-container-id
+   docker compose logs aglus-nvr
+   docker logs aglus-nvr-container-id
    ```
 2. Verify configuration file is mounted:
    ```yaml
    # docker-compose.yml
    volumes:
-     - ./mibee-nvr.yaml:/mibee-nvr.yaml:ro
+     - ./aglus-nvr.yaml:/aglus-nvr.yaml:ro
    ```
 3. Check file permissions inside container:
    ```bash
-   docker exec -it mibee-nvr-container ls -la /mibee-nvr.yaml
+   docker exec -it aglus-nvr-container ls -la /aglus-nvr.yaml
    ```
 
 ### Volume Permission Issues
@@ -541,14 +541,14 @@ This guide helps you diagnose and resolve common issues with MiBee NVR. If you c
 **Solution**:
 1. Set proper ownership:
    ```bash
-   sudo chown -R 1000:1000 ./data  # mibee-nvr runs as UID 1000
+   sudo chown -R 1000:1000 ./data  # aglus-nvr runs as UID 1000
    ```
 2. Use proper user in Docker:
    ```yaml
    # docker-compose.yml
    user: "1000:1000"
    volumes:
-     - ./data:/var/lib/mibee-nvr
+     - ./data:/var/lib/aglus-nvr
    ```
 
 ## Error Messages and Solutions
@@ -580,17 +580,17 @@ observability:
 #### Log Locations
 **Systemd Service**:
 ```bash
-journalctl -u mibee-nvr -f
+journalctl -u aglus-nvr -f
 ```
 
 **Docker Container**:
 ```bash
-docker logs -f mibee-nvr-container
+docker logs -f aglus-nvr-container
 ```
 
 **Binary Run Directly**:
 ```bash
-./mibee-nvr -config mibee-nvr.yaml 2>&1 | tee mibee-nvr.log
+./aglus-nvr -config aglus-nvr.yaml 2>&1 | tee aglus-nvr.log
 ```
 
 #### Common Log Patterns
@@ -604,7 +604,7 @@ ERROR: camera stream error: read timeout
 
 **Storage Issues**:
 ```
-WARN: storage directory not writable: /var/lib/mibee-nvr
+WARN: storage directory not writable: /var/lib/aglus-nvr
 ERROR: cannot write recording file: no space left on device
 ```
 
@@ -664,19 +664,19 @@ When creating a GitHub issue, include:
    lsb_release -a
    ```
 
-2. **MiBee NVR Version**:
+2. **AglusNVR Version**:
    ```bash
-   ./mibee-nvr --version
+   ./aglus-nvr --version
    ```
 
 3. **Configuration** (remove sensitive data):
    ```bash
-   grep -v password mibee-nvr.yaml
+   grep -v password aglus-nvr.yaml
    ```
 
 4. **Logs** (last 50 lines):
    ```bash
-   journalctl -u mibee-nvr --since "1 hour ago"
+   journalctl -u aglus-nvr --since "1 hour ago"
    ```
 
 5. **Reproduction Steps**:
@@ -694,11 +694,11 @@ When creating a GitHub issue, include:
 ### System Becomes Unresponsive
 1. Stop the service:
    ```bash
-   sudo systemctl stop mibee-nvr
+   sudo systemctl stop aglus-nvr
    ```
 2. Kill any remaining processes:
    ```bash
-   sudo pkill -f mibee-nvr
+   sudo pkill -f aglus-nvr
    ```
 3. Check system resources:
    ```bash
@@ -709,22 +709,22 @@ When creating a GitHub issue, include:
 4. Restart with reduced configuration:
    ```bash
    # Use minimal config
-   cp mibee-nvr.yaml mibee-nvr.yaml.backup
+   cp aglus-nvr.yaml aglus-nvr.yaml.backup
    # Edit to enable only essential cameras
-   sudo systemctl start mibee-nvr
+   sudo systemctl start aglus-nvr
    ```
 
 ### Corrupted Configuration
 1. Restore from backup:
    ```bash
-   cp mibee-nvr.yaml.backup mibee-nvr.yaml
+   cp aglus-nvr.yaml.backup aglus-nvr.yaml
    ```
 2. Or create minimal configuration:
    ```yaml
    server:
      listen: ":9090"
    storage:
-     root_dir: "/var/lib/mibee-nvr"
+     root_dir: "/var/lib/aglus-nvr"
      segment_duration: "30s"
    auth:
      username: "admin"
@@ -735,14 +735,14 @@ When creating a GitHub issue, include:
 ### Database Corruption
 1. Backup database:
    ```bash
-   cp /var/lib/mibee-nvr/mibee-nvr.db /var/lib/mibee-nvr/mibee-nvr.db.backup
+   cp /var/lib/aglus-nvr/aglus-nvr.db /var/lib/aglus-nvr/aglus-nvr.db.backup
    ```
 2. Remove corrupted database:
    ```bash
-   rm /var/lib/mibee-nvr/mibee-nvr.db
+   rm /var/lib/aglus-nvr/aglus-nvr.db
    ```
 3. Restart service (database will be recreated):
    ```bash
-   sudo systemctl restart mibee-nvr
+   sudo systemctl restart aglus-nvr
    ```
 4. Reconfigure all cameras

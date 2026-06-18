@@ -6,7 +6,7 @@
  * delivery that survives page unload.
  */
 
-const AUTH_KEY = 'mibee_nvr_auth';
+const AUTH_KEY = 'aglus_nvr_auth';
 const TELEMETRY_ENDPOINT = '/api/telemetry';
 
 /** Whether user has explicitly opted into telemetry in production mode. */

@@ -6,10 +6,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/config"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/model"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/recorder"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/timelapse"
+	"github.com/seu-usuario/AglusNVR/internal/config"
+	"github.com/seu-usuario/AglusNVR/internal/model"
+	"github.com/seu-usuario/AglusNVR/internal/recorder"
+	"github.com/seu-usuario/AglusNVR/internal/timelapse"
 )
 
 // deriveProtocolForSnapshot returns the effective protocol to use for snapshot URL

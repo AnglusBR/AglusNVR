@@ -1,6 +1,6 @@
 # Prometheus 指标
 
-MiBee NVR 在 `/metrics` HTTP 端点暴露了一整套 Prometheus 指标，可用于监控、告警和仪表盘展示。
+AglusNVR 在 `/metrics` HTTP 端点暴露了一整套 Prometheus 指标，可用于监控、告警和仪表盘展示。
 
 ## 访问指标
 
@@ -26,7 +26,7 @@ metrics_auth:
 
 ```yaml
 scrape_configs:
-  - job_name: 'mibee-nvr'
+  - job_name: 'aglus-nvr'
     static_configs:
       - targets: ['localhost:9090']
     metrics_path: '/metrics'
@@ -380,7 +380,7 @@ go_goroutines > 500
 
 ```promql
 # 运行时间 — 进程启动时间
-time() - process_start_time_seconds{job="mibee-nvr"}
+time() - process_start_time_seconds{job="aglus-nvr"}
 
 # 内存使用
 nvr_process_resident_memory_bytes
@@ -439,7 +439,7 @@ topk(5, histogram_quantile(0.99, rate(nvr_frame_processing_duration_seconds_buck
 
 ## 配置参考
 
-`/metrics` 端点在 `cmd/mibee-nvr/main.go` 中使用 `promhttp.HandlerFor` 设置，错误处理方式为 `ContinueOnError`。它使用自定义的 Prometheus 注册表（而非全局默认注册表），以隔离 NVR 指标。
+`/metrics` 端点在 `cmd/aglus-nvr/main.go` 中使用 `promhttp.HandlerFor` 设置，错误处理方式为 `ContinueOnError`。它使用自定义的 Prometheus 注册表（而非全局默认注册表），以隔离 NVR 指标。
 
 指标认证的配置字段：
 
@@ -452,4 +452,4 @@ metrics_auth:
 
 当未配置 `metrics_auth` 时，`/metrics` 端点无需认证即可访问。
 
-要配置密码，使用 `mibee-nvr hash-password yourpassword` 生成 bcrypt 哈希，或将密码设置为明文（首次运行时自动转换）。
+要配置密码，使用 `aglus-nvr hash-password yourpassword` 生成 bcrypt 哈希，或将密码设置为明文（首次运行时自动转换）。

@@ -13,13 +13,13 @@ import (
 	"strings"
 	"time"
 
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/config"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/middleware"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/storage"
+	"github.com/seu-usuario/AglusNVR/internal/config"
+	"github.com/seu-usuario/AglusNVR/internal/middleware"
+	"github.com/seu-usuario/AglusNVR/internal/storage"
 
 	"github.com/go-chi/chi/v5"
 
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/model"
+	"github.com/seu-usuario/AglusNVR/internal/model"
 )
 
 // --- Public endpoints ---
@@ -369,7 +369,7 @@ func (h *Handler) handleGetSettings(w http.ResponseWriter, r *http.Request) {
 			"username":        h.config.Auth.Username,
 			"auth_configured": h.config.Auth.PasswordHash != "" || h.config.Auth.Password != "",
 		},
-		"mibeevision": map[string]any{
+		"aglusvision": map[string]any{
 			"api_keys": buildAPIKeyInfo(h.config.APIKeys),
 		},
 		"timezone":         h.config.Timezone,
@@ -492,8 +492,8 @@ func (h *Handler) handleUpdateSettings(w http.ResponseWriter, r *http.Request) {
 	writeJSON(w, http.StatusOK, map[string]string{"status": "updated"})
 }
 
-// handleGenerateAPIKey creates a new API key for MiBeeVision integration.
-// POST /api/settings/api-keys  body: {"name": "mibeevision-prod"}
+// handleGenerateAPIKey creates a new API key for AglusVision integration.
+// POST /api/settings/api-keys  body: {"name": "aglusvision-prod"}
 // Returns the full key ONCE (never exposed again).
 func (h *Handler) handleGenerateAPIKey(w http.ResponseWriter, r *http.Request) {
 	if h.config == nil {
@@ -509,7 +509,7 @@ func (h *Handler) handleGenerateAPIKey(w http.ResponseWriter, r *http.Request) {
 	}
 	name := strings.TrimSpace(body.Name)
 	if name == "" {
-		name = "mibeevision"
+		name = "aglusvision"
 	}
 
 	key := middleware.GenerateAPIKey()
@@ -523,7 +523,7 @@ func (h *Handler) handleGenerateAPIKey(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	logger.Info("API key generated for MiBeeVision integration", "name", name)
+	logger.Info("API key generated for AglusVision integration", "name", name)
 	writeJSON(w, http.StatusCreated, map[string]any{
 		"name":   name,
 		"key":    key,

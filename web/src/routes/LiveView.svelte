@@ -130,7 +130,7 @@
   }
 
   function handleWasmFallback() {
-    showToast(t('live.wasm.fallbackToHls') || 'WebCodecs unavailable, switching to HLS', 'warning');
+    showToast(t('live.wasm.fallbackToHls') || 'WebCodecs indisponível; alternando para HLS', 'warning');
     handleProtocolChange('hls');
   }
 

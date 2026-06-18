@@ -5,8 +5,8 @@ import (
 	"io"
 	"net/http"
 
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/webrtc"
 	"github.com/go-chi/chi/v5"
+	"github.com/seu-usuario/AglusNVR/internal/webrtc"
 )
 
 // --- WHEP (WebRTC-HTTP Egress Protocol) endpoints ---

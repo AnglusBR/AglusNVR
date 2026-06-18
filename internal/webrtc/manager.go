@@ -14,9 +14,9 @@ import (
 	"github.com/pion/webrtc/v4"
 	"github.com/pion/webrtc/v4/pkg/media"
 
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/metrics"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/model"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/model/nalutil"
+	"github.com/seu-usuario/AglusNVR/internal/metrics"
+	"github.com/seu-usuario/AglusNVR/internal/model"
+	"github.com/seu-usuario/AglusNVR/internal/model/nalutil"
 )
 
 var logger = slog.Default().With("component", "webrtc-manager")
@@ -160,6 +160,7 @@ func (ct *congestionTracker) shouldSkipFrame(isIDR bool) bool {
 	ct.skipCounter++
 	return ct.skipCounter%2 == 1
 }
+
 // Manager manages WebRTC WHEP sessions for camera streaming.
 // It supports H.264 video only (no audio), with configurable max peers
 // per camera and idle eviction.
@@ -212,7 +213,6 @@ func withFrameBufSize(n int) ManagerOption {
 		}
 	}
 }
-
 
 // WithMetrics sets the Prometheus metrics collector.
 func WithMetrics(m *metrics.Metrics) ManagerOption {
@@ -566,7 +566,6 @@ func (m *Manager) DeleteWHEPSession(sessionID string) error {
 	logger.Info("WHEP session deleted", "camera_id", entry.camID, "session_id", sessionID)
 	return nil
 }
-
 
 // StopAll closes all active WHEP sessions and releases resources.
 func (m *Manager) StopAll() {

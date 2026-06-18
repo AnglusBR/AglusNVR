@@ -715,9 +715,9 @@ async function performCameraSave() {
                   <select class="input w-auto" value={tgt.platform || ''}
                     onchange={(e) => updatePushTarget(tgt.id, { platform: (e.target as HTMLSelectElement).value })}>
                     {#if relayPresetsLoading}
-                      <option value="">Loading...</option>
+                      <option value="">Carregando...</option>
                     {:else}
-                      <option value="">Generic</option>
+                      <option value="">Genérico</option>
                       {#each relayPresets as preset (preset.name)}
                         <option value={preset.name}>{preset.name}{preset.description ? ` — ${preset.description}` : ''}</option>
                       {/each}
@@ -726,13 +726,13 @@ async function performCameraSave() {
 
                   <!-- Transcode policy (hidden for H.264 source) -->
                   {#if formEncoding === 'h264'}
-                    <span class="text-xs th-text-muted whitespace-nowrap">n/a — H.264 source</span>
+                    <span class="text-xs th-text-muted whitespace-nowrap">n/d — fonte H.264</span>
                   {:else}
                     <select class="input w-auto" value={tgt.transcode_policy || 'auto'}
                       onchange={(e) => updatePushTarget(tgt.id, { transcode_policy: (e.target as HTMLSelectElement).value as 'auto' | 'force_sw' | 'off' })}>
-                      <option value="auto">Auto-detect hardware</option>
-                      <option value="force_sw">Force software encode</option>
-                      <option value="off">Reject H.265 sources</option>
+                      <option value="auto">Detectar hardware automaticamente</option>
+                      <option value="force_sw">Forçar codificação por software</option>
+                      <option value="off">Rejeitar fontes H.265</option>
                     </select>
                   {/if}
 
@@ -770,20 +770,20 @@ async function performCameraSave() {
                 <!-- Preset override panel (collapsed) -->
                 <details class="text-xs">
                   <summary class="cursor-pointer th-text-secondary hover:th-text-primary transition-colors select-none">
-                    Preset Overrides
+                    Substituições da predefinição
                     {#if tgt.video_preset_override}
-                      <span class="ml-1 text-[var(--color-accent)]">(custom)</span>
+                      <span class="ml-1 text-[var(--color-accent)]">(personalizada)</span>
                     {/if}
                   </summary>
                   <div class="grid grid-cols-3 gap-x-3 gap-y-2 pt-2 pb-1">
                     <div>
-                      <label for={tgt.id + '-resolution'} class="input-label">Resolution</label>
+                      <label for={tgt.id + '-resolution'} class="input-label">Resolução</label>
                       <input id={tgt.id + '-resolution'} type="text" class="input w-full" placeholder="1920x1080"
                         value={tgt.video_preset_override?.resolution || ''}
                         oninput={(e) => updatePushTargetOverride(tgt.id, { resolution: (e.target as HTMLInputElement).value || undefined })} />
                     </div>
                     <div>
-                      <label for={tgt.id + '-framerate'} class="input-label">Framerate</label>
+                      <label for={tgt.id + '-framerate'} class="input-label">Taxa de quadros</label>
                       <input id={tgt.id + '-framerate'} type="number" class="input w-full" placeholder="30" min="1" max="120"
                         value={tgt.video_preset_override?.framerate ?? ''}
                         oninput={(e) => {
@@ -792,7 +792,7 @@ async function performCameraSave() {
                         }} />
                     </div>
                     <div>
-                      <label for={tgt.id + '-bitrate'} class="input-label">Bitrate (kbps)</label>
+                      <label for={tgt.id + '-bitrate'} class="input-label">Taxa de bits (kbps)</label>
                       <input id={tgt.id + '-bitrate'} type="number" class="input w-full" placeholder="3000" min="100" max="50000"
                         value={tgt.video_preset_override?.video_bitrate_kbps ?? ''}
                         oninput={(e) => {
@@ -810,13 +810,13 @@ async function performCameraSave() {
                         }} />
                     </div>
                     <div>
-                      <label for={tgt.id + '-profile'} class="input-label">Profile</label>
+                      <label for={tgt.id + '-profile'} class="input-label">Perfil</label>
                       <select id={tgt.id + '-profile'} class="input w-full" value={tgt.video_preset_override?.profile || ''}
                         onchange={(e) => {
                           const v = (e.target as HTMLSelectElement).value;
                           updatePushTargetOverride(tgt.id, { profile: (v as 'baseline' | 'main' | 'high') || undefined });
                         }}>
-                        <option value="">Preset default</option>
+                        <option value="">Padrão da predefinição</option>
                         <option value="baseline">baseline</option>
                         <option value="main">main</option>
                         <option value="high">high</option>
@@ -834,7 +834,7 @@ async function performCameraSave() {
                   </div>
                   <button type="button" class="btn-ghost text-xs th-text-muted mt-1"
                     onclick={() => resetPushTargetOverride(tgt.id)}>
-                    Reset to preset defaults
+                    Restaurar padrões da predefinição
                   </button>
                 </details>
               </div>

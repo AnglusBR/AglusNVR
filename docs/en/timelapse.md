@@ -1,6 +1,6 @@
 # Timelapse Recording
 
-Timelapse functionality creates time-lapse videos from camera recordings, compressing hours or days into minutes. MiBee NVR v2 introduces major improvements with flexible merge durations, H.264/H.265 dual-mode support, and a unified recordings interface.
+Timelapse functionality creates time-lapse videos from camera recordings, compressing hours or days into minutes. AglusNVR v2 introduces major improvements with flexible merge durations, H.264/H.265 dual-mode support, and a unified recordings interface.
 
 ## Overview
 
@@ -404,7 +404,7 @@ curl -u admin:password "http://localhost:9090/api/recordings"
 curl -u admin:password "http://localhost:9090/api/cameras/camera-id"
 
 # View merge logs (if available)
-journalctl -u mibee-nvr -f | grep merge
+journalctl -u aglus-nvr -f | grep merge
 ```
 
 ## Performance Considerations

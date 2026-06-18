@@ -1,6 +1,6 @@
 # Xiaomi Camera Integration
 
-MiBee NVR provides comprehensive support for Xiaomi cloud cameras through the CS2 P2P protocol. This integration allows you to connect Xiaomi cameras to your NVR system without requiring direct network access to the cameras themselves, as all communication is handled through Xiaomi's cloud services.
+AglusNVR provides comprehensive support for Xiaomi cloud cameras through the CS2 P2P protocol. This integration allows you to connect Xiaomi cameras to your NVR system without requiring direct network access to the cameras themselves, as all communication is handled through Xiaomi's cloud services.
 
 ## Overview
 
@@ -126,7 +126,7 @@ cameras:
 
 ### Method 1: Web UI Setup (Recommended)
 
-1. **Access Web UI**: Open MiBee NVR Web Interface at `http://localhost:9090`
+1. **Access Web UI**: Open AglusNVR Web Interface at `http://localhost:9090`
 
 2. **Navigate to Cameras**: Go to the Cameras page
 
@@ -495,8 +495,8 @@ xiaomi:
 **File Permissions**:
 ```bash
 # Secure configuration file
-chmod 600 mibee-nvr.yaml
-chown nvr:nvr mibee-nvr.yaml
+chmod 600 aglus-nvr.yaml
+chown nvr:nvr aglus-nvr.yaml
 ```
 
 ### Network Security
@@ -686,13 +686,13 @@ xiaomi:
 **Check Logs**:
 ```bash
 # System logs
-journalctl -u mibee-nvr -f | grep xiaomi
+journalctl -u aglus-nvr -f | grep xiaomi
 
 # Docker logs
-docker logs -f mibee-nvr | grep xiaomi
+docker logs -f aglus-nvr | grep xiaomi
 
 # Configuration validation
-./mibee-nvr -config mibee-nvr.yaml --validate
+./aglus-nvr -config aglus-nvr.yaml --validate
 ```
 
 ### Performance Monitoring
@@ -747,10 +747,10 @@ curl -X POST -H "Content-Type: application/json" \
 **Check compatibility**:
 ```bash
 # Check current version
-./mibee-nvr --version
+./aglus-nvr --version
 
 # Check for updates
-curl -s https://api.github.com/repos/Mi-Bee-Studio/MiBeeNvr/releases/latest | grep 'tag_name'
+curl -s https://api.github.com/repos/seu-usuario/AglusNVR/releases/latest | grep 'tag_name'
 ```
 
 ### Backup Configuration
@@ -763,13 +763,13 @@ Regular backup of Xiaomi configuration:
 
 BACKUP_DIR="/var/backups/xiaomi"
 DATE=$(date '+%Y%m%d_%H%M%S')
-CONFIG_FILE="/var/lib/mibee-nvr/mibee-nvr.yaml"
+CONFIG_FILE="/var/lib/aglus-nvr/aglus-nvr.yaml"
 
 # Create backup directory
 mkdir -p "$BACKUP_DIR"
 
 # Backup configuration with sensitive data removed
-grep -v 'token:' "$CONFIG_FILE" > "$BACKUP_DIR/mibee-nvr_config_${DATE}.yaml"
+grep -v 'token:' "$CONFIG_FILE" > "$BACKUP_DIR/aglus-nvr_config_${DATE}.yaml"
 
 # Backup device list
 curl -s -u "admin:password" "http://localhost:9090/api/xiaomi/devices" \
@@ -780,7 +780,7 @@ echo "Backup completed: $BACKUP_DIR"
 
 ## Best Practices
 
-1. **Regular Updates**: Keep MiBee NVR updated for latest Xiaomi protocol support
+1. **Regular Updates**: Keep AglusNVR updated for latest Xiaomi protocol support
 2. **Network Monitoring**: Ensure reliable connectivity to Xiaomi cloud services
 3. **Token Management**: Rotate Xiaomi credentials periodically
 4. **Backup Strategy**: Regular backups of configuration and device lists
@@ -836,4 +836,4 @@ if __name__ == "__main__":
     print(json.dumps(status, indent=2))
 ```
 
-Through comprehensive Xiaomi camera integration, MiBee NVR enables seamless cloud-based camera recording with rich automation capabilities, making it easy to integrate Xiaomi cameras into your surveillance and smart home ecosystem.
+Through comprehensive Xiaomi camera integration, AglusNVR enables seamless cloud-based camera recording with rich automation capabilities, making it easy to integrate Xiaomi cameras into your surveillance and smart home ecosystem.

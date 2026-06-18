@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 //
-// Xiaomi camera plugin registration for MiBee NVR.
+// Xiaomi camera plugin registration for AglusNVR.
 // Licensed under the MIT License.
 
 package xiaomi
@@ -9,11 +9,11 @@ import (
 	"strings"
 	"time"
 
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/config"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/metrics"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/model"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/storage"
 	"github.com/go-chi/chi/v5"
+	"github.com/seu-usuario/AglusNVR/internal/config"
+	"github.com/seu-usuario/AglusNVR/internal/metrics"
+	"github.com/seu-usuario/AglusNVR/internal/model"
+	"github.com/seu-usuario/AglusNVR/internal/storage"
 )
 
 // XiaomiPlugin provides Xiaomi camera recorder creation.

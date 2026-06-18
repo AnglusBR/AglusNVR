@@ -1,6 +1,6 @@
 # Architecture: Push-In Ingest & Push-Out Relay
 
-> How MiBee NVR connects cameras across networks — natively in Go, without FFmpeg.
+> How AglusNVR connects cameras across networks — natively in Go, without FFmpeg.
 
 This document covers two streaming subsystems added in v0.8.0 that let the NVR operate across network boundaries:
 

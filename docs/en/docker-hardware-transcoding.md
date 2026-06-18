@@ -2,7 +2,7 @@
 
 ## Overview
 
-Hardware passthrough is essential for optimal transcoding performance in Docker containers. MiBee NVR supports multiple hardware acceleration paths: V4L2 M2M for Raspberry Pi, VAAPI for Intel/AMD GPUs, and NVENC for NVIDIA GPUs. This guide explains how to configure Docker to expose hardware devices to the container for maximum transcoding efficiency.
+Hardware passthrough is essential for optimal transcoding performance in Docker containers. AglusNVR supports multiple hardware acceleration paths: V4L2 M2M for Raspberry Pi, VAAPI for Intel/AMD GPUs, and NVENC for NVIDIA GPUs. This guide explains how to configure Docker to expose hardware devices to the container for maximum transcoding efficiency.
 
 ## Raspberry Pi V4L2 M2M
 
@@ -28,9 +28,9 @@ Add device mapping to your `docker-compose.yml`:
 
 ```yaml
 services:
-  mibee-nvr:
-    image: ghcr.io/mi-bee-studio/mibeenvr:latest
-    container_name: mibee-nvr
+  aglus-nvr:
+    image: ghcr.io/seu-usuario/aglusnvr:latest
+    container_name: aglus-nvr
     restart: unless-stopped
     
     ports:
@@ -49,7 +49,7 @@ services:
     environment:
       - NVR_DATA_DIR=/data
     healthcheck:
-      test: ["CMD", "mibee-nvr", "health"]
+      test: ["CMD", "aglus-nvr", "health"]
       interval: 30s
       timeout: 5s
       start_period: 10s
@@ -62,7 +62,7 @@ Check if devices are accessible inside the container:
 
 ```bash
 # Enter container shell (if available)
-docker exec -it mibee-nvr sh
+docker exec -it aglus-nvr sh
 
 # List video devices inside container
 ls -la /dev/video*
@@ -101,9 +101,9 @@ Add DRI device mapping:
 
 ```yaml
 services:
-  mibee-nvr:
-    image: ghcr.io/mi-bee-studio/mibeenvr:latest
-    container_name: mibee-nvr
+  aglus-nvr:
+    image: ghcr.io/seu-usuario/aglusnvr:latest
+    container_name: aglus-nvr
     restart: unless-stopped
     
     ports:
@@ -123,7 +123,7 @@ services:
       - LIBVA_DRIVER_NAME=i965  # For Intel GPUs
       # - LIBVA_DRIVER_NAME=radeonsi  # For AMD GPUs
     healthcheck:
-      test: ["CMD", "mibee-nvr", "health"]
+      test: ["CMD", "aglus-nvr", "health"]
       interval: 30s
       timeout: 5s
       start_period: 10s
@@ -136,7 +136,7 @@ Test VAAPI functionality inside the container:
 
 ```bash
 # Enter container
-docker exec -it mibee-nvr sh
+docker exec -it aglus-nvr sh
 
 # Check VAAPI info
 vainfo
@@ -172,9 +172,9 @@ Use NVIDIA runtime for GPU access:
 
 ```yaml
 services:
-  mibee-nvr:
-    image: ghcr.io/mi-bee-studio/mibeenvr:latest
-    container_name: mibee-nvr
+  aglus-nvr:
+    image: ghcr.io/seu-usuario/aglusnvr:latest
+    container_name: aglus-nvr
     restart: unless-stopped
     
     ports:
@@ -196,7 +196,7 @@ services:
     environment:
       - NVR_DATA_DIR=/data
     healthcheck:
-      test: ["CMD", "mibee-nvr", "health"]
+      test: ["CMD", "aglus-nvr", "health"]
       interval: 30s
       timeout: 5s
       start_period: 10s
@@ -209,7 +209,7 @@ If you prefer device mapping over the deploy configuration:
 
 ```yaml
 services:
-  mibee-nvr:
+  aglus-nvr:
     # ... other configuration ...
     
     runtime: nvidia
@@ -229,15 +229,15 @@ Check if the GPU is accessible:
 
 ```bash
 # Check GPU access in container
-docker exec mibee-nvr nvidia-smi
+docker exec aglus-nvr nvidia-smi
 
 # Test NVENC capability
-docker exec mibee-nvr ffmpeg -encoders | grep nvenc
+docker exec aglus-nvr ffmpeg -encoders | grep nvenc
 ```
 
 ## Software-only Fallback
 
-When hardware acceleration is not available or desired, MiBee NVR falls back to software encoding using libx264/libx265.
+When hardware acceleration is not available or desired, AglusNVR falls back to software encoding using libx264/libx265.
 
 ### Configuration
 
@@ -245,9 +245,9 @@ No device mapping is required:
 
 ```yaml
 services:
-  mibee-nvr:
-    image: ghcr.io/mi-bee-studio/mibeenvr:latest
-    container_name: mibee-nvr
+  aglus-nvr:
+    image: ghcr.io/seu-usuario/aglusnvr:latest
+    container_name: aglus-nvr
     restart: unless-stopped
     
     ports:
@@ -260,7 +260,7 @@ services:
     environment:
       - NVR_DATA_DIR=/data
     healthcheck:
-      test: ["CMD", "mibee-nvr", "health"]
+      test: ["CMD", "aglus-nvr", "health"]
       interval: 30s
       timeout: 5s
       start_period: 10s
@@ -292,7 +292,7 @@ services:
 
 ## FFmpeg Inside Docker
 
-MiBee NVR downloads and uses static FFmpeg builds from johnvansickle for ARM64/ARMv7 architectures at runtime.
+AglusNVR downloads and uses static FFmpeg builds from johnvansickle for ARM64/ARMv7 architectures at runtime.
 
 ### FFmpeg Download and Storage
 
@@ -303,7 +303,7 @@ FFmpeg is downloaded to `{StorageConfig.RootDir}/tools/` inside the container:
 /data/tools/ffmpeg
 
 # Check available FFmpeg version
-docker exec mibee-nvr /data/tools/ffmpeg -version
+docker exec aglus-nvr /data/tools/ffmpeg -version
 ```
 
 ### Persistent Storage Recommendation
@@ -312,7 +312,7 @@ For better performance and to avoid re-downloading FFmpeg, mount a persistent vo
 
 ```yaml
 services:
-  mibee-nvr:
+  aglus-nvr:
     # ... other configuration ...
     
     volumes:
@@ -356,7 +356,7 @@ sudo chown -R 65534:65534 ./data
 ls -la /dev/video*
 
 # Verify device mapping
-docker exec mibee-nvr ls -la /dev/video*
+docker exec aglus-nvr ls -la /dev/video*
 ```
 
 ### Performance Issues
@@ -398,12 +398,12 @@ docker exec mibee-nvr ls -la /dev/video*
 ### General Docker Issues
 
 **Problem**: Container restarts continuously
-- Check Docker logs: `docker compose logs mibee-nvr`
+- Check Docker logs: `docker compose logs aglus-nvr`
 - Verify configuration syntax
 - Check disk space and permissions
 
 **Problem**: Health check fails
-- Test manual health check: `docker exec mibee-nvr mibee-nvr health`
+- Test manual health check: `docker exec aglus-nvr aglus-nvr health`
 - Check if binary exists and is executable
 - Verify data directory permissions
 
@@ -411,19 +411,19 @@ docker exec mibee-nvr ls -la /dev/video*
 
 ```bash
 # View container logs
-docker compose logs -f mibee-nvr
+docker compose logs -f aglus-nvr
 
 # Check resource usage
-docker stats mibee-nvr
+docker stats aglus-nvr
 
 # Test health check
-docker exec mibee-nvr mibee-nvr health
+docker exec aglus-nvr aglus-nvr health
 
 # Check FFmpeg availability
-docker exec mibee-nvr /data/tools/ffmpeg -version
+docker exec aglus-nvr /data/tools/ffmpeg -version
 
 # List available encoders
-docker exec mibee-nvr /data/tools/ffmpeg -encoders | grep -E "(h264|h265|nvenc|vaapi|v4l2)"
+docker exec aglus-nvr /data/tools/ffmpeg -encoders | grep -E "(h264|h265|nvenc|vaapi|v4l2)"
 ```
 
 ## Additional Tips

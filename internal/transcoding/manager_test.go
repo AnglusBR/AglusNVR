@@ -7,10 +7,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/config"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/event"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/metrics"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/storage"
+	"github.com/seu-usuario/AglusNVR/internal/config"
+	"github.com/seu-usuario/AglusNVR/internal/event"
+	"github.com/seu-usuario/AglusNVR/internal/metrics"
+	"github.com/seu-usuario/AglusNVR/internal/storage"
 	"github.com/stretchr/testify/require"
 )
 
@@ -122,9 +122,9 @@ func TestManager_RunAndStop(t *testing.T) {
 			FFmpegPath: mockFFmpeg,
 			MaxWorkers: 1,
 		},
-		DataDir:        t.TempDir(),
-		FFmpegPath:     mockFFmpeg,
-		MaxWorkers:     1,
+		DataDir:    t.TempDir(),
+		FFmpegPath: mockFFmpeg,
+		MaxWorkers: 1,
 	}
 
 	mgr, err := NewTranscodeManager(db, cfg, m)
@@ -173,9 +173,9 @@ func TestManager_EnqueueRecording(t *testing.T) {
 			FFmpegPath: mockFFmpeg,
 			MaxWorkers: 1,
 		},
-		DataDir:        t.TempDir(),
-		FFmpegPath:     mockFFmpeg,
-		MaxWorkers:     1,
+		DataDir:    t.TempDir(),
+		FFmpegPath: mockFFmpeg,
+		MaxWorkers: 1,
 	}
 
 	mgr, err := NewTranscodeManager(db, cfg, m)
@@ -223,9 +223,9 @@ func TestManager_GetStatus(t *testing.T) {
 			FFmpegPath: mockFFmpeg,
 			MaxWorkers: 1,
 		},
-		DataDir:        t.TempDir(),
-		FFmpegPath:     mockFFmpeg,
-		MaxWorkers:     1,
+		DataDir:    t.TempDir(),
+		FFmpegPath: mockFFmpeg,
+		MaxWorkers: 1,
 	}
 
 	mgr, err := NewTranscodeManager(db, cfg, m)
@@ -267,9 +267,9 @@ func TestManager_HardwareInfo(t *testing.T) {
 			FFmpegPath: mockFFmpeg,
 			MaxWorkers: 1,
 		},
-		DataDir:        t.TempDir(),
-		FFmpegPath:     mockFFmpeg,
-		MaxWorkers:     1,
+		DataDir:    t.TempDir(),
+		FFmpegPath: mockFFmpeg,
+		MaxWorkers: 1,
 	}
 
 	mgr, err := NewTranscodeManager(db, cfg, m)
@@ -298,9 +298,9 @@ func TestManager_Downloader(t *testing.T) {
 			FFmpegPath: mockFFmpeg,
 			MaxWorkers: 1,
 		},
-		DataDir:        t.TempDir(),
-		FFmpegPath:     mockFFmpeg,
-		MaxWorkers:     1,
+		DataDir:    t.TempDir(),
+		FFmpegPath: mockFFmpeg,
+		MaxWorkers: 1,
 	}
 
 	mgr, err := NewTranscodeManager(db, cfg, m)
@@ -328,9 +328,9 @@ func TestManager_Queue(t *testing.T) {
 			FFmpegPath: mockFFmpeg,
 			MaxWorkers: 1,
 		},
-		DataDir:        t.TempDir(),
-		FFmpegPath:     mockFFmpeg,
-		MaxWorkers:     1,
+		DataDir:    t.TempDir(),
+		FFmpegPath: mockFFmpeg,
+		MaxWorkers: 1,
 	}
 
 	mgr, err := NewTranscodeManager(db, cfg, m)
@@ -482,7 +482,7 @@ func TestManager_AutoEnqueueOnSegmentCompleted(t *testing.T) {
 		Config: &config.Config{
 			Transcoding: config.TranscodingConfig{Enabled: true},
 			Cameras: []config.CameraConfig{{
-				ID: "cam-001",
+				ID:          "cam-001",
 				Transcoding: &config.CameraTranscodingConfig{Enabled: true, TargetCodec: "h264"},
 			}},
 		},
@@ -546,7 +546,7 @@ func TestManager_AutoEnqueueSkipsDisabledCamera(t *testing.T) {
 		Config: &config.Config{
 			Transcoding: config.TranscodingConfig{Enabled: true},
 			Cameras: []config.CameraConfig{{
-				ID: "cam-disabled",
+				ID:          "cam-disabled",
 				Transcoding: &config.CameraTranscodingConfig{Enabled: false},
 			}},
 		},
@@ -601,7 +601,7 @@ func TestManager_AutoEnqueueSkipsTimelapse(t *testing.T) {
 		Config: &config.Config{
 			Transcoding: config.TranscodingConfig{Enabled: true},
 			Cameras: []config.CameraConfig{{
-				ID: "cam-003",
+				ID:          "cam-003",
 				Transcoding: &config.CameraTranscodingConfig{Enabled: true, TargetCodec: "h264"},
 			}},
 		},
@@ -654,7 +654,7 @@ func TestManager_AutoEnqueueSkipsSameFormat(t *testing.T) {
 		Config: &config.Config{
 			Transcoding: config.TranscodingConfig{Enabled: true},
 			Cameras: []config.CameraConfig{{
-				ID: "cam-004",
+				ID:          "cam-004",
 				Transcoding: &config.CameraTranscodingConfig{Enabled: true, TargetCodec: "h264"},
 			}},
 		},

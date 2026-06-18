@@ -16,13 +16,13 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/camera"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/config"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/hls"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/merge"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/middleware"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/model"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/storage"
+	"github.com/seu-usuario/AglusNVR/internal/camera"
+	"github.com/seu-usuario/AglusNVR/internal/config"
+	"github.com/seu-usuario/AglusNVR/internal/hls"
+	"github.com/seu-usuario/AglusNVR/internal/merge"
+	"github.com/seu-usuario/AglusNVR/internal/middleware"
+	"github.com/seu-usuario/AglusNVR/internal/model"
+	"github.com/seu-usuario/AglusNVR/internal/storage"
 	"github.com/stretchr/testify/require"
 )
 

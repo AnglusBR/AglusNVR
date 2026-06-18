@@ -19,8 +19,8 @@ import (
 	"github.com/bluenviron/gortsplib/v5/pkg/format/rtpmjpeg"
 	"github.com/stretchr/testify/require"
 
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/model"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/storage"
+	"github.com/seu-usuario/AglusNVR/internal/model"
+	"github.com/seu-usuario/AglusNVR/internal/storage"
 )
 
 // generateTestJPEG creates a valid 16x16 JPEG image for testing.

@@ -1,4 +1,4 @@
-# MiBee NVR — Middleware Package
+# AglusNVR — Middleware Package
 
 ## OVERVIEW
 

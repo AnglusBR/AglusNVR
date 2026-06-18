@@ -1,4 +1,4 @@
-package mibee_nvr_tests
+package aglus_nvr_tests
 
 import (
 	"context"
@@ -13,13 +13,13 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/config"
+	"github.com/seu-usuario/AglusNVR/internal/config"
 )
 
 func buildBinary(t *testing.T) string {
 	t.Helper()
-	binPath := filepath.Join(t.TempDir(), "mibee-nvr-test")
-	rootDir := filepath.Join("..", "cmd", "mibee-nvr")
+	binPath := filepath.Join(t.TempDir(), "aglus-nvr-test")
+	rootDir := filepath.Join("..", "cmd", "aglus-nvr")
 	cmd := exec.Command("go", "build", "-o", binPath, rootDir)
 	output, err := cmd.CombinedOutput()
 	require.NoError(t, err, "go build failed: %s", string(output))
@@ -57,7 +57,7 @@ func TestInitRejectsExistingConfig(t *testing.T) {
 	cmd := exec.Command(binPath, "init", "--password", "testpass123", "--data-dir", dataDir, "--config", configPath)
 	output, err := cmd.CombinedOutput()
 	require.Error(t, err, "init should fail when config already exists")
-	require.Contains(t, string(output), "already exists")
+	require.Contains(t, string(output), "já existe")
 
 	if exitErr, ok := err.(*exec.ExitError); ok {
 		require.Equal(t, 2, exitErr.ExitCode(), "exit code should be 2 for existing config")

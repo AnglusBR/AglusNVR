@@ -2,7 +2,7 @@
 
 ## 概述
 
-硬件直通对于 Docker 容器中的最佳转码性能至关重要。MiBee NVR 支持多种硬件加速路径：树莓派的 V4L2 M2M、Intel/AMD GPU 的 VAAPI，以及 NVIDIA GPU 的 NVENC。本指南介绍如何配置 Docker 以将硬件设备暴露给容器，以实现最大转码效率。
+硬件直通对于 Docker 容器中的最佳转码性能至关重要。AglusNVR 支持多种硬件加速路径：树莓派的 V4L2 M2M、Intel/AMD GPU 的 VAAPI，以及 NVIDIA GPU 的 NVENC。本指南介绍如何配置 Docker 以将硬件设备暴露给容器，以实现最大转码效率。
 
 ## 树莓派 V4L2 M2M
 
@@ -28,9 +28,9 @@ v4l2-ctl -d /dev/video10 --list-formats-ext
 
 ```yaml
 services:
-  mibee-nvr:
-    image: ghcr.io/mi-bee-studio/mibeenvr:latest
-    container_name: mibee-nvr
+  aglus-nvr:
+    image: ghcr.io/seu-usuario/aglusnvr:latest
+    container_name: aglus-nvr
     restart: unless-stopped
     
     ports:
@@ -49,7 +49,7 @@ services:
     environment:
       - NVR_DATA_DIR=/data
     healthcheck:
-      test: ["CMD", "mibee-nvr", "health"]
+      test: ["CMD", "aglus-nvr", "health"]
       interval: 30s
       timeout: 5s
       start_period: 10s
@@ -62,7 +62,7 @@ services:
 
 ```bash
 # 进入容器 shell（如果可用）
-docker exec -it mibee-nvr sh
+docker exec -it aglus-nvr sh
 
 # 列出容器内的视频设备
 ls -la /dev/video*
@@ -101,9 +101,9 @@ vainfo
 
 ```yaml
 services:
-  mibee-nvr:
-    image: ghcr.io/mi-bee-studio/mibeenvr:latest
-    container_name: mibee-nvr
+  aglus-nvr:
+    image: ghcr.io/seu-usuario/aglusnvr:latest
+    container_name: aglus-nvr
     restart: unless-stopped
     
     ports:
@@ -123,7 +123,7 @@ services:
       - LIBVA_DRIVER_NAME=i965  # 对于 Intel GPU
       # - LIBVA_DRIVER_NAME=radeonsi  # 对于 AMD GPU
     healthcheck:
-      test: ["CMD", "mibee-nvr", "health"]
+      test: ["CMD", "aglus-nvr", "health"]
       interval: 30s
       timeout: 5s
       start_period: 10s
@@ -136,7 +136,7 @@ services:
 
 ```bash
 # 进入容器
-docker exec -it mibee-nvr sh
+docker exec -it aglus-nvr sh
 
 # 检查 VAAPI 信息
 vainfo
@@ -172,9 +172,9 @@ sudo systemctl restart docker
 
 ```yaml
 services:
-  mibee-nvr:
-    image: ghcr.io/mi-bee-studio/mibeenvr:latest
-    container_name: mibee-nvr
+  aglus-nvr:
+    image: ghcr.io/seu-usuario/aglusnvr:latest
+    container_name: aglus-nvr
     restart: unless-stopped
     
     ports:
@@ -196,7 +196,7 @@ services:
     environment:
       - NVR_DATA_DIR=/data
     healthcheck:
-      test: ["CMD", "mibee-nvr", "health"]
+      test: ["CMD", "aglus-nvr", "health"]
       interval: 30s
       timeout: 5s
       start_period: 10s
@@ -209,7 +209,7 @@ services:
 
 ```yaml
 services:
-  mibee-nvr:
+  aglus-nvr:
     # ... 其他配置 ...
     
     runtime: nvidia
@@ -229,15 +229,15 @@ services:
 
 ```bash
 # 检查容器内的 GPU 访问
-docker exec mibee-nvr nvidia-smi
+docker exec aglus-nvr nvidia-smi
 
 # 测试 NVENC 功能
-docker exec mibee-nvr ffmpeg -encoders | grep nvenc
+docker exec aglus-nvr ffmpeg -encoders | grep nvenc
 ```
 
 ## 仅软件回退
 
-当硬件加速不可用或不想要时，MiBee NVR 回退到使用 libx264/libx265 的软件编码。
+当硬件加速不可用或不想要时，AglusNVR 回退到使用 libx264/libx265 的软件编码。
 
 ### 配置
 
@@ -245,9 +245,9 @@ docker exec mibee-nvr ffmpeg -encoders | grep nvenc
 
 ```yaml
 services:
-  mibee-nvr:
-    image: ghcr.io/mi-bee-studio/mibeenvr:latest
-    container_name: mibee-nvr
+  aglus-nvr:
+    image: ghcr.io/seu-usuario/aglusnvr:latest
+    container_name: aglus-nvr
     restart: unless-stopped
     
     ports:
@@ -260,7 +260,7 @@ services:
     environment:
       - NVR_DATA_DIR=/data
     healthcheck:
-      test: ["CMD", "mibee-nvr", "health"]
+      test: ["CMD", "aglus-nvr", "health"]
       interval: 30s
       timeout: 5s
       start_period: 10s
@@ -292,7 +292,7 @@ services:
 
 ## Docker 内的 FFmpeg
 
-MiBee NVR 在运行时从 johnvansickle 下载 ARM64/ARMv7 架构的静态 FFmpeg 构建。
+AglusNVR 在运行时从 johnvansickle 下载 ARM64/ARMv7 架构的静态 FFmpeg 构建。
 
 ### FFmpeg 下载和存储
 
@@ -303,7 +303,7 @@ FFmpeg 下载到容器内的 `{StorageConfig.RootDir}/tools/`：
 /data/tools/ffmpeg
 
 # 检查可用 FFmpeg 版本
-docker exec mibee-nvr /data/tools/ffmpeg -version
+docker exec aglus-nvr /data/tools/ffmpeg -version
 ```
 
 ### 持久化存储建议
@@ -312,7 +312,7 @@ docker exec mibee-nvr /data/tools/ffmpeg -version
 
 ```yaml
 services:
-  mibee-nvr:
+  aglus-nvr:
     # ... 其他配置 ...
     
     volumes:
@@ -356,7 +356,7 @@ sudo chown -R 65534:65534 ./data
 ls -la /dev/video*
 
 # 验证设备映射
-docker exec mibee-nvr ls -la /dev/video*
+docker exec aglus-nvr ls -la /dev/video*
 ```
 
 ### 性能问题
@@ -398,12 +398,12 @@ docker exec mibee-nvr ls -la /dev/video*
 ### 常见 Docker 问题
 
 **问题**：容器持续重启
-- 检查 Docker 日志：`docker compose logs mibee-nvr`
+- 检查 Docker 日志：`docker compose logs aglus-nvr`
 - 验证配置语法
 - 检查磁盘空间和权限
 
 **问题**：健康检查失败
-- 测试手动健康检查：`docker exec mibee-nvr mibee-nvr health`
+- 测试手动健康检查：`docker exec aglus-nvr aglus-nvr health`
 - 检查二进制文件是否存在且可执行
 - 验证数据目录权限
 
@@ -411,19 +411,19 @@ docker exec mibee-nvr ls -la /dev/video*
 
 ```bash
 # 查看容器日志
-docker compose logs -f mibee-nvr
+docker compose logs -f aglus-nvr
 
 # 检查资源使用情况
-docker stats mibee-nvr
+docker stats aglus-nvr
 
 # 测试健康检查
-docker exec mibee-nvr mibee-nvr health
+docker exec aglus-nvr aglus-nvr health
 
 # 检查 FFmpeg 可用性
-docker exec mibee-nvr /data/tools/ffmpeg -version
+docker exec aglus-nvr /data/tools/ffmpeg -version
 
 # 列出可用编码器
-docker exec mibee-nvr /data/tools/ffmpeg -encoders | grep -E "(h264|h265|nvenc|vaapi|v4l2)"
+docker exec aglus-nvr /data/tools/ffmpeg -encoders | grep -E "(h264|h265|nvenc|vaapi|v4l2)"
 ```
 
 ## 其他提示

@@ -11,7 +11,7 @@
  */
 
 /** Cache API store name for AI model files. */
-export const MODEL_CACHE_NAME = 'mibee-nvr-ai-models';
+export const MODEL_CACHE_NAME = 'aglus-nvr-ai-models';
 
 /** Default YOLOv11-nano model path (served from Go HTTP server). */
 export const DEFAULT_MODEL_URL = '/models/yolo11n.onnx';

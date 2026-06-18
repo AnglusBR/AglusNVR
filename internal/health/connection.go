@@ -4,7 +4,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/model"
+	"github.com/seu-usuario/AglusNVR/internal/model"
 )
 
 // cameraConnState tracks per-camera connection state.
@@ -35,6 +35,7 @@ func NewConnectionMonitor(offlineThreshold time.Duration, handler func(string, m
 		eventHandler:     handler,
 	}
 }
+
 // OnStatusChange is called when a camera's recorder status changes.
 func (m *ConnectionMonitor) OnStatusChange(cameraID string, status string) {
 	m.mu.Lock()

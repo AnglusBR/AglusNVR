@@ -10,8 +10,8 @@ import (
 	"github.com/datarhei/gosrt/packet"
 	"github.com/stretchr/testify/require"
 
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/config"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/model"
+	"github.com/seu-usuario/AglusNVR/internal/config"
+	"github.com/seu-usuario/AglusNVR/internal/model"
 )
 
 // mockConn implements srt.Conn for testing purposes.
@@ -19,21 +19,21 @@ type mockConn struct {
 	streamID string
 }
 
-func (m *mockConn) Read(p []byte) (int, error)                        { return 0, io.EOF }
-func (m *mockConn) ReadPacket() (packet.Packet, error)                { return nil, io.EOF }
-func (m *mockConn) Write(p []byte) (int, error)                       { return len(p), nil }
-func (m *mockConn) WritePacket(p packet.Packet) error                 { return nil }
-func (m *mockConn) Close() error                                      { return nil }
-func (m *mockConn) LocalAddr() net.Addr                               { return &net.UDPAddr{IP: net.IPv4(127, 0, 0, 1), Port: 0} }
-func (m *mockConn) RemoteAddr() net.Addr                              { return &net.UDPAddr{IP: net.IPv4(127, 0, 0, 1), Port: 0} }
-func (m *mockConn) SetDeadline(t time.Time) error                     { return nil }
-func (m *mockConn) SetReadDeadline(t time.Time) error                 { return nil }
-func (m *mockConn) SetWriteDeadline(t time.Time) error                { return nil }
-func (m *mockConn) SocketId() uint32                                  { return 0 }
-func (m *mockConn) PeerSocketId() uint32                              { return 0 }
-func (m *mockConn) StreamId() string                                  { return m.streamID }
-func (m *mockConn) Stats(s *srt.Statistics)                           {}
-func (m *mockConn) Version() uint32                                   { return 4 }
+func (m *mockConn) Read(p []byte) (int, error)         { return 0, io.EOF }
+func (m *mockConn) ReadPacket() (packet.Packet, error) { return nil, io.EOF }
+func (m *mockConn) Write(p []byte) (int, error)        { return len(p), nil }
+func (m *mockConn) WritePacket(p packet.Packet) error  { return nil }
+func (m *mockConn) Close() error                       { return nil }
+func (m *mockConn) LocalAddr() net.Addr                { return &net.UDPAddr{IP: net.IPv4(127, 0, 0, 1), Port: 0} }
+func (m *mockConn) RemoteAddr() net.Addr               { return &net.UDPAddr{IP: net.IPv4(127, 0, 0, 1), Port: 0} }
+func (m *mockConn) SetDeadline(t time.Time) error      { return nil }
+func (m *mockConn) SetReadDeadline(t time.Time) error  { return nil }
+func (m *mockConn) SetWriteDeadline(t time.Time) error { return nil }
+func (m *mockConn) SocketId() uint32                   { return 0 }
+func (m *mockConn) PeerSocketId() uint32               { return 0 }
+func (m *mockConn) StreamId() string                   { return m.streamID }
+func (m *mockConn) Stats(s *srt.Statistics)            {}
+func (m *mockConn) Version() uint32                    { return 4 }
 
 func TestHandlePublishPanicCleanup(t *testing.T) {
 	t.Helper()

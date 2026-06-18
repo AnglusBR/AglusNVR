@@ -10,8 +10,8 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/model"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/onvif"
+	"github.com/seu-usuario/AglusNVR/internal/model"
+	"github.com/seu-usuario/AglusNVR/internal/onvif"
 )
 
 // mockRecorder is a minimal model.Recorder for testing ONVIFRecorder delegation.
@@ -491,7 +491,7 @@ func TestONVIFRecorder_CreateDelegate_JPEG_HTTPProbeFallback(t *testing.T) {
 	// Should use HTTPJPEGRecorder with guessed URL when probe fails
 	_, ok := rec.(*HTTPJPEGRecorder)
 	require.True(t, ok, "expected HTTPJPEGRecorder with guessed URL for JPEG when HTTP probe fails")
-	// guessMJPEGURL falls back to :81 (ESP32 MiBeeCam serves MJPEG on a separate
+	// guessMJPEGURL falls back to :81 (ESP32 AglusCam serves MJPEG on a separate
 	// port from the ONVIF endpoint) — see fix(recorder): restore :81 MJPEG fallback port.
 	require.Equal(t, "http://192.168.1.999:81/stream", r.httpJPEGURL, "guessed URL should be cached")
 }

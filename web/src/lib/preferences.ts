@@ -1,9 +1,9 @@
 /**
- * Centralized user preference management for MiBee NVR
- * Uses localStorage with prefix 'mibee_nvr_prefs_'
+ * Centralized user preference management for AglusNVR
+ * Uses localStorage with prefix 'aglus_nvr_prefs_'
  */
 
-const PREFIX = 'mibee_nvr_prefs_';
+const PREFIX = 'aglus_nvr_prefs_';
 
 // Preference keys
 export const PREFERENCE_KEYS = {
@@ -124,7 +124,7 @@ export function resetPreferences(): void {
 }
 
 // Protocol preference (separate key for easy access from setup & live view)
-const PROTOCOL_KEY = 'mibee_nvr_protocol_pref';
+const PROTOCOL_KEY = 'aglus_nvr_protocol_pref';
 
 export function getProtocolPreference(): string {
   try {

@@ -10,10 +10,10 @@ import (
 	"sync"
 	"time"
 
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/config"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/metrics"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/model"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/storage"
+	"github.com/seu-usuario/AglusNVR/internal/config"
+	"github.com/seu-usuario/AglusNVR/internal/metrics"
+	"github.com/seu-usuario/AglusNVR/internal/model"
+	"github.com/seu-usuario/AglusNVR/internal/storage"
 )
 
 var logger = slog.Default().With("component", "merge-manager")
@@ -33,15 +33,15 @@ type mergeLock struct {
 
 // MergeManager handles periodic merging of consecutive MP4 segments.
 type MergeManager struct {
-	mu             sync.RWMutex
-	status         MergeStatus
-	db             *storage.DB
-	store          *storage.Manager
-	getGlobalCfg   func() config.MergeConfig
-	getCameraCfg   func(cameraID string) *config.MergeConfig
-	cameras        func() []config.CameraConfig
-	mergeLocks     sync.Map // map[string]*mergeLock — per-camera merge mutex
-	metrics        *metrics.Metrics
+	mu           sync.RWMutex
+	status       MergeStatus
+	db           *storage.DB
+	store        *storage.Manager
+	getGlobalCfg func() config.MergeConfig
+	getCameraCfg func(cameraID string) *config.MergeConfig
+	cameras      func() []config.CameraConfig
+	mergeLocks   sync.Map // map[string]*mergeLock — per-camera merge mutex
+	metrics      *metrics.Metrics
 }
 
 // NewMergeManager creates a new MergeManager with the given dependencies.

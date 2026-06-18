@@ -167,7 +167,7 @@ function getCanvas(size: number): { canvas: OffscreenCanvas; ctx: OffscreenCanva
   const canvas = new OffscreenCanvas(size, size);
   const ctx = canvas.getContext('2d');
   if (!ctx) {
-    throw new Error('Failed to get 2D context from OffscreenCanvas');
+    throw new Error('Falha ao obter o contexto 2D do OffscreenCanvas');
   }
   return { canvas, ctx };
 }

@@ -12,8 +12,8 @@ import (
 	"github.com/bluenviron/gortmplib"
 	"github.com/bluenviron/gortmplib/pkg/codecs"
 
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/model"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/model/nalutil"
+	"github.com/seu-usuario/AglusNVR/internal/model"
+	"github.com/seu-usuario/AglusNVR/internal/model/nalutil"
 )
 
 var logger = slog.Default().With("component", "rtmp-server")
@@ -58,11 +58,11 @@ type Server struct {
 	// addition to the hub broadcast, so RTMP pushes produce recordings.
 	NALUProvider func(cameraID string) NALUCallback
 
-	mu        sync.Mutex
-	listener  net.Listener
+	mu         sync.Mutex
+	listener   net.Listener
 	publishers map[string]*publisherEntry // streamKey → entry
-	cancel    context.CancelFunc
-	done      chan struct{}
+	cancel     context.CancelFunc
+	done       chan struct{}
 }
 
 type publisherEntry struct {
@@ -131,7 +131,6 @@ func (s *Server) activePublishers() int {
 	defer s.mu.Unlock()
 	return len(s.publishers)
 }
-
 
 func (s *Server) acceptLoop(ctx context.Context, ln net.Listener) {
 	defer close(s.done)

@@ -11,8 +11,8 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/model"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/model/nalutil"
+	"github.com/seu-usuario/AglusNVR/internal/model"
+	"github.com/seu-usuario/AglusNVR/internal/model/nalutil"
 )
 
 var kfeLogger = slog.Default().With("component", "keyframe-extractor")
@@ -38,9 +38,9 @@ type KeyframeExtractorConfig struct {
 	SegmentDur time.Duration // duration of each segment (default: 10min)
 	IsH265     bool          // true if the source stream is H.265
 
-	Store    SegmentStore          // required
-	DB       RecordingDB           // optional — enables DB recording entries
-	MergeMgr *RollingMergeManager  // optional — enables rolling merge on segment close
+	Store    SegmentStore         // required
+	DB       RecordingDB          // optional — enables DB recording entries
+	MergeMgr *RollingMergeManager // optional — enables rolling merge on segment close
 }
 
 // KeyframeExtractor subscribes to a recorder's StreamHub and captures
@@ -61,9 +61,9 @@ type KeyframeExtractor struct {
 	segmentDur time.Duration
 	isH265     bool
 
-	store    SegmentStore
-	db       RecordingDB
-	mergeMgr *RollingMergeManager
+	store      SegmentStore
+	db         RecordingDB
+	mergeMgr   *RollingMergeManager
 	mu         sync.Mutex
 	hub        *model.StreamHub
 	consumerID string

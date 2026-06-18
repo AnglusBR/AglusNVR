@@ -6,7 +6,7 @@
 
 ### 3 步设置：摄像头 → 哔哩哔哩直播
 
-1. **配置摄像头到 `mibee-nvr.yaml`：**
+1. **配置摄像头到 `aglus-nvr.yaml`：**
 ```yaml
 cameras:
   - id: "front-door"
@@ -38,8 +38,8 @@ cameras:
 
 3. **启动并验证：**
 ```bash
-# 启动 MiBee NVR
-./mibee-nvr -config mibee-nvr.yaml
+# 启动 AglusNVR
+./aglus-nvr -config aglus-nvr.yaml
 
 # 检查转发状态
 curl -u admin:PASSWORD http://localhost:9090/api/cameras/front-door/push-status
@@ -307,7 +307,7 @@ cameras:
 3. **启动流：**
 ```bash
 # 启动 NVR
-./mibee-nvr -config mibee-nvr.yaml
+./aglus-nvr -config aglus-nvr.yaml
 
 # 等待 30 秒让摄像头连接
 ```
@@ -325,7 +325,7 @@ cameras:
 6. **停止测试：**
 ```bash
 # 禁用目标以停止直播
-# 编辑 mibee-nvr.yaml 将 bilibili-test 的 enabled: false
+# 编辑 aglus-nvr.yaml 将 bilibili-test 的 enabled: false
 # 重启 NVR 或重新加载配置
 ```
 
@@ -339,7 +339,7 @@ curl -s http://localhost:9090/api/cameras/test-camera | jq '.status.recording_st
 curl -s http://localhost:9090/api/cameras/test-camera | jq '.push_targets[]'
 
 # 查看 NVR 日志
-tail -f /var/log/mibee-nvr.log | grep relay
+tail -f /var/log/aglus-nvr.log | grep relay
 
 # 检查流密钥认证（如果适用）
 curl -H "Authorization: Bearer YOUR_KEY" -X GET https://api.bilibili.com/x/web-interface/nav
@@ -360,7 +360,7 @@ curl -I "rtmp://live-push.bilivideo.com/live-bvc/"
 ffplay "rtsp://your-camera-ip:554/stream"
 
 # 3. 检查 NVR 日志中的连接错误
-journalctl -u mibee-nvr -f --since="5 minutes ago"
+journalctl -u aglus-nvr -f --since="5 minutes ago"
 
 # 4. 验证网络连接
 ping live-push.bilivideo.com
@@ -422,7 +422,7 @@ curl -s http://localhost:9090/api/metrics | grep 'nvr_relay_transcoder_temperatu
 **解决方案：**
 ```bash
 # 检查漂移监控日志
-tail -f /var/log/mibee-nvr.log | grep 'AV drift'
+tail -f /var/log/aglus-nvr.log | grep 'AV drift'
 
 # 如果漂移超过 1 秒持续 5 秒，系统会自动重连
 # 通常不需要手动干预
@@ -491,11 +491,11 @@ type VideoPresetOverrides struct {
 ### 全局配置
 
 ```yaml
-# mibee-nvr.yaml
+# aglus-nvr.yaml
 
 relay:
   # 自定义预设文件路径（可选）
-  presets_path: "/etc/mibee-nvr/relay-presets.yaml"
+  presets_path: "/etc/aglus-nvr/relay-presets.yaml"
   
   # 摄氏节流阈值（可选）
   thermal_limit: 85
@@ -515,7 +515,7 @@ relay:
 ### 完整配置示例
 
 ```yaml
-# mibee-nvr.yaml - 完整转发配置
+# aglus-nvr.yaml - 完整转发配置
 
 cameras:
   - id: "front-door"
@@ -568,7 +568,7 @@ cameras:
 
 # 可选的全局转发配置
 relay:
-  presets_path: "/etc/mibee-nvr/relay-presets.yaml"
+  presets_path: "/etc/aglus-nvr/relay-presets.yaml"
   thermal_limit: 85
 ```
 
@@ -602,9 +602,9 @@ ffmpeg -re -i test-video.mp4 -c:v copy -c:a aac -f flv "rtmp://live-push.bilivid
 - `nvr_relay_transcoder_thermal_throttles_total` - 温度节流事件
 
 **Systemd 服务：**
-- 服务：`mibee-nvr.service`
-- 日志：`journalctl -u mibee-nvr`
-- 状态：`systemctl status mibee-nvr`
+- 服务：`aglus-nvr.service`
+- 日志：`journalctl -u aglus-nvr`
+- 状态：`systemctl status aglus-nvr`
 
 **健康检查：**
 ```bash

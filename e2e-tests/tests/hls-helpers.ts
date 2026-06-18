@@ -1,5 +1,5 @@
 /**
- * Reusable HLS test helper functions for MiBee NVR E2E tests.
+ * Reusable HLS test helper functions for AglusNVR E2E tests.
  *
  * These helpers target the Dashboard page's DOM structure:
  * - Stream state dots are <span> elements with `title` attributes:
@@ -227,7 +227,7 @@ export async function navigateToDashboard(page: Page): Promise<void> {
 export async function fetchCamerasFromAPI(page: Page): Promise<CameraInfo[]> {
   // Use page.evaluate to leverage the browser's auth context (sessionStorage)
   return page.evaluate(async () => {
-    const creds = sessionStorage.getItem('mibee_nvr_auth');
+    const creds = sessionStorage.getItem('aglus_nvr_auth');
     const headers: Record<string, string> = {};
     if (creds) {
       headers['Authorization'] = `Basic ${creds}`;

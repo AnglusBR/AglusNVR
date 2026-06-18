@@ -16,7 +16,7 @@ import (
 //   - Absolute paths are checked directly against baseDir.
 //   - Relative paths are joined with baseDir first.
 //
-// This is the canonical path validation function for all file access in MiBee NVR.
+// This is the canonical path validation function for all file access in AglusNVR.
 func ValidatePath(baseDir, targetPath string) (string, error) {
 	baseDirAbs, err := filepath.Abs(baseDir)
 	if err != nil {
@@ -56,4 +56,3 @@ func ValidatePath(baseDir, targetPath string) (string, error) {
 
 	return absPath, nil
 }
-

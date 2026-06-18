@@ -11,14 +11,14 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"regexp"
 	"strconv"
 	"sync"
 	"syscall"
-	"regexp"
 	"time"
 
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/metrics"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/storage"
+	"github.com/seu-usuario/AglusNVR/internal/metrics"
+	"github.com/seu-usuario/AglusNVR/internal/storage"
 )
 
 // CompletionFunc is called after a transcode task finishes (success or failure).
@@ -32,7 +32,6 @@ var queueLogger = slog.Default().With("component", "transcode-queue")
 // causes SQLITE_BUSY contention under concurrent load.
 const progressUpdateInterval = 2 * time.Second
 
-
 // TranscodeQueue manages async transcoding tasks with a bounded worker pool.
 // Tasks are dequeued from the database (FIFO) and dispatched to worker goroutines.
 type TranscodeQueue struct {
@@ -42,17 +41,17 @@ type TranscodeQueue struct {
 	config     QueueConfig
 	m          *metrics.Metrics
 
-	mu         sync.Mutex
-	cancel     context.CancelFunc
-	activeJobs map[int64]context.CancelFunc // task ID → cancel function
-	wg         sync.WaitGroup
-	stopped    bool
+	mu           sync.Mutex
+	cancel       context.CancelFunc
+	activeJobs   map[int64]context.CancelFunc // task ID → cancel function
+	wg           sync.WaitGroup
+	stopped      bool
 	completionFn CompletionFunc // optional post-completion callback
 }
 
 // QueueConfig holds configuration for the transcode queue.
 type QueueConfig struct {
-	DataDir         string        // root data directory for orphan cleanup
+	DataDir         string // root data directory for orphan cleanup
 	MaxWorkers      int
 	FFmpegPath      string
 	FFprobePath     string
@@ -159,8 +158,8 @@ func (q *TranscodeQueue) Enqueue(ctx context.Context, task *storage.TranscodeTas
 			if q.caps.H265DecoderType != EncoderV4L2M2M && q.caps.H265DecoderType != EncoderVAAPI && q.caps.H265DecoderType != EncoderNVENC {
 				slog.Warn("no hardware H.265 decoder on ARM — using software decode", "arch", q.caps.Arch)
 			}
+		}
 	}
-}
 
 	// Check input resolution against encoder limits (all architectures)
 	if q.caps != nil && (q.caps.MaxEncodeWidth > 0 || q.caps.MaxEncodeHeight > 0) {
@@ -303,7 +302,7 @@ func (q *TranscodeQueue) runWorker(ctx context.Context, task *storage.TranscodeT
 		if q.completionFn != nil {
 			q.completionFn(task, success)
 		}
-		}()
+	}()
 
 	// Convert storage task to transcoding options with default preset
 	opts := q.taskToOptions(task, "")
@@ -533,7 +532,6 @@ func (q *TranscodeQueue) parseProgress(ctx context.Context, taskID int64, stderr
 	}
 }
 
-
 // taskToOptions converts a storage.TranscodeTask to TranscodeOptions for FFmpeg command building.
 // preset specifies the encoding preset ("ultrafast", "faster", "medium", etc.);
 // if empty, defaults to "ultrafast" (best performance on low-power devices like RPi).
@@ -581,14 +579,14 @@ func (q *TranscodeQueue) replaceOriginal(task *storage.TranscodeTask) {
 
 	// Step 1: Move output to temp (same dir as input for same-filesystem rename)
 	inputDir := filepath.Dir(task.InputPath)
-	tmpPath := filepath.Join(inputDir, ".mibee-replace-tmp-"+filepath.Base(task.OutputPath))
+	tmpPath := filepath.Join(inputDir, ".aglus-replace-tmp-"+filepath.Base(task.OutputPath))
 	if err := atomicRename(task.OutputPath, tmpPath); err != nil {
 		queueLogger.Warn("failed to move output to temp", "task_id", task.ID, "error", err)
 		return
 	}
 
 	// Step 2: Move original to backup
-	backupPath := filepath.Join(inputDir, ".mibee-replace-bak-"+filepath.Base(task.InputPath))
+	backupPath := filepath.Join(inputDir, ".aglus-replace-bak-"+filepath.Base(task.InputPath))
 	if err := atomicRename(task.InputPath, backupPath); err != nil {
 		// Restore: move temp back to output
 		if restoreErr := atomicRename(tmpPath, task.OutputPath); restoreErr != nil {

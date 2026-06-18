@@ -3,9 +3,9 @@
   import { getFeatures, updateFeatures, getAiSettings, saveAiSettings, detectAiBackend, listCameras, getFFmpegStatus, getAiStatus, updateAiConfig } from '$lib/api';
   import { getPerCameraAiSettings, savePerCameraAiSettings, getAIZones, createAIZone, deleteAIZone } from '$lib/api';
   import { getSettings, generateAPIKey, revokeAPIKey } from '$lib/api';
-  import { refreshMiBeeVisionStatus } from '$lib/mibeevision-status.svelte';
+  import { refreshAglusVisionStatus } from '$lib/aglusvision-status.svelte';
   import type { Camera, DownloadStatus, Zone, ZoneList, PerCameraAiState } from '$lib/api';
-  import type { MiBeeVisionConfig } from '$lib/api';
+  import type { AglusVisionConfig } from '$lib/api';
   import { t } from '$lib/i18n';
   import { AlertTriangle, ChevronDown, Plus, Trash2, X, Copy, Check } from 'lucide-svelte';
   import { showToast } from '$lib/toast';
@@ -31,15 +31,15 @@
   // FFmpeg status for Transcoding badge
   let ffmpegStatus = $state<DownloadStatus | null>(null);
 
-  // --- MiBeeVision Integration ---
-  let mibeeVisionKeys = $state<Array<{ name: string; prefix: string; revoked: boolean }>>([]);
-  let mibeeVisionLoading = $state(false);
+  // --- AglusVision Integration ---
+  let aglusVisionKeys = $state<Array<{ name: string; prefix: string; revoked: boolean }>>([]);
+  let aglusVisionLoading = $state(false);
   let newKeyName = $state('');
   let generatingKey = $state(false);
   let newlyGeneratedKey = $state<string | null>(null);
   let copiedKey = $state(false);
 
-  const hasMiBeeVisionKey = $derived(mibeeVisionKeys.length > 0);
+  const hasAglusVisionKey = $derived(aglusVisionKeys.length > 0);
 
   // Feature flags dirty tracking
   let featuresDirty = $derived(JSON.stringify(featureFlags) !== JSON.stringify(originalFeatureFlags));
@@ -204,7 +204,7 @@ async function savePerCameraAiSettingsLocal() {
 
 async function handleCreateZone() {
   if (!newZoneCamera || !newZoneName || !newZonePoints) {
-    showToast('Camera, name, and points are required', 'error');
+    showToast('Câmera, nome e pontos são obrigatórios', 'error');
     return;
   }
   zoneCreating = true;
@@ -216,7 +216,7 @@ async function handleCreateZone() {
       points.push([parseFloat(match[1]), parseFloat(match[2])]);
     }
     if (points.length < 3) {
-      showToast(t('settings.ai.createZoneFailed', { error: 'At least 3 points required' }), 'error');
+      showToast(t('settings.ai.createZoneFailed', { error: 'São necessários pelo menos 3 pontos' }), 'error');
       return;
     }
     await createAIZone({
@@ -259,43 +259,43 @@ async function handleDeleteZone(zoneName: string) {
     } catch (e) { /* non-critical */ }
   }
 
-  // --- MiBeeVision Integration ---
-  async function loadMiBeeVisionKeys() {
-    mibeeVisionLoading = true;
+  // --- AglusVision Integration ---
+  async function loadAglusVisionKeys() {
+    aglusVisionLoading = true;
     try {
       const settings = await getSettings();
-      mibeeVisionKeys = settings.mibeevision?.api_keys || [];
+      aglusVisionKeys = settings.aglusvision?.api_keys || [];
     } catch (e) { /* non-critical */ } finally {
-      mibeeVisionLoading = false;
+      aglusVisionLoading = false;
     }
   }
 
   async function handleGenerateKey() {
     generatingKey = true;
     try {
-      const name = newKeyName.trim() || 'mibeevision';
+      const name = newKeyName.trim() || 'aglusvision';
       const result = await generateAPIKey(name);
       newlyGeneratedKey = result.key;
       newKeyName = '';
-      await loadMiBeeVisionKeys();
-      await refreshMiBeeVisionStatus();
-      showToast(t('settings.mibeevision.keyGenerated'), 'success');
+      await loadAglusVisionKeys();
+      await refreshAglusVisionStatus();
+      showToast(t('settings.aglusvision.keyGenerated'), 'success');
     } catch (e) {
-      showToast(e instanceof Error ? e.message : t('settings.mibeevision.keyGenFailed'), 'error');
+      showToast(e instanceof Error ? e.message : t('settings.aglusvision.keyGenFailed'), 'error');
     } finally {
       generatingKey = false;
     }
   }
 
   async function handleRevokeKey(name: string) {
-    if (!confirm(t('settings.mibeevision.confirmRevoke', { name }))) return;
+    if (!confirm(t('settings.aglusvision.confirmRevoke', { name }))) return;
     try {
       await revokeAPIKey(name);
-      await loadMiBeeVisionKeys();
-      await refreshMiBeeVisionStatus();
-      showToast(t('settings.mibeevision.keyRevoked'), 'success');
+      await loadAglusVisionKeys();
+      await refreshAglusVisionStatus();
+      showToast(t('settings.aglusvision.keyRevoked'), 'success');
     } catch (e) {
-      showToast(e instanceof Error ? e.message : t('settings.mibeevision.keyRevokeFailed'), 'error');
+      showToast(e instanceof Error ? e.message : t('settings.aglusvision.keyRevokeFailed'), 'error');
     }
   }
 
@@ -315,7 +315,7 @@ async function handleDeleteZone(zoneName: string) {
     loadPerCameraAiSettings();
     loadZones();
     loadFFmpegStatus();
-    loadMiBeeVisionKeys();
+    loadAglusVisionKeys();
   });
 </script>
 
@@ -402,26 +402,26 @@ async function handleDeleteZone(zoneName: string) {
   {/if}
 </SettingsCard>
 
-<!-- MiBeeVision Integration -->
+<!-- AglusVision Integration -->
 <SettingsCard
-  title={t('settings.mibeevision.title')}
-  subtitle={t('settings.mibeevision.description')}
-  badge={hasMiBeeVisionKey
-    ? { text: t('settings.mibeevision.connected'), color: 'success' as const }
-    : { text: t('settings.mibeevision.notConnected'), color: 'neutral' as const }
+  title={t('settings.aglusvision.title')}
+  subtitle={t('settings.aglusvision.description')}
+  badge={hasAglusVisionKey
+    ? { text: t('settings.aglusvision.connected'), color: 'success' as const }
+    : { text: t('settings.aglusvision.notConnected'), color: 'neutral' as const }
   }
 >
   <div class="space-y-4">
-    <p class="text-sm th-text-secondary">{t('settings.mibeevision.setupGuide')}</p>
+    <p class="text-sm th-text-secondary">{t('settings.aglusvision.setupGuide')}</p>
 
     <!-- Newly generated key (shown once) -->
     {#if newlyGeneratedKey}
       <div class="p-4 rounded-md border border-green-500/50 th-bg-success-light space-y-2">
         <div class="flex items-center gap-2 text-green-700 dark:text-green-400 font-medium text-sm">
           <Check size={16} />
-          {t('settings.mibeevision.keyGenerated')}
+          {t('settings.aglusvision.keyGenerated')}
         </div>
-        <p class="text-xs th-color-warning">{t('settings.mibeevision.copyWarning')}</p>
+        <p class="text-xs th-color-warning">{t('settings.aglusvision.copyWarning')}</p>
         <div class="flex items-center gap-2">
           <code class="flex-1 p-2 rounded bg-black/10 dark:bg-white/10 text-sm font-mono break-all">
             {newlyGeneratedKey}
@@ -437,14 +437,14 @@ async function handleDeleteZone(zoneName: string) {
     {/if}
 
     <!-- Existing keys -->
-    {#if mibeeVisionLoading}
+    {#if aglusVisionLoading}
       <div class="flex items-center gap-2 py-2 th-text-muted">
         <span class="spinner"></span>
         <span class="text-sm">{t('common.loading')}</span>
       </div>
-    {:else if mibeeVisionKeys.length > 0}
+    {:else if aglusVisionKeys.length > 0}
       <div class="space-y-2">
-        {#each mibeeVisionKeys as keyInfo (keyInfo.name)}
+        {#each aglusVisionKeys as keyInfo (keyInfo.name)}
           <div class="flex items-center justify-between p-3 rounded-md th-bg-hover border th-border">
             <div class="min-w-0 flex-1">
               <div class="text-sm font-medium th-text-primary">{keyInfo.name}</div>
@@ -454,7 +454,7 @@ async function handleDeleteZone(zoneName: string) {
               type="button"
               class="btn-ghost p-1 text-xs th-color-danger hover:th-bg-danger-light"
               onclick={() => handleRevokeKey(keyInfo.name)}
-              title={t('settings.mibeevision.revoke')}
+              title={t('settings.aglusvision.revoke')}
             >
               <Trash2 size={14} />
             </button>
@@ -465,19 +465,19 @@ async function handleDeleteZone(zoneName: string) {
 
     <!-- Generate new key -->
     <div class="border-t th-border pt-4">
-      <label class="input-label" for="new-api-key-name">{t('settings.mibeevision.keyName')}</label>
+      <label class="input-label" for="new-api-key-name">{t('settings.aglusvision.keyName')}</label>
       <div class="flex gap-2 mt-1">
         <input
           id="new-api-key-name"
           type="text"
           class="input flex-1"
-          placeholder="mibeevision"
+          placeholder="aglusvision"
           bind:value={newKeyName}
           onkeydown={(e) => { if (e.key === 'Enter') handleGenerateKey(); }}
         />
         <button type="button" class="btn btn-primary" onclick={handleGenerateKey} disabled={generatingKey}>
           {#if generatingKey}<span class="spinner mr-2"></span>{/if}
-          {t('settings.mibeevision.generate')}
+          {t('settings.aglusvision.generate')}
         </button>
       </div>
     </div>

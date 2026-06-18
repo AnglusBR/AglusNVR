@@ -266,7 +266,7 @@ export async function triggerTimelapseMerge(cameraId: string, date?: string, dur
   if (authHeader) headers['Authorization'] = authHeader;
   const res = await fetch(url, { method: 'POST', headers });
   if (!res.ok) {
-    const errorData = await res.json().catch(() => ({ error: 'Failed to start merge' }));
+    const errorData = await res.json().catch(() => ({ error: 'Falha ao iniciar a mesclagem' }));
     throw new ApiRequestError(errorData.error || `HTTP ${res.status}`, errorData.code);
   }
 }
@@ -289,7 +289,7 @@ export async function batchMergeTimelapse(params: {
 
   const res = await fetch(url, { method: 'POST', headers, body });
   if (!res.ok) {
-    const errorData = await res.json().catch(() => ({ error: 'Failed to batch merge' }));
+    const errorData = await res.json().catch(() => ({ error: 'Falha ao iniciar a mesclagem em lote' }));
     throw new ApiRequestError(errorData.error || `HTTP ${res.status}`, errorData.code);
   }
   return res.json();
@@ -419,7 +419,7 @@ export async function cancelMerge(cameraId: string): Promise<void> {
   if (authHeader) headers['Authorization'] = authHeader;
   const res = await fetch(url, { method: 'DELETE', headers });
   if (!res.ok) {
-    const errorData = await res.json().catch(() => ({ error: 'Failed to cancel merge' }));
+    const errorData = await res.json().catch(() => ({ error: 'Falha ao cancelar a mesclagem' }));
     throw new ApiRequestError(errorData.error || `HTTP ${res.status}`, errorData.code);
   }
 }

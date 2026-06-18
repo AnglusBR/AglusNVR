@@ -1,6 +1,6 @@
 # Authentication
 
-MiBee NVR uses HTTP Basic Authentication for protected endpoints. The authentication credentials are configured in the application settings.
+AglusNVR uses HTTP Basic Authentication for protected endpoints. The authentication credentials are configured in the application settings.
 
 ### How to Use Basic Auth
 
@@ -52,7 +52,7 @@ First-time initialization. Only succeeds when no `password_hash` is configured. 
   "username": "admin",
   "password": "securepassword",
   "language": "en",
-  "storage_path": "/var/lib/mibee-nvr"
+  "storage_path": "/var/lib/aglus-nvr"
 }
 ```
 

@@ -1,6 +1,6 @@
 #KJ|# Camera Brand Compatibility Guide
 #KM|
-#RW|MiBee NVR supports a wide range of IP cameras through various protocols including RTSP (H.264/H.265/MJPEG), HTTP JPEG, and ONVIF. This guide provides comprehensive compatibility information for popular camera brands, including supported protocols, configuration examples, and troubleshooting tips.
+#RW|AglusNVR supports a wide range of IP cameras through various protocols including RTSP (H.264/H.265/MJPEG), HTTP JPEG, and ONVIF. This guide provides comprehensive compatibility information for popular camera brands, including supported protocols, configuration examples, and troubleshooting tips.
 #SY|
 #BV|#KM|**ONVIF Integration**: For comprehensive ONVIF camera support, discovery methods, PTZ control, and troubleshooting, see the [ONVIF Guide](./onvif-guide.md).
 #BV|#KM|
@@ -508,7 +508,7 @@
 #JM>**Models**: C200, C300, Xiaofang, Dafang
 #SX>
 #TM>#### Special Setup:
-#VW>- Use MiBee NVR's built-in Xiaomi integration, NOT RTSP directly
+#VW>- Use AglusNVR's built-in Xiaomi integration, NOT RTSP directly
 #NV>- Configure via Web UI → Xiaomi Device Discovery
 #XS>- Authentication via Xiaomi cloud services
 #JQ>
@@ -602,7 +602,7 @@
 #BB|```
 #XS>
 #YJ>#### Known Issues:
-#BK>- Use MiBee's ONVIF Scan feature for auto-discovery
+#BK>- Use Aglus's ONVIF Scan feature for auto-discovery
 #KQ>- May require manual configuration if discovery fails
 #MS>- ONVIF profiles may vary between models
 #KQ>
@@ -635,7 +635,7 @@
 #BY>
 #JB>### RTSP URL Testing
 #QW>
-#JM>Before adding to MiBee NVR, test RTSP URLs with VLC or ffplay:
+#JM>Before adding to AglusNVR, test RTSP URLs with VLC or ffplay:
 #SX>
 #BV>```bash
 #BB># Test RTSP connection
@@ -671,7 +671,7 @@
 #XS>
 #YJ>### Network Considerations
 #BY>
-#JB>- Ensure cameras and MiBee NVR are on the same network
+#JB>- Ensure cameras and AglusNVR are on the same network
 #QW>- Consider VLAN segmentation for security
 #SX>- Use static IP addresses for reliable connections
 #RW>- Monitor bandwidth usage for multiple cameras
@@ -761,14 +761,14 @@
 #BY>
 #JB>### Documentation
 #QW>
-#JM>- [MiBee NVR Configuration Guide](./configuration.md)
-- [MiBee NVR API Reference](./api/README.md)
-#RW>- [MiBee NVR Getting Started](./getting-started.md)
+#JM>- [AglusNVR Configuration Guide](./configuration.md)
+- [AglusNVR API Reference](./api/README.md)
+#RW>- [AglusNVR Getting Started](./getting-started.md)
 #BB>
 #YJ>### Community Support
 #BY>
-#JB>- GitHub Issues: [MiBee NVR Issues](https://github.com/Mi-Bee-Studio/MiBeeNvr/issues)
-#QW>- Discussions: [MiBee NVR Discussions](https://github.com/Mi-Bee-Studio/MiBeeNvr/discussions)
+#JB>- GitHub Issues: [AglusNVR Issues](https://github.com/seu-usuario/AglusNVR/issues)
+#QW>- Discussions: [AglusNVR Discussions](https://github.com/seu-usuario/AglusNVR/discussions)
 #SX>- Discord: Join our community server for help
 #BB>
 #YJ>### Professional Support
@@ -868,7 +868,7 @@
 #YJ>
 #YJ>### Enable the ingest servers
 #YJ>
-#YJ>In `mibee-nvr.yaml` (or via Settings):
+#YJ>In `aglus-nvr.yaml` (or via Settings):
 #YJ>
 #YJ>```yaml
 #YJ>srt:
@@ -994,4 +994,4 @@
 #YJ>- **Target must be reachable**: the relay dials OUT to the target, so the target's RTMP/RTSP port must be accessible (port-forward if behind NAT).
 #YJ>- **Resilient reconnect**: if the source camera or target connection drops, the relay retries with exponential backoff and resumes automatically.
 #YJ>
-#YJ>Through comprehensive camera brand compatibility information, this guide helps you successfully integrate various IP cameras with MiBee NVR, ensuring optimal recording performance and reliability for your surveillance system.
+#YJ>Through comprehensive camera brand compatibility information, this guide helps you successfully integrate various IP cameras with AglusNVR, ensuring optimal recording performance and reliability for your surveillance system.

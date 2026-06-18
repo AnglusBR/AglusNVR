@@ -17,9 +17,9 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/event"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/metrics"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/model"
+	"github.com/seu-usuario/AglusNVR/internal/event"
+	"github.com/seu-usuario/AglusNVR/internal/metrics"
+	"github.com/seu-usuario/AglusNVR/internal/model"
 )
 
 var httpJpegLogger = slog.Default().With("component", "http-jpeg-recorder")

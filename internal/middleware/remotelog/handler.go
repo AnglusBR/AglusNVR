@@ -13,7 +13,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/metrics"
+	"github.com/seu-usuario/AglusNVR/internal/metrics"
 )
 
 const (

@@ -12,8 +12,8 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/metrics"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/model"
+	"github.com/seu-usuario/AglusNVR/internal/metrics"
+	"github.com/seu-usuario/AglusNVR/internal/model"
 )
 
 // --- Test Helpers ---
@@ -25,7 +25,7 @@ func newTestManager(t *testing.T) *Manager {
 
 // newTestManagerWithHub creates a Manager and a StreamHub for integration testing.
 // The hub is passed to RegisterStream per-stream, not set on the Manager.
-	func newTestManagerWithHub(t *testing.T) (*Manager, *model.StreamHub) {
+func newTestManagerWithHub(t *testing.T) (*Manager, *model.StreamHub) {
 	t.Helper()
 	hub := model.NewStreamHub()
 	mgr := NewManager(WithMaxViewers(3), withWriteBufSize(10))
@@ -342,9 +342,9 @@ func TestGOPCache_NewClientGetsCachedKeyframe(t *testing.T) {
 	_ = mgr.RegisterStream("cam1", model.FormatH264, minimalSPS, minimalPPS, nil, nil)
 
 	// Write IDR (keyframe) + P-frames
-	mgr.writeH264("cam1", 0, [][]byte{idrNALU})          // IDR - should be cached
-	mgr.writeH264("cam1", 3000, [][]byte{nonIDRNALU})     // P-frame
-	mgr.writeH264("cam1", 6000, [][]byte{nonIDRNALU})     // P-frame
+	mgr.writeH264("cam1", 0, [][]byte{idrNALU})       // IDR - should be cached
+	mgr.writeH264("cam1", 3000, [][]byte{nonIDRNALU}) // P-frame
+	mgr.writeH264("cam1", 6000, [][]byte{nonIDRNALU}) // P-frame
 
 	time.Sleep(50 * time.Millisecond) // let GOP cache settle
 
@@ -670,6 +670,7 @@ func TestGOPCacheMiss_Metric(t *testing.T) {
 	}
 	require.True(t, found, "expected nvr_flv_gop_cache_misses_total metric family")
 }
+
 // --- Helper types ---
 
 // blockingResponseWriter never reads, causing writes to eventually block.

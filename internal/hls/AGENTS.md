@@ -1,4 +1,4 @@
-# MiBee NVR — HLS Live Streaming Package
+# AglusNVR — HLS Live Streaming Package
 
 ## OVERVIEW
 

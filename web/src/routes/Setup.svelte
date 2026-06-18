@@ -12,8 +12,8 @@
   let confirmPassword = $state('');
   let showPassword = $state(false);
   let showConfirmPassword = $state(false);
-  let language = $state('en');
-  let storagePath = $state('/var/lib/mibee-nvr');
+  let language = $state('pt-BR');
+  let storagePath = $state('/var/lib/aglus-nvr');
   let error = $state('');
   let loading = $state(false);
 
@@ -140,7 +140,7 @@
 
   <div class="card w-full max-w-lg p-10 border th-border shadow-2xl">
     <div class="text-center mb-8">
-      <div class="text-sm font-semibold tracking-widest uppercase th-text-tertiary mb-3">MiBee</div>
+      <div class="text-sm font-semibold tracking-widest uppercase th-text-tertiary mb-3">Aglus</div>
       <h1 class="text-3xl font-bold bg-gradient-to-r from-violet-400 to-blue-400 bg-clip-text text-transparent mb-3">{t('setup.title')}</h1>
       <p class="th-text-tertiary text-sm">{t('setup.subtitle')}</p>
     </div>
@@ -301,8 +301,9 @@
           bind:value={language}
           disabled={loading}
         >
-          <option value="en">English</option>
-          <option value="zh">中文</option>
+          <option value="pt-BR">Português (Brasil)</option>
+          <option value="en">Inglês</option>
+          <option value="zh">Chinês</option>
         </select>
       </div>
 
@@ -314,7 +315,7 @@
           type="text"
           class="input"
           bind:value={storagePath}
-          placeholder="/var/lib/mibee-nvr"
+          placeholder="/var/lib/aglus-nvr"
           disabled={loading}
         />
         <p class="th-text-tertiary text-xs mt-1">{t('setup.storagePathHint')}</p>

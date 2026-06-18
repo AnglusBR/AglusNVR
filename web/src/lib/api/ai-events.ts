@@ -1,7 +1,7 @@
 /**
- * AI Events API — MiBeeVision collaboration
+ * AI Events API — AglusVision collaboration
  *
- * AI events are detection results written by MiBeeVision (external Rust AI
+ * AI events are detection results written by AglusVision (external Rust AI
  * backend) via POST /api/ai/events. This client provides read-only access
  * for the NVR web UI to display AI detection history.
  */

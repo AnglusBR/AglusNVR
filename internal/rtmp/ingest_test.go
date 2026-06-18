@@ -12,7 +12,7 @@ import (
 	"github.com/bluenviron/gortmplib/pkg/codecs"
 	"github.com/stretchr/testify/require"
 
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/model"
+	"github.com/seu-usuario/AglusNVR/internal/model"
 )
 
 // helper: start an RTMP server on a random port for testing
@@ -276,7 +276,6 @@ func TestFrameDistributionToStreamHub(t *testing.T) {
 	require.Equal(t, 1, consumer2Count)
 	mu.Unlock()
 }
-
 
 // TestDisconnectCleanup tests that disconnecting a publisher cleans up resources.
 func TestDisconnectCleanup(t *testing.T) {

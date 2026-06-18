@@ -3,8 +3,8 @@ package api
 import (
 	"net/http"
 
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/relay"
 	"github.com/go-chi/chi/v5"
+	"github.com/seu-usuario/AglusNVR/internal/relay"
 )
 
 // handleListRelayPresets handles GET /api/relay-presets.

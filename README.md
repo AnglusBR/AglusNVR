@@ -1,245 +1,267 @@
-# MiBee NVR
-[![GitHub Release](https://img.shields.io/github/v/release/Mi-Bee-Studio/MiBeeNvr?style=flat&label=Release)](https://github.com/Mi-Bee-Studio/MiBeeNvr/releases)
-[![CI](https://img.shields.io/github/actions/workflow/status/Mi-Bee-Studio/MiBeeNvr/ci.yml?style=flat&label=CI)](https://github.com/Mi-Bee-Studio/MiBeeNvr/actions/workflows/ci.yml)
+# AglusNVR
+[![Versão](https://img.shields.io/github/v/release/seu-usuario/AglusNVR?style=flat&label=versão)](https://github.com/seu-usuario/AglusNVR/releases)
+[![CI](https://img.shields.io/github/actions/workflow/status/seu-usuario/AglusNVR/ci.yml?style=flat&label=CI)](https://github.com/seu-usuario/AglusNVR/actions/workflows/ci.yml)
 [![Go](https://img.shields.io/badge/Go-00ADD8?style=flat&logo=go&logoColor=white)](https://go.dev/)
 [![Svelte](https://img.shields.io/badge/Svelte-FF3E00?style=flat&logo=svelte&logoColor=white)](https://svelte.dev/)
 [![SQLite](https://img.shields.io/badge/SQLite-003B57?style=flat&logo=sqlite&logoColor=white)](https://www.sqlite.org/)
 [![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat&logo=docker&logoColor=white)](https://www.docker.com/)
 [![Raspberry Pi](https://img.shields.io/badge/Raspberry_Pi-A22846?style=flat&logo=raspberrypi&logoColor=white)](https://www.raspberrypi.com/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow?style=flat)](LICENSE)
+[![Licença: MIT](https://img.shields.io/badge/licença-MIT-yellow?style=flat)](LICENSE)
 
-> **Turn any Raspberry Pi into a professional NVR in 60 seconds.**  
-> Single binary, zero dependencies, no cloud required. Runs on Raspberry Pi 3B with 512MB memory budget.
+> **Transforme qualquer Raspberry Pi em um NVR profissional em 60 segundos.**
+> Binário único, zero dependências, sem necessidade de nuvem. Roda em Raspberry Pi 3B com orçamento de memória de 512MB.
 
-> [**中文**](README.zh.md) — [English](README.md)
+[Português (Brasil)](README.md) — [English](README.en.md) — [中文](README.zh.md)
 
-## Quick Start
+## Início Rápido
 
-### One-click Install (Recommended)
-
-```bash
-curl -fsSL https://raw.githubusercontent.com/Mi-Bee-Studio/MiBeeNvr/main/install.sh | sudo bash
-```
-
-Downloads the binary, creates a system user (`nvr`), generates a config, installs a systemd service, and starts it. Data directory: `/var/lib/mibee-nvr`.
-
-### Option 1: Pre-built Binary
-
-Download the latest binary from [GitHub Releases](https://github.com/Mi-Bee-Studio/MiBeeNvr/releases):
+### Instalar com um clique (Recomendado)
 
 ```bash
-# AMD64 (most PCs/servers)
-wget https://github.com/Mi-Bee-Studio/MiBeeNvr/releases/latest/download/mibee-nvr-amd64
-chmod +x mibee-nvr-amd64
-
-# ARM64 (Raspberry Pi 4/5, etc.)
-wget https://github.com/Mi-Bee-Studio/MiBeeNvr/releases/latest/download/mibee-nvr-arm64
-chmod +x mibee-nvr-arm64
-
-# ARMv7 (Raspberry Pi 2/3, etc.)
-wget https://github.com/Mi-Bee-Studio/MiBeeNvr/releases/latest/download/mibee-nvr-armv7
-chmod +x mibee-nvr-armv7
+curl -fsSL https://raw.githubusercontent.com/seu-usuario/AglusNVR/main/install.sh | sudo bash
 ```
 
-Initialize config and start:
+O instalador detecta a arquitetura, baixa e verifica o binário, cria o usuário
+de sistema `aglus-nvr`, gera a configuração, instala o serviço systemd e inicia
+o AglusNVR. O diretório padrão de dados é `/var/lib/aglus-nvr`.
+
+Para uma instalação não interativa:
 
 ```bash
-./mibee-nvr-amd64 init --password yourpassword
-./mibee-nvr-amd64 -config mibee-nvr.yaml
+curl -fsSL https://raw.githubusercontent.com/seu-usuario/AglusNVR/main/install.sh \
+  | sudo AGLUS_PASSWORD='uma-senha-segura' bash
 ```
 
-Open `http://localhost:9090` to access the Web UI.
+Para desinstalar sem apagar as gravações:
 
-### Option 2: Docker
+```bash
+curl -fsSL https://raw.githubusercontent.com/seu-usuario/AglusNVR/main/install.sh \
+  | sudo bash -s -- --desinstalar
+```
+
+### Opção 1: Binário pré-construído
+
+Baixe o binário mais recente do [GitHub Releases](https://github.com/seu-usuario/AglusNVR/releases):
+
+```bash
+# AMD64 (maioria dos PCs e servidores)
+wget https://github.com/seu-usuario/AglusNVR/releases/latest/download/aglus-nvr-amd64
+chmod +x aglus-nvr-amd64
+
+# ARM64 (Raspberry Pi 4/5 etc.)
+wget https://github.com/seu-usuario/AglusNVR/releases/latest/download/aglus-nvr-arm64
+chmod +x aglus-nvr-arm64
+
+# ARMv7 (Raspberry Pi 2/3 etc.)
+wget https://github.com/seu-usuario/AglusNVR/releases/latest/download/aglus-nvr-armv7
+chmod +x aglus-nvr-armv7
+```
+
+Inicialize a configuração e comece:
+
+```bash
+./aglus-nvr-amd64 init --password sua-senha
+./aglus-nvr-amd64 -config aglus-nvr.yaml
+```
+
+Abra `http://localhost:9090` para acessar a interface web.
+
+### Opção 2: Docker
 
 ```bash
 docker compose up -d
 ```
 
-Open `http://localhost:9090` to access the Web UI.
+Abra `http://localhost:9090` para acessar a interface web.
 
-To store recordings on an external drive, edit the volume mount in `docker-compose.yml`:
+Para armazenar gravações em um drive externo, edite a montagem de volume em `docker-compose.yml`:
 
 ```yaml
     volumes:
-      - /mnt/external/nvr:/data    # ← change to your host path
+      - /mnt/external/nvr:/data    # ← altere para o caminho desejado no host
     environment:
-      - NVR_DATA_DIR=/data          # must match the volume mount
+      - NVR_DATA_DIR=/data          # deve corresponder ? montagem do volume
 ```
 
-### Option 3: Build from Source
+### Opção 3: Construir a partir da Fonte
 
 ```bash
-git clone https://github.com/Mi-Bee-Studio/MiBeeNvr.git
-cd MiBeeNvr
+git clone https://github.com/seu-usuario/AglusNVR.git
+cd AglusNVR
 make build
-./mibee-nvr init --password yourpassword
-./mibee-nvr -config mibee-nvr.yaml
+./aglus-nvr init --password sua-senha
+./aglus-nvr -config aglus-nvr.yaml
 ```
 
-For detailed setup, see [Getting Started](docs/en/getting-started.md).
+Para uma configuração detalhada, veja [Começando](docs/pt-BR/getting-started.md).
 
-## Why MiBee NVR?
+## Por que AglusNVR?
 
-- **Single Binary**: Zero dependencies, embedded Svelte 5 SPA, `CGO_ENABLED=0`
-- **Raspberry Pi 3B Ready**: Runs on 1GB RAM with 512MB memory budget
-- **Multi-Protocol Streaming**: HLS, WebRTC, HTTP-FLV, RTMP, SRT, WebSocket
-- **No Cloud Required**: Self-hosted, no subscriptions, no vendor lock-in
-- **Modern Web UI**: Dark/light themes, i18n support, responsive design
-- **ONVIF Support**: Auto-discovery, PTZ control, stream URI management
-- **Smart Integrations**: MQTT triggers, WebDAV, FTP, FFmpeg transcoding
+- **Binário Único**: Zero dependências, embutido Svelte 5 SPA, `CGO_ENABLED=0`
+- **Raspberry Pi 3B Ready**: Roda com 1GB de RAM e orçamento de memória de 512MB
+- **Streaming Multiprotocolo**: HLS, WebRTC, HTTP-FLV, RTMP, SRT, WebSocket
+- **Não é necessário nuvem**: Autohospedado, sem assinaturas, sem lock-in de fornecedor
+- **Interface Web Moderna**: Temas escuros/claros, suporte a i18n, design responsivo
+- **ONVIF Suporte**: Auto-descoberta, controle de PTZ, gerenciamento de URI de fluxo
+- **Integrações inteligentes**: MQTT triggers, WebDAV, FTP FFmpeg transcodificação
 
-## Screenshots
+## Capturas de tela
 
 ![Login](docs/images/login-light.png)  
-*Login page with dark/light theme toggle and authentication*
+*Página de login com opção de alternância e autenticação do tema escuro/claro*
 
-![Dashboard](docs/images/dashboard-light.png)  
-*Dashboard with live camera feeds, recording status, and system metrics*
+![Painel](docs/images/dashboard-light.png)
+*Painel com transmissões ao vivo das câmeras, status de gravação e métricas do sistema*
 
-![Settings](docs/images/settings-light.png)  
-*Settings panel for camera configuration and system management*
+![Configuração](docs/images/settings-light.png)
+*Painel de configurações para configuração da câmera e gerenciamento do sistema*
 
-## Features
+## Características
 
-### 📷 Camera Support
+### 📷 Suporte de Câmera
 - RTSP (H.264/H.265/MJPEG) streaming
-- HTTP JPEG snapshot streaming
-- ONVIF discovery & management with PTZ control
-- Xiaomi CS2 P2P protocol support
-- SRT/RTMP push-in cameras (cross-network ingest — receive streams from remote publishers)
-- Native Go push-out relay (forward any camera to remote RTMP/RTSP targets — no FFmpeg)
+- HTTP JPEG streaming de snapshots
+- ONVIF descoberta e gerenciamento com controle PTZ
+- Xiaomi Suporte ao protocolo CS2 P2P
+- SRT/RTMP câmeras push-in (ingestre entre redes — receber fluxos de publicadoras remotas)
+- Relé nativo Go push-out (encaminhe qualquer câmera para alvos remotos RTMP/RTSP — sem FFmpeg)
 
-### 📺 Streaming & Live View
-- HLS on-demand streaming with LL-HLS support
-- WebRTC WHEP for sub-second latency viewing
-- HTTP-FLV for browser-friendly streaming
-- RTMP ingest server for push/pull workflows
-- SRT low-latency transport receiver
-- WebSocket real-time binary frame streaming
+### 📺 Transmissão e Visualização ao Vivo
+- HLS streaming sob demanda com suporte LL-HLS
+- WebRTC WHEP para visualização com latência abaixo de um segundo
+- HTTP-FLV para streaming amigável ao navegador
+- RTMP servidor de ingest para fluxos de trabalho push/pull
+- SRT receptor de transporte de baixa latência
+- WebSocket streaming binário de quadros em tempo real
 
-### 💾 Recording & Storage
-- Automatic MP4 segment generation
-- Multi-camera concurrent recording
-- Per-camera retention policies
-- Audio capture (AAC + G.711)
-- Segment merging with configurable policies
-- Periodic timelapse recording
+### 💾 Gravação e Armazenamento
+- Geração automática de segmentos MP4
+- Gravação simultânea com múltiplas câmeras
+- Políticas de retenção por câmera
+- Captura de áudio (AAC + G.711)
+- Fusão de segmentos com políticas configuráveis
+- Gravação periódica em timelapse
 
-### 🔧 Management
-- Modern Svelte 5 web UI with dark/light themes
-- REST API for automation
-- BasicAuth with bcrypt password hashing
-- Prometheus metrics integration
-- Atomic configuration with validation
+### 🔧 Gestão
+- Interface web Modern Svelte 5 com temas escuros/claros
+- REST API para automação
+- BasicAuth com hash de senha bcrypt
+- Prometheus integração de métricas
+- Configuração atômica com validação
 
-### 🤖 Smart Features
-- Browser-side AI detection (ONNX Runtime Web, WebGPU-accelerated) — no backend inference
-- Multi-layer camera health monitoring
-- Auto-remediation for connection issues
-- SSE-based real-time event system
-- Quality scoring and alerting
+### 🤖 Recursos Inteligentes
+- Detecção de IA no navegador (ONNX Runtime Web, acelerada WebGPU) — sem inferência de backend
+- Monitoramento de saúde de câmeras em múltiplas camadas
+- Correção automática para problemas de conexão
+- Sistema de eventos em tempo real baseado em SSE
+- Pontuação de qualidade e alerta
 
-### 🔌 Integrations
-- MQTT trigger-based recording
-- WebDAV server for file access
-- FTP server for remote uploads
-- FFmpeg hardware transcoding
-- Event-driven architecture
+### 🔌 Integrações
+- MQTT gravação baseada em gatilhos
+- WebDAV servidor para acesso a arquivos
+- Servidor FTP para uploads remotos
+- FFmpeg transcodificação de hardware
+- Arquitetura orientada a eventos
 
-## Supported Protocols
+## Protocolos Suportados
 
-| Protocol | Direction | Status | Notes |
+| Protocolo | Direção | Status | Notas |
 |----------|----------|---------|-------|
-| RTSP | Camera → NVR | ✅ Done | H.264/H.265/MJPEG support |
-| HTTP JPEG | Camera → NVR | ✅ Done | Snapshot streaming |
-| HLS | NVR → Browser | ✅ Done | On-demand streaming |
-| WebRTC | NVR → Browser | ✅ Done | WHEP sub-second latency |
-| HTTP-FLV | NVR → Browser | ✅ Done | Browser-friendly streaming |
-| RTMP (ingest) | Camera → NVR | ✅ Done | Push-in: receive streams from remote publishers |
-| SRT (ingest) | Camera → NVR | ✅ Done | Push-in: low-latency transport |
-| RTMP (relay) | NVR → External | ✅ Done | Push-out: native Go relay to remote targets |
-| RTSP (relay) | NVR → External | ✅ Done | Push-out: native Go relay to remote targets |
-| ONVIF | Camera ↔ NVR | ✅ Done | Discovery, PTZ, stream URI |
-| Xiaomi CS2 | Camera → NVR | ✅ Done | P2P protocol, cloud auth |
+| RTSP | Câmera → NVR | ✅ Feito | H.264/H.265/MJPEG suporte |
+| HTTP JPEG | Câmera → NVR | ✅ Feito | Transmissão de snapshots |
+| HLS | NVR → Navegador | ✅ Feito | Streaming sob demanda |
+| WebRTC | NVR → Navegador | ✅ Feito | WHEP latência sub-segundo |
+| HTTP-FLV | NVR → Navegador | ✅ Feito | Streaming amigável para navegador |
+| RTMP (entrada) | Câmera → NVR | ✅ Feito | Push-in: receber streams de publicadores remotos |
+| SRT (entrada) | Câmera → NVR | ✅ Feito | Push-in: transporte de baixa latência |
+| RTMP (retransmissão) | NVR → Externo | ✅ Feito | Saída: retransmissão nativa em Go para destinos remotos |
+| RTSP (retransmissão) | NVR → Externo | ✅ Feito | Saída: retransmissão nativa em Go para destinos remotos |
+| ONVIF | Câmera ↔ NVR | ✅ Feito | Discovery, PTZ, stream URI |
+| Xiaomi CS2 | Câmera → NVR | ✅ Feito | Protocolo P2P, autenticação na nuvem |
 
-## Use Cases
+## Casos de Uso
 
-### 🏠 Home Security
-Monitor your property with multiple cameras. Motion-triggered recording, smartphone alerts, and easy remote viewing from anywhere.
+### 🏠 Segurança residencial
+Monitore sua propriedade com várias câmeras. Gravação acionada por movimento, alertas no smartphone e visualização remota fácil de qualquer lugar.
 
-### 🏪 Small Business
-Affordable security system for shops, offices, and warehouses. Multi-camera support with individual retention policies.
+### 🏪 Pequenas Empresas
+Sistema de segurança acessível para lojas, escritórios e armazéns. Suporte multi-câmera com políticas individuais de retenção.
 
-### 🔧 DIY/Tinkering
-Perfect for homelab enthusiasts. Self-hosted, no subscriptions, works with any RTSP camera and integrates with smart home systems.
+### 🔧 DIY/Ajustes
+Perfeito para entusiastas de homelab. Auto-hospedado, sem assinaturas, funciona com qualquer câmera RTSP e integra com sistemas domésticos inteligentes.
 
-## Documentation
+## Documentação
 
-| Document | Description |
+| Documento | Descrição |
 |----------|-------------|
-| [Getting Started](docs/en/getting-started.md) | Installation, first camera setup |
-| [Configuration](docs/en/configuration.md) | Full config reference |
-| [API Reference](docs/en/api/README.md) | REST API documentation |
-| [MediaMTX Guide](docs/en/mediamtx-guide.md) | MediaMTX integration for CSI cameras |
-| [Deployment](docs/en/deployment.md) | systemd, reverse proxy, cross-compile |
-| [Xiaomi Setup](docs/en/xiaomi-setup.md) | Xiaomi cloud camera integration |
-| [ONVIF Guide](docs/en/onvif-guide.md) | ONVIF camera setup, PTZ control, troubleshooting |
-| [Camera Guide](docs/en/camera-guide.md) | Camera setup, protocols, troubleshooting |
-| [FTP Integration](docs/en/ftp-integration.md) | FTP file access setup |
-| [MQTT Integration](docs/en/mqtt-integration.md) | MQTT smart home integration |
-| [WebDAV Integration](docs/en/webdav-integration.md) | WebDAV file access setup |
-| [Troubleshooting](docs/en/troubleshooting.md) | Common issues and solutions |
-| [Transcoding](docs/en/transcoding.md) | FFmpeg transcoding setup |
-| [Prometheus Metrics](docs/en/metrics.md) | Complete Prometheus metric reference with types, labels, and examples |
-| [Relay Guide](docs/en/relay-guide.md) | RTMP live platform relay configuration and troubleshooting |
+| [Começando](docs/pt-BR/getting-started.md) | Instalação, primeira configuração de câmera |
+| [Configuração](docs/pt-BR/configuration.md) | Referência completa de configuração |
+| [Referência API](docs/pt-BR/api/README.md) | REST API documentação |
+| [MediaMTX Guia](docs/pt-BR/mediamtx-guide.md) | MediaMTX integração para câmeras CSI |
+| [Implantação](docs/pt-BR/deployment.md) | systemd, proxy reverso, compilação cruzada |
+| [Xiaomi Preparação](docs/pt-BR/xiaomi-setup.md) | Xiaomi integração com câmera em nuvem |
+| [ONVIF Guia](docs/pt-BR/onvif-guide.md) | ONVIF configuração da câmera, controle de PTZ, solução de problemas |
+| [Guia de Câmera](docs/pt-BR/camera-guide.md) | Configuração da câmera, protocolos, solução de problemas |
+| [Integração FTP](docs/pt-BR/ftp-integration.md) | Configuração de acesso a arquivos FTP |
+| [MQTT Integração](docs/pt-BR/mqtt-integration.md) | MQTT integração de casa inteligente |
+| [WebDAV Integração](docs/pt-BR/webdav-integration.md) | WebDAV configuração de acesso a arquivos |
+| [Solução de problemas](docs/pt-BR/troubleshooting.md) | Questões e soluções comuns |
+| [Transcodificação](docs/pt-BR/transcoding.md) | FFmpeg configuração de transcodificação |
+| [Prometheus Métricas](docs/pt-BR/metrics.md) | Referência completa Prometheus métrica com tipos, rótulos e exemplos |
+| [Guia de retransmissão](docs/pt-BR/relay-guide.md) | Configuração e solução de problemas da retransmissão RTMP |
 | [转发指南](docs/zh/relay-guide.md) | RTMP 直播平台转发配置和故障排除 |
 
-## Build & Deploy
+## Construir e Implantar
 
 ```bash
-# Build for current architecture
+# Compilar para a arquitetura atual
 make build
 
-# Cross-compile for ARM64 (Raspberry Pi)
+# Compilar para ARM64 (Raspberry Pi)
 make cross
 
-# Run tests
+# Executar os testes
 make test
 
-# Build Docker images
-make docker-build       # Multi-stage build
-make docker-build-arm64 # Cross-compile + scratch
-make docker-build-all   # All architectures
+# Criar imagens Docker
+make docker-build       # compilação em múltiplos estágios
+make docker-build-arm64 # compilação cruzada + scratch
+make docker-build-all   # todas as arquiteturas
 ```
 
-Docker deployment:
+Docker implantação:
 ```bash
 docker compose up -d
 ```
 
-Images published to `ghcr.io/mi-bee-studio/mibeenvr` with tags: `latest`, `v1.2.3`, `sha-abc1234`
+Imagens publicadas para `ghcr.io/seu-usuario/aglusnvr` com tags: `latest`, `v1.2.3`, `sha-abc1234`
 
-## Project Structure
+## Estrutura do Projeto
 
 ```
-cmd/mibee-nvr/       # CLI entry point + app lifecycle
-internal/            # Core packages (29 Go modules)
-web/                # Svelte 5 SPA frontend
-deploy/             # systemd services, Caddyfile
-docs/               # Bilingual documentation (EN/ZH)
-tests/              # Integration tests
-e2e-tests/         # Playwright E2E tests
+cmd/aglus-nvr/       # entrada da CLI e ciclo de vida do aplicativo
+internal/            # pacotes centrais em Go
+web/                 # interface SPA em Svelte 5
+deploy/              # serviços systemd e Caddyfile
+docs/                # documentação em PT-BR, inglês e chinês
+tests/               # testes de integração
+e2e-tests/           # testes E2E com Playwright
 ```
 
-For full project details, see [AGENTS.md](AGENTS.md).
 
-## Contributing
 
-1. Run `make lint` before submitting
-2. Add tests for new features
-3. Write clear commit messages
+## Contribuição
 
-## License
+1. Faça `make lint` antes de enviar
+2. Adicionar testes para novos recursos
+3. Escreva mensagens de commit claras
 
-[MIT License](LICENSE) © Mi&Bee Studio
+## Origem do projeto
+
+AglusNVR é uma adaptação em português do Brasil baseada no projeto de código aberto
+[MiBeeNvr](https://github.com/Mi-Bee-Studio/MiBeeNvr), de Mi&Bee Studio.
+Esta versão preserva a licença MIT e os créditos do projeto original.
+
+## Licença
+
+[Licença MIT](LICENSE) — copyright original © 2026 Mi&Bee Studio

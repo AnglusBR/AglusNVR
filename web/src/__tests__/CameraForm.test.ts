@@ -126,7 +126,7 @@ describe('CameraForm - push target platform selector', () => {
     expect(opts.some((o) => o.textContent?.includes('bilibili'))).toBe(true);
   });
 
-  it('shows Loading... while presets are being fetched', async () => {
+  it('shows Carregando... while presets are being fetched', async () => {
     mockApiRequest.mockImplementation((path: string) => {
       if (path === '/relay-presets') {
         return new Promise(() => {});
@@ -150,12 +150,12 @@ describe('CameraForm - push target platform selector', () => {
     const selects = container.querySelectorAll('select');
     const platformSelect = Array.from(selects).find((s) => {
       const opts = Array.from(s.options);
-      return opts.some((o) => o.textContent === 'Loading...');
+      return opts.some((o) => o.textContent === 'Carregando...');
     });
     expect(platformSelect).toBeTruthy();
   });
 
-  it('falls back to Generic option on fetch error', async () => {
+  it('falls back to Genérico option on fetch error', async () => {
     mockApiRequest.mockImplementation((path: string) => {
       if (path === '/relay-presets') {
         return Promise.reject(new Error('Network error'));
@@ -178,7 +178,7 @@ describe('CameraForm - push target platform selector', () => {
       const selects = container.querySelectorAll('select');
       const platformSelect = Array.from(selects).find((s) => {
         const opts = Array.from(s.options);
-        return opts.some((o) => o.textContent === 'Generic');
+        return opts.some((o) => o.textContent === 'Genérico');
       });
       expect(platformSelect).toBeTruthy();
     });
@@ -211,7 +211,7 @@ describe('CameraForm - transcode policy', () => {
     await fireEvent.click(addTargetBtn);
 
     const spans = container.querySelectorAll('span');
-    const hintSpan = Array.from(spans).find((s) => s.textContent?.includes('H.264 source'));
+    const hintSpan = Array.from(spans).find((s) => s.textContent?.includes('fonte H.264'));
     expect(hintSpan).toBeTruthy();
   });
 
@@ -251,12 +251,12 @@ describe('CameraForm - transcode policy', () => {
     const addTargetBtn = buttons.find((b) => b.textContent?.includes('pushOutAdd'));
     if (addTargetBtn) await fireEvent.click(addTargetBtn);
 
-    // Now look for the transcode policy select with Auto-detect hardware
+    // Now look for the transcode policy select with the translated automatic option
     await vi.waitFor(() => {
       const selects = container.querySelectorAll('select');
       const transcodeSelect = Array.from(selects).find((s) => {
         const opts = Array.from(s.options);
-        return opts.some((o) => o.value === 'auto' && o.textContent?.includes('Auto-detect hardware'));
+        return opts.some((o) => o.value === 'auto' && o.textContent?.includes('Detectar hardware automaticamente'));
       });
       expect(transcodeSelect).toBeTruthy();
     });
@@ -291,7 +291,7 @@ describe('CameraForm - preset override panel', () => {
     const details = Array.from(container.querySelectorAll('details'));
     const overrideDetails = details.find((d) => {
       const summary = d.querySelector('summary');
-      return summary?.textContent?.includes('Preset Overrides');
+      return summary?.textContent?.includes('Substituições da predefinição');
     });
     expect(overrideDetails).toBeTruthy();
     expect(overrideDetails?.hasAttribute('open')).toBe(false);
@@ -319,7 +319,7 @@ describe('CameraForm - preset override panel', () => {
     const details = Array.from(container.querySelectorAll('details'));
     const overrideDetails = details.find((d) => {
       const summary = d.querySelector('summary');
-      return summary?.textContent?.includes('Preset Overrides');
+      return summary?.textContent?.includes('Substituições da predefinição');
     });
     if (!overrideDetails) throw new Error('Override panel not found');
     const summary = overrideDetails.querySelector('summary');
@@ -327,15 +327,15 @@ describe('CameraForm - preset override panel', () => {
 
     const labels = container.querySelectorAll('label');
     const labelTexts = Array.from(labels).map((l) => l.textContent);
-    expect(labelTexts.some((t) => t?.includes('Resolution'))).toBeTruthy();
-    expect(labelTexts.some((t) => t?.includes('Framerate'))).toBeTruthy();
-    expect(labelTexts.some((t) => t?.includes('Bitrate'))).toBeTruthy();
+    expect(labelTexts.some((t) => t?.includes('Resolução'))).toBeTruthy();
+    expect(labelTexts.some((t) => t?.includes('Taxa de quadros'))).toBeTruthy();
+    expect(labelTexts.some((t) => t?.includes('Taxa de bits'))).toBeTruthy();
     expect(labelTexts.some((t) => t?.includes('GOP'))).toBeTruthy();
-    expect(labelTexts.some((t) => t?.includes('Profile'))).toBeTruthy();
+    expect(labelTexts.some((t) => t?.includes('Perfil'))).toBeTruthy();
     expect(labelTexts.some((t) => t?.includes('B-frames'))).toBeTruthy();
   });
 
-  it('shows "Reset to preset defaults" button', async () => {
+  it('shows translated reset-to-defaults button', async () => {
     mockApiRequest.mockImplementation((path: string) => {
       if (path === '/relay-presets') {
         return Promise.resolve(mockPresets);
@@ -355,11 +355,11 @@ describe('CameraForm - preset override panel', () => {
     await fireEvent.click(addTargetBtn);
 
     const allBtns = container.querySelectorAll('button');
-    const resetBtn = Array.from(allBtns).find((b) => b.textContent?.includes('Reset to preset defaults'));
+    const resetBtn = Array.from(allBtns).find((b) => b.textContent?.includes('Restaurar padrões da predefinição'));
     expect(resetBtn).toBeTruthy();
   });
 
-  it('shows "custom" badge when override is set', async () => {
+  it('shows translated custom badge when override is set', async () => {
     mockApiRequest.mockImplementation((path: string) => {
       if (path === '/relay-presets') {
         return Promise.resolve(mockPresets);
@@ -394,10 +394,10 @@ describe('CameraForm - preset override panel', () => {
     const details = Array.from(container.querySelectorAll('details'));
     const overrideDetails = details.find((d) => {
       const summary = d.querySelector('summary');
-      return summary?.textContent?.includes('Preset Overrides');
+      return summary?.textContent?.includes('Substituições da predefinição');
     });
     expect(overrideDetails).toBeTruthy();
     const summary = overrideDetails?.querySelector('summary');
-    expect(summary?.textContent?.includes('custom')).toBeTruthy();
+    expect(summary?.textContent?.includes('personalizada')).toBeTruthy();
   });
 });

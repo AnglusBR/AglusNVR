@@ -1,4 +1,4 @@
-module github.com/Mi-Bee-Studio/MiBeeNvr
+module github.com/seu-usuario/AglusNVR
 
 go 1.26.2
 

@@ -11,10 +11,10 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/backoff"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/livetranscode"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/model"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/transcoding"
+	"github.com/seu-usuario/AglusNVR/internal/backoff"
+	"github.com/seu-usuario/AglusNVR/internal/livetranscode"
+	"github.com/seu-usuario/AglusNVR/internal/model"
+	"github.com/seu-usuario/AglusNVR/internal/transcoding"
 
 	"github.com/bluenviron/gortmplib"
 	"github.com/bluenviron/gortmplib/pkg/codecs"
@@ -1179,7 +1179,6 @@ func (t *PushTarget) connectRTSPWithTranscode(ctx context.Context) error {
 			audioMedia = desc.Medias[audioMediaIdx]
 		}
 	}
-
 
 	// 11. Audio subscription (if configured).
 	if audioMedia != nil && audioRtpEnc != nil {

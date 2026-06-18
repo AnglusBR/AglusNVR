@@ -67,7 +67,7 @@ curl -u username:password \
     "listen": ":9090"
   },
   "storage": {
-    "root_dir": "/var/lib/mibee-nvr",
+    "root_dir": "/var/lib/aglus-nvr",
     "segment_duration": "30s"
   },
   "cleanup": {

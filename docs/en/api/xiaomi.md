@@ -185,6 +185,6 @@ curl -u username:password \
 {
   "vendor": "tutk",
   "compatible": false,
-  "message": "This device uses TUTK protocol which is not supported by MiBee NVR. Only CS2 protocol cameras are supported."
+  "message": "This device uses TUTK protocol which is not supported by AglusNVR. Only CS2 protocol cameras are supported."
 }
 ```

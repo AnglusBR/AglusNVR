@@ -7,7 +7,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/model"
+	"github.com/seu-usuario/AglusNVR/internal/model"
 )
 
 // HealthEventsFilter defines query parameters for listing health events.

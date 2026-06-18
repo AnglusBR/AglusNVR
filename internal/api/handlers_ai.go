@@ -7,11 +7,11 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/event"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/metrics"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/middleware"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/storage"
 	"github.com/go-chi/chi/v5"
+	"github.com/seu-usuario/AglusNVR/internal/event"
+	"github.com/seu-usuario/AglusNVR/internal/metrics"
+	"github.com/seu-usuario/AglusNVR/internal/middleware"
+	"github.com/seu-usuario/AglusNVR/internal/storage"
 )
 
 // apiMetrics holds the optional metrics instance for AI event tracking.
@@ -22,7 +22,7 @@ func SetAPIMetrics(m *metrics.Metrics) {
 	apiMetrics = m
 }
 
-// handleCreateAIEvent accepts AI detection events from MiBeeVision (POST /api/ai/events).
+// handleCreateAIEvent accepts AI detection events from AglusVision (POST /api/ai/events).
 // Requires API Key authentication (Authorization: Bearer mbv_*).
 func (h *Handler) handleCreateAIEvent(w http.ResponseWriter, r *http.Request) {
 	if h.db == nil {
@@ -238,7 +238,7 @@ func getDefaultStatsSince(period string) (t time.Time) {
 }
 
 // handleUpdateRecordingAIStatus updates the AI processing status of a recording
-// (PATCH /api/recordings/{id}/ai-status). Used by MiBeeVision to report
+// (PATCH /api/recordings/{id}/ai-status). Used by AglusVision to report
 // processing progress and prevent duplicate processing.
 func (h *Handler) handleUpdateRecordingAIStatus(w http.ResponseWriter, r *http.Request) {
 	if h.db == nil {

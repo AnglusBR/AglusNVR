@@ -10,9 +10,9 @@ import (
 
 	"github.com/datarhei/gosrt"
 
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/config"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/model"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/model/nalutil"
+	"github.com/seu-usuario/AglusNVR/internal/config"
+	"github.com/seu-usuario/AglusNVR/internal/model"
+	"github.com/seu-usuario/AglusNVR/internal/model/nalutil"
 )
 
 var logger = slog.Default().With("component", "srt-receiver")
@@ -120,12 +120,10 @@ func (r *Receiver) Running() bool {
 	return r.running.Load()
 }
 
-
 // getDropCount returns total frames dropped by the hub.
 func (r *Receiver) getDropCount() int64 {
 	return r.dropCount.Load()
 }
-
 
 // readLoop reads MPEG-TS data from the SRT connection, demuxes it,
 // extracts H.264 NALUs, and broadcasts access units to the StreamHub.

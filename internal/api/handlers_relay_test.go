@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"testing"
 
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/relay"
+	"github.com/seu-usuario/AglusNVR/internal/relay"
 	"github.com/stretchr/testify/require"
 )
 

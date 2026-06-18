@@ -1,6 +1,6 @@
 # Configuration Reference
 
-MiBee NVR uses a YAML configuration file to control all aspects of its operation. Below is a comprehensive reference of all available options, their defaults, and usage examples.
+AglusNVR uses a YAML configuration file to control all aspects of its operation. Below is a comprehensive reference of all available options, their defaults, and usage examples.
 
 ## Configuration File Structure
 
@@ -8,7 +8,7 @@ MiBee NVR uses a YAML configuration file to control all aspects of its operation
 server:
   listen: ":9090"
 storage:
-  root_dir: "/var/lib/mibee-nvr"
+  root_dir: "/var/lib/aglus-nvr"
   segment_duration: "30s"
 auth:
   username: "admin"
@@ -69,8 +69,8 @@ ftp:
 mqtt:
   enabled: false
   broker: "tcp://localhost:1883"
-  topic: "mibeenr/trigger"
-  client_id: "mibee-nvr"
+  topic: "aglusnvr/trigger"
+  client_id: "aglus-nvr"
   username: ""
   password: ""
 webdav:
@@ -170,11 +170,11 @@ version: "1.0"
 
 ### `storage.root_dir`
 - **Type**: string
-- **Default**: `/var/lib/mibee-nvr` (binary) or `/data` (Docker)
+- **Default**: `/var/lib/aglus-nvr` (binary) or `/data` (Docker)
 - **Description**: Root directory for storing recordings, database, and temporary files. All camera recordings are stored under `{root_dir}/{camera_id}/`.
 - **Docker**: When running in Docker, this is set via the `NVR_DATA_DIR` environment variable. The volume mount and `NVR_DATA_DIR` must match.
-- **Binary**: Can be set via `--data-dir` flag with `mibee-nvr init`, or directly in the YAML config.
-- **Example**: `/var/lib/mibee-nvr`, `/mnt/external/nvr`, `/data`
+- **Binary**: Can be set via `--data-dir` flag with `aglus-nvr init`, or directly in the YAML config.
+- **Example**: `/var/lib/aglus-nvr`, `/mnt/external/nvr`, `/data`
 
 ### `storage.segment_duration`
 - **Type**: string
@@ -199,7 +199,7 @@ version: "1.0"
 ### `auth.password_hash`
 - **Type**: string
 - **Required**: Yes (for web UI and FTP)
-- **Description**: bcrypt hashed password. Use `mibee-nvr hash-password <password>` to generate.
+- **Description**: bcrypt hashed password. Use `aglus-nvr hash-password <password>` to generate.
 - **Priority**: `password_hash` takes precedence if both `password` and `password_hash` are set
 - **Note**: If only `auth.password` (plaintext) is provided, the server auto-generates the hash on startup and persists it back to the config file
 - **Example**: `$2a$10$N9qo8uLOickgx2ZMRZoMy...`
@@ -563,13 +563,13 @@ cameras:
 - **Type**: string
 - **Required**: Yes (if enabled)
 - **Description**: MQTT topic to subscribe to for recording triggers
-- **Example**: `"mibeenr/trigger"`, `"cameras/front-door/record"`
+- **Example**: `"aglusnvr/trigger"`, `"cameras/front-door/record"`
 
 ### `mqtt.client_id`
 - **Type**: string
-- **Default**: `"mibee-nvr"`
+- **Default**: `"aglus-nvr"`
 - **Description**: MQTT client identifier
-- **Example**: `"mibee-nvr"`, `"nvr-client-01"`
+- **Example**: `"aglus-nvr"`, `"nvr-client-01"`
 
 ### `mqtt.username`
 - **Type**: string
@@ -1130,8 +1130,8 @@ The configuration is validated on startup with these constraints:
 
 ## File Paths and Locations
 
-- **Default config path**: `./mibee-nvr.yaml`
-- **Default storage**: `/var/lib/mibee-nvr`
+- **Default config path**: `./aglus-nvr.yaml`
+- **Default storage**: `/var/lib/aglus-nvr`
 - **Recordings**: `{root_dir}/recordings/{encoding}/{camera_id}/`
 - **Segments**: `{root_dir}/recordings/{encoding}/{camera_id}/`
 - **Snapshots**: `{root_dir}/snapshots/{camera_id}/`
@@ -1144,7 +1144,7 @@ The configuration is validated on startup with these constraints:
 server:
   listen: ":9090"
 storage:
-  root_dir: "/var/lib/mibee-nvr"
+  root_dir: "/var/lib/aglus-nvr"
   segment_duration: "30s"
 auth:
   username: "admin"
@@ -1208,7 +1208,7 @@ ftp:
 mqtt:
   enabled: true
   broker: "tcp://192.168.1.100:1883"
-  topic: "mibeenr/trigger"
+  topic: "aglusnvr/trigger"
 webdav:
   enabled: true
   read_write: false

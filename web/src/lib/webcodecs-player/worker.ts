@@ -71,7 +71,7 @@ async function handleCodecInfo(data: {
   // Create new decoder
   decoder = new Decoder();
   if (!decoder) {
-    self.postMessage({ type: 'error', error: 'Failed to create decoder' });
+    self.postMessage({ type: 'error', error: 'Falha ao criar o decodificador' });
     return;
   }
 
@@ -95,7 +95,7 @@ async function handleCodecInfo(data: {
     } catch {
       // postMessage failed — frame still owned by worker, must close to prevent leak
       try { frame.close(); } catch { /* already closed */ }
-      throw new Error('Failed to send frame to main thread');
+      throw new Error('Falha ao enviar o quadro para a thread principal');
     }
   });
 

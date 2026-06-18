@@ -1,4 +1,4 @@
-# MiBee NVR — REST API Package
+# AglusNVR — REST API Package
 
 ## OVERVIEW
 

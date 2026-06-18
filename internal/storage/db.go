@@ -10,7 +10,7 @@ import (
 
 	_ "modernc.org/sqlite"
 
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/model"
+	"github.com/seu-usuario/AglusNVR/internal/model"
 )
 
 var logger = slog.Default().With("component", "storage")
@@ -103,11 +103,17 @@ func (d *DB) Init(ctx context.Context) error {
 	idx1 := `CREATE INDEX IF NOT EXISTS idx_recordings_camera ON recordings(camera_id);`
 	idx2 := `CREATE INDEX IF NOT EXISTS idx_recordings_time ON recordings(started_at);`
 	// idx3 created after migration (merged column may not exist in older DBs)
-	if _, err := d.db.ExecContext(ctx, idx1); err != nil { return err }
-	if _, err := d.db.ExecContext(ctx, idx2); err != nil { return err }
+	if _, err := d.db.ExecContext(ctx, idx1); err != nil {
+		return err
+	}
+	if _, err := d.db.ExecContext(ctx, idx2); err != nil {
+		return err
+	}
 	// schema metadata
 	metaSQL := `CREATE TABLE IF NOT EXISTS schema_meta (key TEXT PRIMARY KEY, value TEXT NOT NULL);`
-	if _, err := d.db.ExecContext(ctx, metaSQL); err != nil { return err }
+	if _, err := d.db.ExecContext(ctx, metaSQL); err != nil {
+		return err
+	}
 	_, _ = d.db.ExecContext(ctx, "INSERT OR IGNORE INTO schema_meta (key, value) VALUES ('schema_version', '2');")
 	// Migration v1 → v2: add camera metadata columns
 	var version string
@@ -145,7 +151,7 @@ func (d *DB) Init(ctx context.Context) error {
 			_, _ = d.db.ExecContext(ctx, "ALTER TABLE recordings ADD COLUMN merged INTEGER DEFAULT 0")
 			_, _ = d.db.ExecContext(ctx, "CREATE INDEX IF NOT EXISTS idx_recordings_merged ON recordings(merged)")
 		}
-	_, _ = d.db.ExecContext(ctx, "UPDATE schema_meta SET value='4' WHERE key='schema_version'")
+		_, _ = d.db.ExecContext(ctx, "UPDATE schema_meta SET value='4' WHERE key='schema_version'")
 	}
 	// Migration v4 → v5: add per-camera merge config columns
 	var mergeColExists int
@@ -198,7 +204,9 @@ func (d *DB) Init(ctx context.Context) error {
 		value BOOLEAN NOT NULL DEFAULT FALSE,
 		updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
 	);`
-	if _, err := d.db.ExecContext(ctx, featSQL); err != nil { return err }
+	if _, err := d.db.ExecContext(ctx, featSQL); err != nil {
+		return err
+	}
 	// Insert default protocol toggles if they don't exist
 	_, _ = d.db.ExecContext(ctx, `INSERT OR IGNORE INTO feature_flags (key, value) VALUES
 		('protocol.xiaomi', 1),
@@ -219,7 +227,9 @@ func (d *DB) Init(ctx context.Context) error {
 		metadata TEXT DEFAULT '{}',
 		created_at TEXT DEFAULT (strftime('%Y-%m-%d %H:%M:%f', 'now'))
 	);`
-	if _, err := d.db.ExecContext(ctx, healthSQL); err != nil { return err }
+	if _, err := d.db.ExecContext(ctx, healthSQL); err != nil {
+		return err
+	}
 	_, _ = d.db.ExecContext(ctx, "CREATE INDEX IF NOT EXISTS idx_health_events_camera_id ON camera_health_events(camera_id)")
 	_, _ = d.db.ExecContext(ctx, "CREATE INDEX IF NOT EXISTS idx_health_events_created_at ON camera_health_events(created_at)")
 	_, _ = d.db.ExecContext(ctx, "UPDATE schema_meta SET value='10' WHERE key='schema_version'")
@@ -241,7 +251,9 @@ func (d *DB) Init(ctx context.Context) error {
 		completed_at DATETIME,
 		original_deleted BOOLEAN NOT NULL DEFAULT 0
 	);`
-	if _, err := d.db.ExecContext(ctx, transcodeSQL); err != nil { return err }
+	if _, err := d.db.ExecContext(ctx, transcodeSQL); err != nil {
+		return err
+	}
 	_, _ = d.db.ExecContext(ctx, "CREATE INDEX IF NOT EXISTS idx_transcoding_status ON transcoding_tasks(status)")
 	_, _ = d.db.ExecContext(ctx, "CREATE INDEX IF NOT EXISTS idx_transcoding_created ON transcoding_tasks(created_at)")
 	_, _ = d.db.ExecContext(ctx, "UPDATE schema_meta SET value='11' WHERE key='schema_version'")
@@ -285,7 +297,7 @@ func (d *DB) Init(ctx context.Context) error {
 		_, _ = d.db.ExecContext(ctx, `ALTER TABLE recordings ADD COLUMN merge_path TEXT DEFAULT ''`)
 		_, _ = d.db.ExecContext(ctx, `ALTER TABLE recordings ADD COLUMN merge_error TEXT DEFAULT ''`)
 	}
-	_, _ = d.db.ExecContext(ctx, "UPDATE schema_meta SET value='15' WHERE key='schema_version'")	// Ensure merge_status index exists (for fresh DBs that may have skipped v13 migration)
+	_, _ = d.db.ExecContext(ctx, "UPDATE schema_meta SET value='15' WHERE key='schema_version'") // Ensure merge_status index exists (for fresh DBs that may have skipped v13 migration)
 	_, _ = d.db.ExecContext(ctx, "CREATE INDEX IF NOT EXISTS idx_recordings_merge_status ON recordings(merge_status)")
 
 	// Migration v15 → v16: add merge_tier column to recordings
@@ -321,7 +333,7 @@ func (d *DB) Init(ctx context.Context) error {
 	}
 	_, _ = d.db.ExecContext(ctx, "UPDATE schema_meta SET value='19' WHERE key='schema_version'")
 
-	// Migration v19 → v20: ai_events table (MiBeeVision collaboration)
+	// Migration v19 → v20: ai_events table (AglusVision collaboration)
 	_, _ = d.db.ExecContext(ctx, `CREATE TABLE IF NOT EXISTS ai_events (
 		id INTEGER PRIMARY KEY AUTOINCREMENT,
 		camera_id TEXT NOT NULL,
@@ -342,7 +354,7 @@ func (d *DB) Init(ctx context.Context) error {
 	_, _ = d.db.ExecContext(ctx, "CREATE INDEX IF NOT EXISTS idx_ai_events_recording ON ai_events(recording_id)")
 	_, _ = d.db.ExecContext(ctx, "UPDATE schema_meta SET value='20' WHERE key='schema_version'")
 
-	// Migration v20 → v21: add ai_status columns to recordings (MiBeeVision processing state)
+	// Migration v20 → v21: add ai_status columns to recordings (AglusVision processing state)
 	var aiStatusColExists int
 	_ = d.db.QueryRowContext(ctx, `SELECT COUNT(*) FROM pragma_table_info('recordings') WHERE name='ai_status'`).Scan(&aiStatusColExists)
 	if aiStatusColExists == 0 {

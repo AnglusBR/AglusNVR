@@ -42,7 +42,7 @@
       options = o;
       populateLocal(s);
     } catch (e: any) {
-      error = e.message || 'Failed to load imaging settings';
+      error = e.message || 'Falha ao carregar as configurações de imagem';
     } finally {
       loading = false;
     }
@@ -87,7 +87,7 @@
       await setImagingSettings(cameraId, payload);
       settings = { ...settings, ...payload } as ImagingSettings;
     } catch (e: any) {
-      showToast(e.message || 'Failed to save imaging settings', 'error');
+      showToast(e.message || 'Falha ao salvar as configurações de imagem', 'error');
     } finally {
       saving = false;
     }

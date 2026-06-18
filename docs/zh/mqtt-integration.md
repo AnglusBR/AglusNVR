@@ -1,6 +1,6 @@
 # MQTT 集成
 
-MiBee NVR 支持 MQTT 基于的录制触发，用于智能家居自动化和事件驱动录制。当接收到 MQTT 消息时，系统可以开始录制特定摄像头的视频。
+AglusNVR 支持 MQTT 基于的录制触发，用于智能家居自动化和事件驱动录制。当接收到 MQTT 消息时，系统可以开始录制特定摄像头的视频。
 
 ## 概述
 
@@ -17,8 +17,8 @@ MiBee NVR 支持 MQTT 基于的录制触发，用于智能家居自动化和事�
 ```yaml
 mqtt:
   broker_url: "tcp://192.168.1.100:1883"
-  client_id: "mibee-nvr"
-  topic_prefix: "mibee"
+  client_id: "aglus-nvr"
+  topic_prefix: "aglus"
   username: "mqtt_user"
   password: "mqtt_password"
 ```
@@ -29,7 +29,7 @@ mqtt:
 |------|------|------|--------|------|
 | `broker_url` | 是 | string | - | MQTT 代理地址（如 `tcp://192.168.1.100:1883`） |
 | `client_id` | 是 | string | - | MQTT 连接的唯一客户端 ID |
-| `topic_prefix` | 是 | string | - | 触发主题前缀（如 `mibee`） |
+| `topic_prefix` | 是 | string | - | 触发主题前缀（如 `aglus`） |
 | `username` | 否 | string | - | MQTT 用户名（如果代理需要认证） |
 | `password` | 否 | string | - | MQTT 密码（如果代理需要认证） |
 
@@ -38,7 +38,7 @@ mqtt:
 ```yaml
 mqtt:
   broker_url: "tcp://mqtt.example.com:1883"
-  client_id: "mibee-nvr-home"
+  client_id: "aglus-nvr-home"
   topic_prefix: "home/security"
   username: "smart_home_user"
   password: "secure_password_123"
@@ -162,7 +162,7 @@ import time
 def on_connect(client, userdata, flags, rc):
     print("已连接到 MQTT 代理")
 
-client = mqtt.Client("mibee-nvr-trigger")
+client = mqtt.Client("aglus-nvr-trigger")
 client.username_pw_set("mqtt_user", "mqtt_password")
 client.connect("192.168.1.100", 1883)
 
@@ -187,10 +187,10 @@ trigger_recording("front-door", "stop")
 
 ```bash
 # 查看系统日志
-journalctl -u mibee-nvr -f | grep mqtt
+journalctl -u aglus-nvr -f | grep mqtt
 
 # Docker 日志
-docker logs -f mibee-nvr | grep mqtt
+docker logs -f aglus-nvr | grep mqtt
 ```
 
 #### 健康检查
@@ -235,7 +235,7 @@ WARN: invalid mqtt message payload format
 ```yaml
 mqtt:
   broker_url: "tcp://192.168.1.100:1883"
-  client_id: "mibee-nvr"
+  client_id: "aglus-nvr"
   topic_prefix: "security"
 ```
 
@@ -252,7 +252,7 @@ security/trigger/camera3
 ```yaml
 mqtt:
   broker_url: "ssl://mqtt.example.com:8883"
-  client_id: "mibee-nvr"
+  client_id: "aglus-nvr"
   topic_prefix: "home/security"
   username: "secure_user"
   password: "complex_password"
@@ -270,7 +270,7 @@ mqtt:
 # Zigbee2MQTT 集成
 mqtt:
   broker_url: "tcp://192.168.1.100:1883"
-  client_id: "mibee-nvr"
+  client_id: "aglus-nvr"
   topic_prefix: "zigbee2mqtt"
 
 # 从运动传感器触发摄像头
@@ -322,7 +322,7 @@ mqtt:
 
 1. 检查日志中的处理错误：
    ```bash
-   journalctl -u mibee-nvr -f | grep mqtt
+   journalctl -u aglus-nvr -f | grep mqtt
    ```
 
 2. 验证主题匹配：
@@ -335,7 +335,7 @@ mqtt:
 
 验证配置文件：
 ```bash
-./mibee-nvr -config mibee-nvr.yaml --validate
+./aglus-nvr -config aglus-nvr.yaml --validate
 ```
 
 #### 调试模式
@@ -344,7 +344,7 @@ mqtt:
 ```yaml
 mqtt:
   broker_url: "tcp://192.168.1.100:1883"
-  client_id: "mibee-nvr"
+  client_id: "aglus-nvr"
   topic_prefix: "home/security"
 
 observability:

@@ -2,7 +2,7 @@
   import { onMount, onDestroy } from 'svelte';
   import { t } from '$lib/i18n';
   import { logout, getSettings } from '$lib/api';
-  import { getMiBeeVisionConnected, refreshMiBeeVisionStatus } from '$lib/mibeevision-status';
+  import { getAglusVisionConnected, refreshAglusVisionStatus } from '$lib/aglusvision-status';
   import { getEffectiveTheme } from '$lib/preferences';
   import LanguageSwitcher from './LanguageSwitcher.svelte';
   import ThemeToggle from './ThemeToggle.svelte';
@@ -20,8 +20,8 @@
     backLabel?: string;
   } = $props();
 
-  // MiBeeVision connection status (shared reactive store)
-  let miBeeVisionConnected = $derived(getMiBeeVisionConnected());
+  // AglusVision connection status (shared reactive store)
+  let aglusVisionConnected = $derived(getAglusVisionConnected());
 
   // Mobile menu state
   let mobileMenuOpen = $state(false);
@@ -53,20 +53,20 @@
     handleHashChange();
     window.addEventListener('hashchange', handleHashChange);
 
-    // Check MiBeeVision API key status
-    void refreshMiBeeVisionStatus();
+    // Check AglusVision API key status
+    void refreshAglusVisionStatus();
   });
 
   onDestroy(() => {
     window.removeEventListener('hashchange', handleHashChange);
   });
 
-  // Navigation items — AI Events only shown when MiBeeVision is configured
+  // Navigation items — AI Events only shown when AglusVision is configured
   let navItems = $derived([
     { href: '#/surveillance', labelKey: 'nav.surveillance', route: '/surveillance' },
     { href: '#/cameras', labelKey: 'nav.cameras', route: '/cameras' },
     { href: '#/recordings', labelKey: 'nav.recordings', route: '/recordings' },
-    ...(miBeeVisionConnected ? [{ href: '#/ai-events', labelKey: 'nav.aiEvents', route: '/ai-events' }] : []),
+    ...(aglusVisionConnected ? [{ href: '#/ai-events', labelKey: 'nav.aiEvents', route: '/ai-events' }] : []),
     { href: '#/dashboard', labelKey: 'nav.dashboard', route: '/dashboard' },
     { href: '#/settings', labelKey: 'nav.settings', route: '/settings' },
   ]);
@@ -89,7 +89,7 @@
           <span>{backLabel || t('detail.back')}</span>
         </button>
       {/if}
-      <a href="#/surveillance" class="logo">MiBee NVR</a>
+      <a href="#/surveillance" class="logo">AglusNVR</a>
       
       <!-- Desktop Navigation -->
       <nav class="nav-links">

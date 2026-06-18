@@ -6,7 +6,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/model"
+	"github.com/seu-usuario/AglusNVR/internal/model"
 )
 
 // --- Mocks ---
@@ -75,7 +75,7 @@ func newTestPipeline(t *testing.T, cooldown time.Duration, mqttEnabled bool) (*A
 	t.Helper()
 	store := &mockStorage{}
 	mqtt := &mockMQTT{}
-	p := NewAlertPipeline(cooldown, mqttEnabled, store, mqtt, "mibee-nvr")
+	p := NewAlertPipeline(cooldown, mqttEnabled, store, mqtt, "aglus-nvr")
 	return p, store, mqtt
 }
 
@@ -330,7 +330,7 @@ func TestAlertGetAllStatuses(t *testing.T) {
 
 func TestAlertNilStorage(t *testing.T) {
 	t.Helper()
-	pipeline := NewAlertPipeline(5*time.Minute, true, nil, &mockMQTT{}, "mibee-nvr")
+	pipeline := NewAlertPipeline(5*time.Minute, true, nil, &mockMQTT{}, "aglus-nvr")
 
 	event := makeEvent(t, "cam-1", string(model.HealthEventConnectionLost), string(model.HealthStatusError), "Camera offline")
 	if err := pipeline.HandleEvent("cam-1", event); err != nil {
@@ -347,7 +347,7 @@ func TestAlertNilStorage(t *testing.T) {
 func TestAlertNilMQTT(t *testing.T) {
 	t.Helper()
 	store := &mockStorage{}
-	pipeline := NewAlertPipeline(5*time.Minute, true, store, nil, "mibee-nvr")
+	pipeline := NewAlertPipeline(5*time.Minute, true, store, nil, "aglus-nvr")
 
 	event := makeEvent(t, "cam-1", string(model.HealthEventConnectionLost), string(model.HealthStatusError), "Camera offline")
 	if err := pipeline.HandleEvent("cam-1", event); err != nil {

@@ -21,11 +21,11 @@ import (
 	"github.com/bluenviron/gortsplib/v5/pkg/format/rtpmpeg4audio"
 	"github.com/pion/rtp"
 
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/event"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/metrics"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/model"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/model/nalutil"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/muxer"
+	"github.com/seu-usuario/AglusNVR/internal/event"
+	"github.com/seu-usuario/AglusNVR/internal/metrics"
+	"github.com/seu-usuario/AglusNVR/internal/model"
+	"github.com/seu-usuario/AglusNVR/internal/model/nalutil"
+	"github.com/seu-usuario/AglusNVR/internal/muxer"
 )
 
 var h265Logger = slog.Default().With("component", "h265-recorder")

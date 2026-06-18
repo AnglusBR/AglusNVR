@@ -10,11 +10,11 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/config"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/model"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/recorder"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/storage"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/timelapse"
+	"github.com/seu-usuario/AglusNVR/internal/config"
+	"github.com/seu-usuario/AglusNVR/internal/model"
+	"github.com/seu-usuario/AglusNVR/internal/recorder"
+	"github.com/seu-usuario/AglusNVR/internal/storage"
+	"github.com/seu-usuario/AglusNVR/internal/timelapse"
 )
 
 // --- Timelapse createRecorder Tests ---

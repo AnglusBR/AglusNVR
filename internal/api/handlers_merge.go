@@ -5,8 +5,8 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/config"
 	"github.com/go-chi/chi/v5"
+	"github.com/seu-usuario/AglusNVR/internal/config"
 )
 
 // --- Merge settings endpoints ---

@@ -42,7 +42,7 @@ func TestDefaultsApplied(t *testing.T) {
 	cfg := &Config{}
 	cfg.ApplyDefaults()
 	require.Equal(t, ":9090", cfg.Server.Listen)
-	require.Equal(t, "/var/lib/mibee-nvr", cfg.Storage.RootDir)
+	require.Equal(t, "/var/lib/aglus-nvr", cfg.Storage.RootDir)
 	require.Equal(t, "30s", cfg.Storage.SegmentDuration)
 	require.Equal(t, 30, cfg.Cleanup.RetentionDays)
 	require.Equal(t, "1h", cfg.Cleanup.CheckInterval)
@@ -107,7 +107,7 @@ func TestWebDAVNotConfigured(t *testing.T) {
 
 func TestSave(t *testing.T) {
 	dir := t.TempDir()
-	path := filepath.Join(dir, "mibee-nvr.yaml")
+	path := filepath.Join(dir, "aglus-nvr.yaml")
 
 	ftpEnabled := true
 	webdavEnabled := false
@@ -121,7 +121,7 @@ func TestSave(t *testing.T) {
 		Cleanup: CleanupConfig{RetentionDays: 7, CheckInterval: "30m", DiskThresholdPercent: 80},
 		Auth:    AuthConfig{Username: "admin", PasswordHash: "$2a$10$xxx"},
 		FTP:     FTPConfig{Enabled: &ftpEnabled, Port: 2121, PassivePortRange: "3000-3010"},
-		MQTT:    MQTTConfig{Enabled: true, Broker: "tcp://mqtt.local:1883", Topic: "nvr/trigger", ClientID: "mibee", Username: "mqttuser", Password: "mqttpass"},
+		MQTT:    MQTTConfig{Enabled: true, Broker: "tcp://mqtt.local:1883", Topic: "nvr/trigger", ClientID: "aglus", Username: "mqttuser", Password: "mqttpass"},
 		WebDAV:  WebDAVConfig{Enabled: &webdavEnabled, PathPrefix: "/files"},
 	}
 	original.ApplyDefaults()
@@ -152,7 +152,7 @@ func TestSave(t *testing.T) {
 	require.True(t, loaded.MQTT.Enabled)
 	require.Equal(t, "tcp://mqtt.local:1883", loaded.MQTT.Broker)
 	require.Equal(t, "nvr/trigger", loaded.MQTT.Topic)
-	require.Equal(t, "mibee", loaded.MQTT.ClientID)
+	require.Equal(t, "aglus", loaded.MQTT.ClientID)
 	require.Equal(t, "mqttuser", loaded.MQTT.Username)
 	require.Equal(t, "mqttpass", loaded.MQTT.Password)
 	require.NotNil(t, loaded.WebDAV.Enabled)
@@ -162,7 +162,7 @@ func TestSave(t *testing.T) {
 
 func TestSaveAtomic(t *testing.T) {
 	dir := t.TempDir()
-	path := filepath.Join(dir, "subdir", "mibee-nvr.yaml")
+	path := filepath.Join(dir, "subdir", "aglus-nvr.yaml")
 	require.NoError(t, os.MkdirAll(filepath.Dir(path), 0o755))
 
 	cfg := &Config{Server: ServerConfig{Listen: ":9090"}}
@@ -190,7 +190,7 @@ func TestSaveAtomic(t *testing.T) {
 
 func TestSaveOverwrite(t *testing.T) {
 	dir := t.TempDir()
-	path := filepath.Join(dir, "mibee-nvr.yaml")
+	path := filepath.Join(dir, "aglus-nvr.yaml")
 
 	first := &Config{Server: ServerConfig{Listen: ":7070"}, Storage: StorageConfig{RootDir: "/old"}}
 	first.ApplyDefaults()
@@ -353,7 +353,7 @@ func TestCameraConfigXiaomiFields(t *testing.T) {
 func writeTempYAML(t *testing.T, content string) string {
 	t.Helper()
 	dir := t.TempDir()
-	path := filepath.Join(dir, "mibee-nvr.yaml")
+	path := filepath.Join(dir, "aglus-nvr.yaml")
 	err := os.WriteFile(path, []byte(content), 0o644)
 	require.NoError(t, err)
 	return path

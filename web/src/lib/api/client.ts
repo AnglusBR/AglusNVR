@@ -3,7 +3,7 @@
  */
 
 // Auth credentials storage (sessionStorage — cleared on browser close)
-const AUTH_KEY = 'mibee_nvr_auth';
+const AUTH_KEY = 'aglus_nvr_auth';
 
 export interface AuthCredentials {
   username: string;

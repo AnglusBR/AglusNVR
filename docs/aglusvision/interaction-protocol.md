@@ -1,8 +1,8 @@
-# 交互协议总纲 — MiBeeVision ↔ MiBeeNVR
+# 交互协议总纲 — AglusVision ↔ AglusNVR
 
 > **状态**：设计中（2026-06-15）
-> **读者**：MiBeeNVR 团队 (Go)、MiBeeVision 团队 (Rust)
-> **基础**：REST + SSE + 流协议，API Key 认证
+> **读者**:AglusNVR 团队 (Go)、AglusVision 团队 (Ferrugem)
+> **基础**:REST + SSE + 流协议,API Key 认证
 
 ---
 
@@ -10,47 +10,47 @@
 
 | 域 | 名称 | 方向 | 0.8.0 | 说明 |
 |----|------|------|-------|------|
-| 1 | 事件感知 | NVR → Vision | ✅ 实施 | SSE 推送 segment.completed/deleted |
-| 2 | 录像访问 | Vision → NVR | ✅ 已有 | REST 查询 + 下载录像文件 |
-| 3 | AI 事件回写 | Vision → NVR | ✅ 实施 | 检测结果写入 NVR，Web 展示 |
-| 4 | 录像操作 | Vision → NVR | ✅ 实施 | 增删改录像同步 NVR DB |
-| 5 | 转码委托 | NVR → Vision | 📄 设计 | NVR 转码任务委托给 Vision（替代本地 FFmpeg） |
-| 6 | 处理状态 | 双向 | ✅ 实施 | ai_status 管理，避免重复处理 |
-| 7 | 实时流转发 | NVR → Vision | 📄 设计 | RTSP/RTMP 流交互（实时分析/结果回推） |
-| 8 | 视频回写 | Vision → NVR | 📄 设计 | 处理结果视频/快照写回 NVR |
+| 1 | 事件感知 | NVR → Visão | ✅ 实施 | SSE 推送 segment.completed/deleted |
+| 2 | 录像访问 | Visão → NVR | ✅ 已有 | REST 查询 + 下载录像文件 |
+| 3 | AI 事件回写 | Visão → NVR | ✅ 实施 | 检测结果写入 NVR,Web 展示 |
+| 4 | 录像操作 | Visão → NVR | ✅ 实施 | 增删改录像同步 NVR DB |
+| 5 | 转码委托 | NVR → Visão | 📄 设计 | NVR 转码任务委托给 Vision(替代本地 FFmpeg) |
+| 6 | 处理状态 | 双向 | ✅ 实施 | ai_status 管理,避免重复处理 |
+| 7 | 实时流转发 | NVR → Visão | 📄 设计 | RTSP/RTMP 流交互(实时分析/结果回推) |
+| 8 | 视频回写 | Visão → NVR | 📄 设计 | 处理结果视频/快照写回 NVR |
 
 ---
 
 ## 二、认证 — API Key
 
 ### 设计
-- NVR 设置页生成 API Key（`mibee-nvr generate-api-key` 或 Web UI）
-- API Key 独立于用户密码，可撤销，不暴露用户凭证
-- MiBeeVision 配置中填入 API Key
+- NVR 设置页生成 API Key(`aglus-nvr generate-api-key` 或 Web UI)
+- API Key 独立于用户密码,可撤销,不暴露用户凭证
+- AglusVision 配置中填入 API Key
 - 所有 REST/SSE 请求携带 `Authorization: Bearer {api_key}`
 
 ### NVR 侧实现
 ```yaml
-# mibee-nvr.yaml 新增
+# aglus-nvr.yaml 新增
 api_keys:
-  - key: "mbv_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"  # 前缀 mbv_ 标识 MiBeeVision
-    name: "MiBeeVision Production"
+  - key: "mbv_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"  # 前缀 mbv_ 标识 AglusVision
+    name: "AglusVision Production"
     created_at: "2026-06-15T12:00:00Z"
     revoked: false
 ```
 
 ### 中间件
-- 新增 `middleware/apikey.go`：校验 `Authorization: Bearer mbv_*`，与 BasicAuth 并行
-- API Key 认证的请求跳过 rate limiting（机器间通信）
-- SSE 长连接用 `?api_key=mbv_*` query param（WebSocket 兼容模式）
+- 新增 `middleware/apikey.go`:校验 `Authorization: Bearer mbv_*`,与 BasicAuth 并行
+- API Key 认证的请求跳过 rate limiting(机器间通信)
+- SSE 长连接用 `?api_key=mbv_*` query param(WebSocket 兼容模式)
 
 ---
 
-## 三、功能域 1 — 事件感知（SSE）
+## 三、功能域 1 — 事件感知(SSE)
 
-> **状态**：SSE 基础设施已存在（`GET /api/events`），需标准化事件 data 字段。
+> **状态**:SSE 基础设施已存在(`GET /api/events`),需标准化事件 data 字段。
 
-### segment.completed（已有，需增强）
+### segment.completed(已有,需增强)
 
 ```json
 {
@@ -70,12 +70,12 @@ api_keys:
 }
 ```
 
-**变更**（相比现有 `SegmentCompleted` struct）：
-- `file_path` 改为**相对 storage root** 的路径（跨服务器兼容）
-- 新增 `encoding` 字段（h264/h265/mjpeg）
-- 新增 `download_url`（相对 API 路径）
+**变更**(相比现有 `SegmentCompleted` struct):
+- `file_path` 改为**相对 storage root** 的路径(跨服务器兼容)
+- 新增 `encoding` 字段(h264/h265/mjpeg)
+- 新增 `download_url`(相对 API 路径)
 
-### segment.deleted（新增）
+### segment.deleted(新增)
 
 ```json
 {
@@ -89,7 +89,7 @@ api_keys:
 }
 ```
 
-MiBeeVision 收到后取消进行中的处理任务，标记关联的 AI 事件快照为孤儿。
+AglusVision 收到后取消进行中的处理任务,标记关联的 AI 事件快照为孤儿。
 
 ---
 
@@ -161,12 +161,12 @@ GET /api/ai/stats?camera_id=&period=  -- 统计（按天/周聚合）
 
 ## 五、功能域 4 — 录像操作
 
-> MiBeeVision 可以增删改录像，同步 NVR 的 DB，让 Web UI 保持一致。
+> AglusVision 可以增删改录像,同步 NVR 的 DB,让 Web UI 保持一致。
 
 ### 接口
 
 ```
-# 新增录像（MiBeeVision 处理后产生的衍生视频）
+# 新增录像（AglusVision 处理后产生的衍生视频）
 POST /api/recordings
 {
   "camera_id": "cam01",
@@ -200,13 +200,13 @@ Content-Type: multipart/form-data or application/octet-stream
 
 ### 权限
 - API Key 认证的写操作记录 `modified_by: "mbv"` 审计字段
-- 删除操作软删除（标记 `archived=true`），保留 DB 记录
+- 删除操作软删除(标记 `archived=true`),保留 DB 记录
 
 ---
 
 ## 六、功能域 6 — 处理状态
 
-### recordings 表新增字段
+### gravações 表新增字段
 
 ```sql
 ALTER TABLE recordings ADD COLUMN ai_status TEXT DEFAULT NULL;
@@ -218,7 +218,7 @@ ALTER TABLE recordings ADD COLUMN ai_error TEXT DEFAULT NULL;
 ### 接口
 
 ```
-# MiBeeVision 标记处理状态
+# AglusVision 标记处理状态
 PATCH /api/recordings/{id}/ai-status
 { "status": "processing" }
 PATCH /api/recordings/{id}/ai-status
@@ -231,19 +231,19 @@ GET /api/recordings?ai_status=pending
 ```
 
 ### 轮转保护
-- Cleanup manager 删除录像时检查 `ai_status`：`processing` 状态的录像跳过删除
-- 或设置保护期（如 processing 超过 30 分钟自动释放）
+- Cleanup manager 删除录像时检查 `ai_status`:`processing` 状态的录像跳过删除
+- 或设置保护期(如 processing 超过 30 分钟自动释放)
 
 ---
 
 ## 七、功能域 5 — 转码委托（设计文档）
 
-> NVR 把转码任务委托给 MiBeeVision，替代本地 FFmpeg 软解。
+> NVR 把转码任务委托给 AglusVision,替代本地 FFmpeg 软解。
 
 ### 委托模式
 ```
-NVR 发现需要转码 → 检查 MiBeeVision 是否可用
-  → 可用：POST /api/vision/transcode 发送任务 → MiBeeVision 处理 → 回写结果
+NVR 发现需要转码 → 检查 AglusVision 是否可用
+  → 可用：POST /api/vision/transcode 发送任务 → AglusVision 处理 → 回写结果
   → 不可用：fallback 到本地 FFmpeg（现有逻辑）
 ```
 
@@ -254,13 +254,13 @@ NVR 发现需要转码 → 检查 MiBeeVision 是否可用
 ## 八、功能域 7-8 — 实时流 + 视频回写（设计文档）
 
 ### 实时流转发（域 7）
-- NVR 通过 RTSP 转推把实时流发给 MiBeeVision
-- MiBeeVision 做实时分析，结果通过 `POST /api/ai/events`（`recording_id=null`）回写
+- NVR 通过 RTSP 转推把实时流发给 AglusVision
+- AglusVision 做实时分析,结果通过 `POST /api/ai/events`(`recording_id=null`)回写
 
 ### 视频回写（域 8）— 三种方式
-1. **共享存储**：同服务器时 MiBeeVision 直接写 NVR storage root 子目录
-2. **API 上传**：`PUT /api/recordings/{id}/file`（跨服务器）
-3. **RTSP/RTMP 转推**：MiBeeVision 转推处理后的流到 NVR 的 RTMP ingest 端口，NVR 录制为新录像
+1. **共享存储**:同服务器时 AglusVision 直接写 NVR storage root 子目录
+2. **API 上传**:`PUT /api/recordings/{id}/file`(跨服务器)
+3. **RTSP/RTMP 转推**:AglusVision 转推处理后的流到 NVR 的 RTMP ingest 端口,NVR 录制为新录像
 
 详见 `future-design.md`。
 
@@ -268,26 +268,26 @@ NVR 发现需要转码 → 检查 MiBeeVision 是否可用
 
 ## 九、SSE 事件完整清单
 
-| event | data 关键字段 | 触发时机 |
+| evento | Data 关键字段 | 触发时机 |
 |-------|--------------|----------|
-| `segment.completed` | recording_id, camera_id, file_path(相对), encoding | 录像片段录制完成 |
-| `segment.deleted` | recording_id, file_path, reason | 录像被轮转/手动删除 |
-| `camera.status` | camera_id, status, error | 摄像头状态变化（在线/离线/错误） |
-| `ai.event.created` | event_id, camera_id, event_type | AI 事件被创建（Vision→NVR 回写后，NVR 可选广播给其他订阅者） |
+| `segment.completed` | recording_id, camera_id, file_path(相对), codificação | 录像片段录制完成 |
+| `segment.deleted` | recording_id, file_path, razão | 录像被轮转/手动删除 |
+| `camera.status` | camera_id, status, erro | 摄像头状态变化（在线/离线/错误） |
+| `ai.event.created` | event_id, camera_id, event_type | AI 事件被创建(Vision→NVR 回写后,NVR 可选广播给其他订阅者) |
 
 ### SSE 订阅
 ```
 GET /api/events?filter=segment.&api_key=mbv_xxx
 ```
-- MiBeeVision 订阅 `segment.` 前缀获取录像事件
-- 心跳：每 15s 发送 `: ping`
-- 断线重连：MiBeeVision 用 `Last-Event-ID` header 恢复
+- AglusVision 订阅 `segment.` 前缀获取录像事件
+- 心跳:每 15s 发送 `: ping`
+- 断线重连:AglusVision 用 `Last-Event-ID` header 恢复
 
 ---
 
 ## 十、错误处理约定
 
-| HTTP Status | 含义 | MiBeeVision 行为 |
+| HTTP Status | 含义 | AglusVision 行为 |
 |-------------|------|-----------------|
 | 400 | 请求格式错误 | 记录日志，不重试 |
 | 401 | API Key 无效/过期 | 告警，停止处理 |
@@ -300,7 +300,7 @@ GET /api/events?filter=segment.&api_key=mbv_xxx
 
 ## 十一、版本化
 
-- 接口路径暂不加版本前缀（`/api/ai/events` 而非 `/api/v1/ai/events`）
+- 接口路径暂不加版本前缀(`/api/ai/events` 而非 `/api/v1/ai/events`)
 - 通过 `Accept` header 或 query param `?version=1` 协商
 - 破坏性变更时新增 `/api/v2/` 前缀
 - SSE 事件 data 结构通过 `schema_version` 字段标识

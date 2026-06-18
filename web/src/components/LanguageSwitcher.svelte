@@ -12,6 +12,7 @@
   value={state.currentLang}
   onchange={handleChange}
 >
+  <option value="pt-BR">{t('lang.ptBR')}</option>
   <option value="zh">{t('lang.zh')}</option>
   <option value="en">{t('lang.en')}</option>
 </select>

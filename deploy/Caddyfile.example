@@ -1,4 +1,4 @@
-# MiBee NVR — HTTP/WebUI/API on port 9090
+# AglusNVR — HTTP/WebUI/API on port 9090
 # Add this to your existing Caddyfile
 
 :80 {

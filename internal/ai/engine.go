@@ -3,7 +3,7 @@ package ai
 import (
 	"sync"
 
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/event"
+	"github.com/seu-usuario/AglusNVR/internal/event"
 )
 
 // Config mirrors config.AIConfig fields needed by the AI manager.

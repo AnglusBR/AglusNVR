@@ -1,6 +1,6 @@
 # 身份验证
 
-MiBee NVR 对受保护的端点使用 HTTP Basic Authentication。认证凭据在应用设置中配置。
+AglusNVR 对受保护的端点使用 HTTP Basic Authentication。认证凭据在应用设置中配置。
 
 ### 如何使用 Basic Auth
 
@@ -52,7 +52,7 @@ curl -u username:password -X POST "http://localhost:9090/api/auth/login"
   "username": "admin",
   "password": "securepassword",
   "language": "en",
-  "storage_path": "/var/lib/mibee-nvr"
+  "storage_path": "/var/lib/aglus-nvr"
 }
 ```
 

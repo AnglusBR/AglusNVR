@@ -5,9 +5,9 @@ import (
 	"net/http"
 	"sync"
 
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/ai"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/config"
 	"github.com/go-chi/chi/v5"
+	"github.com/seu-usuario/AglusNVR/internal/ai"
+	"github.com/seu-usuario/AglusNVR/internal/config"
 )
 
 // AIHandler holds dependencies for AI REST API endpoints.

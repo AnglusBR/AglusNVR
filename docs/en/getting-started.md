@@ -1,8 +1,8 @@
-# Getting Started with MiBee NVR
+# Getting Started with AglusNVR
 
-## What is MiBee NVR
+## What is AglusNVR
 
-MiBee NVR is a lightweight Network Video Recorder written in Go. It records video feeds from IP cameras to MP4 segments on disk and provides a web interface for viewing recordings, managing cameras, and accessing recorded footage.
+AglusNVR is a lightweight Network Video Recorder written in Go. It records video feeds from IP cameras to MP4 segments on disk and provides a web interface for viewing recordings, managing cameras, and accessing recorded footage.
 
 **Key Features:**
 
@@ -17,23 +17,23 @@ MiBee NVR is a lightweight Network Video Recorder written in Go. It records vide
 
 ### Option 1: Pre-built Binary (Recommended)
 
-Download the latest binary for your architecture from [GitHub Releases](https://github.com/Mi-Bee-Studio/MiBeeNvr/releases):
+Download the latest binary for your architecture from [GitHub Releases](https://github.com/seu-usuario/AglusNVR/releases):
 
 ```bash
 # AMD64 (most PCs/servers)
-wget https://github.com/Mi-Bee-Studio/MiBeeNvr/releases/latest/download/mibee-nvr-amd64
-chmod +x mibee-nvr-amd64
+wget https://github.com/seu-usuario/AglusNVR/releases/latest/download/aglus-nvr-amd64
+chmod +x aglus-nvr-amd64
 
 # ARM64 (Raspberry Pi, etc.)
-wget https://github.com/Mi-Bee-Studio/MiBeeNvr/releases/latest/download/mibee-nvr-arm64
-chmod +x mibee-nvr-arm64
+wget https://github.com/seu-usuario/AglusNVR/releases/latest/download/aglus-nvr-arm64
+chmod +x aglus-nvr-arm64
 ```
 
 Initialize config and start:
 
 ```bash
-./mibee-nvr-amd64 init --password yourpassword
-./mibee-nvr-amd64 -config mibee-nvr.yaml
+./aglus-nvr-amd64 init --password yourpassword
+./aglus-nvr-amd64 -config aglus-nvr.yaml
 ```
 
 Open http://localhost:9090 in your browser.
@@ -46,7 +46,7 @@ docker compose up -d
 
 Open http://localhost:9090 in your browser.
 
-> **Note**: No config preparation needed! MiBee NVR auto-initializes when started without a config file.
+> **Note**: No config preparation needed! AglusNVR auto-initializes when started without a config file.
 
 #### Changing the Storage Location
 
@@ -69,15 +69,15 @@ To store recordings on an external drive or a different directory, edit `docker-
 ### Option 3: One-click Install Script
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/Mi-Bee-Studio/MiBeeNvr/main/install.sh | sudo bash
+curl -fsSL https://raw.githubusercontent.com/seu-usuario/AglusNVR/main/install.sh | sudo bash
 ```
 
-This downloads the binary, creates a system user (`nvr`), generates config with password, installs a systemd service, and starts it automatically. Data directory: `/var/lib/mibee-nvr`.
+This downloads the binary, creates a system user (`nvr`), generates config with password, installs a systemd service, and starts it automatically. Data directory: `/var/lib/aglus-nvr`.
 
 To uninstall (preserves recordings):
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/Mi-Bee-Studio/MiBeeNvr/main/install.sh | sudo bash -s -- --uninstall
+curl -fsSL https://raw.githubusercontent.com/seu-usuario/AglusNVR/main/install.sh | sudo bash -s -- --uninstall
 ```
 
 ### Option 4: Build from Source
@@ -85,11 +85,11 @@ curl -fsSL https://raw.githubusercontent.com/Mi-Bee-Studio/MiBeeNvr/main/install
 Requires Go 1.26+ and Node.js (for frontend):
 
 ```bash
-git clone https://github.com/Mi-Bee-Studio/MiBeeNvr.git
-cd MiBeeNvr
+git clone https://github.com/seu-usuario/AglusNVR.git
+cd AglusNVR
 make build
-./mibee-nvr init --password yourpassword
-./mibee-nvr -config mibee-nvr.yaml
+./aglus-nvr init --password yourpassword
+./aglus-nvr -config aglus-nvr.yaml
 ```
 
 For cross-compiling to ARM64 (e.g. Raspberry Pi):
@@ -100,12 +100,12 @@ make cross
 
 ## First-Time Setup
 
-### Using `mibee-nvr init`
+### Using `aglus-nvr init`
 
 The `init` subcommand creates a config file with secure defaults:
 
 ```bash
-./mibee-nvr init --password yourpassword
+./aglus-nvr init --password yourpassword
 ```
 
 Options:
@@ -114,30 +114,30 @@ Options:
 |------|---------|-------------|
 | `--password` | (prompted) | Admin password for Web UI |
 | `--username` | `admin` | Admin username |
-| `--data-dir` | `/var/lib/mibee-nvr` | Data directory for recordings and DB |
+| `--data-dir` | `/var/lib/aglus-nvr` | Data directory for recordings and DB |
 | `--listen` | `:9090` | HTTP listen address |
-| `--config` | `mibee-nvr.yaml` | Config file path |
+| `--config` | `aglus-nvr.yaml` | Config file path |
 | `--force` | false | Overwrite existing config |
 
 ### Password Setup
 
 There are three ways to set the admin password:
 
-1. **`mibee-nvr init --password <pw>`** — sets the hashed password during setup (recommended)
+1. **`aglus-nvr init --password <pw>`** — sets the hashed password during setup (recommended)
 2. **Plaintext in config** — set `auth.password` in YAML; auto-hashed to `password_hash` on first start
-3. **Manual hash** — generate with `mibee-nvr hash-password <pw>` and paste into `auth.password_hash`
+3. **Manual hash** — generate with `aglus-nvr hash-password <pw>` and paste into `auth.password_hash`
 
 ### Default Paths
 
 | Path | Description |
 |------|-------------|
-| `/var/lib/mibee-nvr/` | Data directory (recordings, database) |
-| `/var/lib/mibee-nvr/mibee-nvr.db` | SQLite database |
-| `mibee-nvr.yaml` | Configuration file |
+| `/var/lib/aglus-nvr/` | Data directory (recordings, database) |
+| `/var/lib/aglus-nvr/aglus-nvr.db` | SQLite database |
+| `aglus-nvr.yaml` | Configuration file |
 
 ## Adding Your First Camera
 
-MiBee NVR uses a **separate transport + encoding** format for camera protocols:
+AglusNVR uses a **separate transport + encoding** format for camera protocols:
 
 - **Transport**: `rtsp`, `http`, `onvif`, `xiaomi`, `timelapse`
 - **Encoding**: `h264`, `h265`, `mjpeg`, `jpeg`
@@ -220,9 +220,9 @@ cameras:
     enabled: true
 ```
 
-After editing the config, restart MiBee NVR or use the Web UI to add cameras at runtime.
+After editing the config, restart AglusNVR or use the Web UI to add cameras at runtime.
 
-## Accessing MiBee NVR
+## Accessing AglusNVR
 
 ### Web UI
 
@@ -260,14 +260,14 @@ ftp your-server 2121
 
 ### Service won't start
 
-- Check config file syntax: `cat mibee-nvr.yaml`
-- Verify the data directory exists and is writable: `ls -la /var/lib/mibee-nvr/`
-- Check logs: `journalctl -u mibee-nvr -f`
+- Check config file syntax: `cat aglus-nvr.yaml`
+- Verify the data directory exists and is writable: `ls -la /var/lib/aglus-nvr/`
+- Check logs: `journalctl -u aglus-nvr -f`
 
 ### Permission errors
 
 - The `install.sh` script creates a `nvr` system user. Make sure the data directory is owned by it:
-  `sudo chown -R nvr:nvr /var/lib/mibee-nvr/`
+  `sudo chown -R nvr:nvr /var/lib/aglus-nvr/`
 
 ### Port conflicts
 

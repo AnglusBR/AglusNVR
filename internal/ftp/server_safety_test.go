@@ -18,8 +18,8 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/model"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/storage"
+	"github.com/seu-usuario/AglusNVR/internal/model"
+	"github.com/seu-usuario/AglusNVR/internal/storage"
 )
 
 // --- resolvePath tests (path traversal prevention) ---
@@ -43,7 +43,6 @@ func TestResolvePathSubdirectory(t *testing.T) {
 	require.NoError(t, err)
 	require.Equal(t, filepath.Join(srv.storageMgr.RootDir(), "cam01", "video.mp4"), path)
 }
-
 
 func TestResolvePathEmptyString(t *testing.T) {
 	t.Helper()
@@ -181,7 +180,7 @@ func TestClientConnected(t *testing.T) {
 	msg, err := srv.ClientConnected(cc)
 	require.NoError(t, err)
 	assert.Contains(t, msg, "220")
-	assert.Contains(t, msg, "MiBee NVR FTP Server")
+	assert.Contains(t, msg, "AglusNVR FTP Server")
 }
 
 func TestClientDisconnected(t *testing.T) {
@@ -202,7 +201,7 @@ func TestGetSettings(t *testing.T) {
 	settings, err := srv.GetSettings()
 	require.NoError(t, err)
 	assert.Equal(t, ":2121", settings.ListenAddr)
-	assert.Equal(t, "MiBee NVR FTP Server", settings.Banner)
+	assert.Equal(t, "AglusNVR FTP Server", settings.Banner)
 }
 
 func TestGetSettingsPortRange(t *testing.T) {
@@ -557,7 +556,7 @@ func TestClientDriverName(t *testing.T) {
 	srv, _ := newTestServer(t)
 	cd := &clientDriver{server: srv}
 
-	assert.Equal(t, "mibee-nvr", cd.Name())
+	assert.Equal(t, "aglus-nvr", cd.Name())
 }
 
 // --- Upload with no extension gets .dat ---

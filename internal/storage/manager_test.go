@@ -8,8 +8,8 @@ import (
 	"testing"
 	"time"
 
+	"github.com/seu-usuario/AglusNVR/internal/model"
 	"github.com/stretchr/testify/require"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/model"
 )
 
 // --- NewManager() ---
@@ -477,7 +477,7 @@ func TestIsAvailable_DirExists(t *testing.T) {
 }
 
 func TestIsAvailable_DirNotExist(t *testing.T) {
-	m := &Manager{rootDir: "/tmp/nonexistent_mibee-nvr_dir_xyz"}
+	m := &Manager{rootDir: "/tmp/nonexistent_aglus-nvr_dir_xyz"}
 
 	if m.IsAvailable() {
 		t.Fatal("IsAvailable should return false for nonexistent dir")
@@ -518,7 +518,7 @@ func TestGetDiskUsage(t *testing.T) {
 }
 
 func TestGetDiskUsage_InvalidDir(t *testing.T) {
-	m := &Manager{rootDir: "/tmp/nonexistent_mibee-nvr_disk_xyz"}
+	m := &Manager{rootDir: "/tmp/nonexistent_aglus-nvr_disk_xyz"}
 
 	_, _, err := m.GetDiskUsage()
 	if err == nil {
@@ -925,7 +925,7 @@ func TestReconcileOrphanedFiles_MJPEGSkipsRandomDirs(t *testing.T) {
 	require.NoError(t, os.MkdirAll(filepath.Join(camDir, "some-random-dir"), 0755))
 	require.NoError(t, os.MkdirAll(filepath.Join(camDir, "mjpeg-cam_onlydate"), 0755))
 	require.NoError(t, os.MkdirAll(filepath.Join(camDir, "mjpeg-cam_20260514_120000"), 0755)) // missing nano part
-	require.NoError(t, os.MkdirAll(filepath.Join(camDir, "1234567890.tmp"), 0755)) // has .tmp extension
+	require.NoError(t, os.MkdirAll(filepath.Join(camDir, "1234567890.tmp"), 0755))            // has .tmp extension
 
 	cameraIDs := map[string]bool{"mjpeg-cam": true}
 	count, err := m.ReconcileOrphanedFiles(ctx, db, cameraIDs)

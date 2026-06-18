@@ -5,10 +5,10 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/camera"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/config"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/middleware"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/wsstream"
+	"github.com/seu-usuario/AglusNVR/internal/camera"
+	"github.com/seu-usuario/AglusNVR/internal/config"
+	"github.com/seu-usuario/AglusNVR/internal/middleware"
+	"github.com/seu-usuario/AglusNVR/internal/wsstream"
 	"github.com/stretchr/testify/require"
 )
 

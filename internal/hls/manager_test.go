@@ -13,7 +13,7 @@ import (
 
 	"github.com/bluenviron/gohlslib/v2"
 
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/metrics"
+	"github.com/seu-usuario/AglusNVR/internal/metrics"
 )
 
 // newTestManager creates a Manager with a writable temp directory.
@@ -158,10 +158,10 @@ func TestStartSubStreamReader_Dedup(t *testing.T) {
 	mgr.mu.Lock()
 	_, cancel := context.WithCancel(context.Background())
 	entry := &streamEntry{
-		frameCh:        make(chan hlsFrame, defaultWriteBufSize),
-		maxFPS:         0,
+		frameCh:         make(chan hlsFrame, defaultWriteBufSize),
+		maxFPS:          0,
 		subStreamCancel: cancel,
-		cancel:         cancel,
+		cancel:          cancel,
 	}
 	mgr.streams[cameraID] = entry
 	mgr.mu.Unlock()

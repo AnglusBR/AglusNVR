@@ -1,6 +1,6 @@
 # 摄像头品牌兼容指南
 
-MiBee NVR 通过多种协议支持广泛的 IP 摄像头，包括 RTSP（H.264/H.265/MJPEG）、HTTP JPEG 和 ONVIF。本指南提供主流摄像头品牌的全面兼容性信息，包括支持的协议、配置示例和故障排除技巧。
+AglusNVR 通过多种协议支持广泛的 IP 摄像头，包括 RTSP（H.264/H.265/MJPEG）、HTTP JPEG 和 ONVIF。本指南提供主流摄像头品牌的全面兼容性信息，包括支持的协议、配置示例和故障排除技巧。
 
 #RW|**ONVIF 集成**：有关全面的 ONVIF 摄像头支持、发现方法、PTZ 控制和故障排除，请参阅 [ONVIF 指南](./onvif-guide.md)。
 #RW|
@@ -527,7 +527,7 @@ cameras:
 **型号**: C200, C300, Xiaofang, Dafang
 
 #### 特殊配置：
-- 使用 MiBee NVR 内建的 Xiaomi 集成方式，而非直接使用 RTSP
+- 使用 AglusNVR 内建的 Xiaomi 集成方式，而非直接使用 RTSP
 - 通过 Web UI → Xiaomi Device Discovery 配置
 - 通过小米云服务进行认证
 
@@ -625,7 +625,7 @@ cameras:
 
 #### 已知问题：
 
-- 使用 MiBee 的 ONVIF 扫描功能进行自动发现
+- 使用 Aglus 的 ONVIF 扫描功能进行自动发现
 - 如果自动发现失败，可能需要手动配置
 - ONVIF 配置文件可能因型号而异
 
@@ -661,7 +661,7 @@ cameras:
 
 ### RTSP URL 测试
 
-在添加到 MiBee NVR 之前，使用 VLC 或 ffplay 测试 RTSP URL：
+在添加到 AglusNVR 之前，使用 VLC 或 ffplay 测试 RTSP URL：
 
 ```bash
 # 测试 RTSP 连接
@@ -697,7 +697,7 @@ cameras:
 
 ### 网络注意事项
 
-- 确保摄像头和 MiBee NVR 在同一网络中
+- 确保摄像头和 AglusNVR 在同一网络中
 - 考虑使用 VLAN 隔离以提高安全性
 - 使用静态 IP 地址确保连接可靠
 - 监控多台摄像头的带宽使用情况
@@ -787,14 +787,14 @@ cameras:
 
 ### 文档
 
-- [MiBee NVR 配置指南](./configuration.md)
-- [MiBee NVR API 参考](./api/README.md)
-- [MiBee NVR 入门指南](./getting-started.md)
+- [AglusNVR 配置指南](./configuration.md)
+- [AglusNVR API 参考](./api/README.md)
+- [AglusNVR 入门指南](./getting-started.md)
 
 ### 社区支持
 
-- GitHub Issues：[MiBee NVR Issues](https://github.com/Mi-Bee-Studio/MiBeeNvr/issues)
-- 讨论区：[MiBee NVR Discussions](https://github.com/Mi-Bee-Studio/MiBeeNvr/discussions)
+- GitHub Issues：[AglusNVR Issues](https://github.com/seu-usuario/AglusNVR/issues)
+- 讨论区：[AglusNVR Discussions](https://github.com/seu-usuario/AglusNVR/discussions)
 - Discord：加入我们的社区服务器获取帮助
 
 ### 专业支持
@@ -890,7 +890,7 @@ sudo nmap -sV -p 554,80,8080 --open 192.168.1.0/24
 
 ### 启用接入服务
 
-在 `mibee-nvr.yaml`（或通过设置页面）：
+在 `aglus-nvr.yaml`（或通过设置页面）：
 
 ```yaml
 srt:
@@ -1011,4 +1011,4 @@ cameras:
 - **目标必须可达**：转发是拨出连接，目标的 RTMP/RTSP 端口必须可访问（NAT 后需端口转发）。
 - **弹性重连**：源摄像头或目标连接断开时，转发以指数退避自动重试并恢复。
 
-通过这份全面的摄像头品牌兼容性指南，您可以成功地将各种 IP 摄像头与 MiBee NVR 集成，确保监控系统获得最佳的录制性能和可靠性。
+通过这份全面的摄像头品牌兼容性指南，您可以成功地将各种 IP 摄像头与 AglusNVR 集成，确保监控系统获得最佳的录制性能和可靠性。

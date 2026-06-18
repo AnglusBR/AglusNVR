@@ -1,21 +1,21 @@
-# ONVIF Guide for MiBee NVR
+# ONVIF Guide for AglusNVR
 
-This guide covers ONVIF (Open Network Video Interface Forum) integration with MiBee NVR, including camera discovery, management, PTZ control, and troubleshooting.
+This guide covers ONVIF (Open Network Video Interface Forum) integration with AglusNVR, including camera discovery, management, PTZ control, and troubleshooting.
 
 ## What is ONVIF and Profile S Overview
 
-ONVIF is an open industry standard for network video products, enabling different manufacturers' IP cameras to work together. MiBee N implements ONVIF Profile S, which focuses on core video streaming functionality:
+ONVIF is an open industry standard for network video products, enabling different manufacturers' IP cameras to work together. Aglus N implements ONVIF Profile S, which focuses on core video streaming functionality:
 
 - **Profile S**: Video streaming, PTZ control, device management
 - **Profile T**: Security enhancements (access control events)
 - **Profile G**: Analytics and metadata
 - **Profile Q**: Advanced PTZ control
 
-MiBee NVR primarily supports Profile S capabilities with optional support for device management and event monitoring depending on camera firmware.
+AglusNVR primarily supports Profile S capabilities with optional support for device management and event monitoring depending on camera firmware.
 
 ## Supported ONVIF Services
 
-MiBee NVR provides the following ONVIF service integrations:
+AglusNVR provides the following ONVIF service integrations:
 
 ### Device Service
 - Device information and capabilities
@@ -54,7 +54,7 @@ MiBee NVR provides the following ONVIF service integrations:
 
 ## Camera Discovery
 
-MiBee NVR supports two camera discovery methods:
+AglusNVR supports two camera discovery methods:
 
 ### WS-Discovery (Multicast)
 
@@ -101,7 +101,7 @@ cameras:
 
 ### Method 1: Web UI Discovery (Recommended)
 
-1. Open MiBee NVR Web UI
+1. Open AglusNVR Web UI
 2. Navigate to **Cameras** → **Add Camera**
 3. Select **ONVIF** from protocol dropdown
 4. Click **Discover Cameras**
@@ -329,7 +329,7 @@ curl -X GET http://localhost:9090/api/cameras/{id}/snapshot \
 - **Format**: Camera-native format (usually JPEG)
 - **Browser Compatibility**: Most browsers support JPEG snapshots
 - **Resolution**: Native camera resolution (may not be viewable in all browsers)
-- **Caching**: MiBee NVR caches snapshots for 5 seconds to reduce load
+- **Caching**: AglusNVR caches snapshots for 5 seconds to reduce load
 - **Alternatives**: Use RTSP/HTTP JPEG stream for consistent format
 
 ### Web UI Snapshots
@@ -387,13 +387,13 @@ curl -X POST http://localhost:9090/api/cameras/{id}/onvif/events/subscribe \
 - **Camera Dependent**: Only cameras with ONVIF Event Service support
 - **Firmware Required**: Often requires specific firmware version
 - **Protocol Variations**: Different implementations across manufacturers
-- **MiBee NVR Integration**: Currently supports basic event subscription
+- **AglusNVR Integration**: Currently supports basic event subscription
 
 ### Alternative Motion Detection
 
 For cameras without ONVIF event support:
 - Use camera's built-in motion detection
-- Configure external motion detection in MiBee NVR
+- Configure external motion detection in AglusNVR
 - Use third-party motion detection solutions
 
 ## Device Management
@@ -500,7 +500,7 @@ cameras:
 ```yaml
 # docker-compose.yml with host network
 services:
-  mibee-nvr:
+  aglus-nvr:
     network_mode: host  # Enables multicast
     ports:
       - "9090:9090"
@@ -557,7 +557,7 @@ curl --connect-timeout 5 http://192.168.1.100/onvif/device_service
 1. **Host Networking** (Recommended):
    ```yaml
    services:
-     mibee-nvr:
+     aglus-nvr:
        network_mode: host
        ports:
          - "9090:9090"
@@ -586,7 +586,7 @@ curl --connect-timeout 5 http://192.168.1.100/onvif/device_service
 **Docker Port Mapping**:
 ```yaml
 services:
-  mibee-nvr:
+  aglus-nvr:
     ports:
       - "9090:9090"        # Web UI
       - "2121:2121"        # FTP
@@ -683,13 +683,13 @@ services:
 ## Support Resources
 
 ### Documentation
-- [MiBee NVR Getting Started](./getting-started.md)
-- [MiBee NVR Configuration Guide](./configuration.md)
-- [MiBee NVR API Reference](./api/README.md)
+- [AglusNVR Getting Started](./getting-started.md)
+- [AglusNVR Configuration Guide](./configuration.md)
+- [AglusNVR API Reference](./api/README.md)
 
 ### Community Support
-- GitHub Issues: [MiBee NVR Issues](https://github.com/Mi-Bee-Studio/MiBeeNvr/issues)
-- Discussions: [MiBee NVR Discussions](https://github.com/Mi-Bee-Studio/MiBeeNvr/discussions)
+- GitHub Issues: [AglusNVR Issues](https://github.com/seu-usuario/AglusNVR/issues)
+- Discussions: [AglusNVR Discussions](https://github.com/seu-usuario/AglusNVR/discussions)
 
 ### ONVIF Resources
 - ONVIF Official Site: https://www.onvif.org/
@@ -698,4 +698,4 @@ services:
 
 ---
 
-This guide provides comprehensive coverage of ONVIF integration with MiBee NVR. For specific camera models, check manufacturer documentation for ONVIF capabilities and limitations.
+This guide provides comprehensive coverage of ONVIF integration with AglusNVR. For specific camera models, check manufacturer documentation for ONVIF capabilities and limitations.

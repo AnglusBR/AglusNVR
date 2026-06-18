@@ -189,7 +189,7 @@ export type {
   CleanupConfig,
   WebDAVConfig,
   SettingsConfig,
-  MiBeeVisionConfig,
+  AglusVisionConfig,
   MergeStatus,
   MergePending,
   FeatureFlags,

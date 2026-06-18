@@ -12,18 +12,18 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/config"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/metrics"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/model"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/onvif"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/recorder"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/storage"
+	"github.com/seu-usuario/AglusNVR/internal/config"
+	"github.com/seu-usuario/AglusNVR/internal/metrics"
+	"github.com/seu-usuario/AglusNVR/internal/model"
+	"github.com/seu-usuario/AglusNVR/internal/onvif"
+	"github.com/seu-usuario/AglusNVR/internal/recorder"
+	"github.com/seu-usuario/AglusNVR/internal/storage"
 )
 
 func testConfig() *config.Config {
 	return &config.Config{
 		Storage: config.StorageConfig{
-			RootDir:         "/tmp/mibee-nvr-test-camera",
+			RootDir:         "/tmp/aglus-nvr-test-camera",
 			SegmentDuration: "1m",
 		},
 		Cameras: []config.CameraConfig{

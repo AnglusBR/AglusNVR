@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test.describe('MiBee NVR - Recordings Functionality', () => {
+test.describe('AglusNVR - Recordings Functionality', () => {
   test.beforeEach(async ({ page }) => {
     // Navigate to the login page
     await page.goto('/');

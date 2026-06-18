@@ -12,8 +12,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/metrics"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/model"
+	"github.com/seu-usuario/AglusNVR/internal/metrics"
+	"github.com/seu-usuario/AglusNVR/internal/model"
 )
 
 var snapshotCapturerLogger = slog.Default().With("component", "snapshot-capturer")
@@ -38,11 +38,11 @@ type SnapshotCapturerConfig struct {
 // interval and writes them as frame sequences in segment directories.
 // Implements model.Recorder.
 type SnapshotCapturer struct {
-	cfg     SnapshotCapturerConfig
-	store   SegmentStore
-	metrics *metrics.Metrics
+	cfg      SnapshotCapturerConfig
+	store    SegmentStore
+	metrics  *metrics.Metrics
 	mergeMgr *RollingMergeManager
-	client  *http.Client
+	client   *http.Client
 
 	mu     sync.Mutex
 	status model.RecorderStatus
@@ -84,7 +84,7 @@ func NewSnapshotCapturer(cfg SnapshotCapturerConfig, store SegmentStore, opts ..
 		metrics:  m,
 		mergeMgr: cfg.MergeMgr,
 		client: &http.Client{
-			Timeout:   30 * time.Second,
+			Timeout: 30 * time.Second,
 			Transport: &http.Transport{
 				DisableKeepAlives: true,
 			},
@@ -400,4 +400,3 @@ func (r *SnapshotCapturer) closeCurrentSegment() {
 		r.mergeMgr.StartSegmentMerge(context.Background(), r.cfg.CameraID, finalPath, finalPath+".mp4", recordingID)
 	}
 }
-

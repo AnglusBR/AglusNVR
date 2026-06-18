@@ -16,7 +16,7 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/model"
+	"github.com/seu-usuario/AglusNVR/internal/model"
 )
 
 // frameProgressRegex matches frame=N in ffmpeg stderr progress output.

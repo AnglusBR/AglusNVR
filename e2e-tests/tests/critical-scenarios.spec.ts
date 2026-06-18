@@ -109,8 +109,8 @@ test.describe('Onboarding Flow', () => {
     // Clear any previous onboarding dismissal
     await page.goto('/');
     await page.evaluate(() => {
-      sessionStorage.removeItem('mibee_nvr_onboarding_dismissed');
-      localStorage.removeItem('mibee_nvr_auth');
+      sessionStorage.removeItem('aglus_nvr_onboarding_dismissed');
+      localStorage.removeItem('aglus_nvr_auth');
     });
 
     // Login
@@ -150,8 +150,8 @@ test.describe('Onboarding Flow', () => {
     // Clear dismissal state
     await page.goto('/');
     await page.evaluate(() => {
-      sessionStorage.removeItem('mibee_nvr_onboarding_dismissed');
-      localStorage.removeItem('mibee_nvr_auth');
+      sessionStorage.removeItem('aglus_nvr_onboarding_dismissed');
+      localStorage.removeItem('aglus_nvr_auth');
     });
 
     // Login
@@ -193,8 +193,8 @@ test.describe('Onboarding Flow', () => {
   test('should dismiss onboarding on Skip', async ({ page }) => {
     await page.goto('/');
     await page.evaluate(() => {
-      sessionStorage.removeItem('mibee_nvr_onboarding_dismissed');
-      localStorage.removeItem('mibee_nvr_auth');
+      sessionStorage.removeItem('aglus_nvr_onboarding_dismissed');
+      localStorage.removeItem('aglus_nvr_auth');
     });
 
     await page.waitForSelector('input[type="password"]', { timeout: 5000 });
@@ -224,7 +224,7 @@ test.describe('Onboarding Flow', () => {
     await expect(overlay).not.toBeVisible({ timeout: 3000 });
 
     // Should have set sessionStorage dismissal flag
-    const dismissed = await page.evaluate(() => sessionStorage.getItem('mibee_nvr_onboarding_dismissed'));
+    const dismissed = await page.evaluate(() => sessionStorage.getItem('aglus_nvr_onboarding_dismissed'));
     expect(dismissed).toBe('1');
   });
 });

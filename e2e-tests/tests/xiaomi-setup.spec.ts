@@ -1,5 +1,5 @@
 /**
- * Xiaomi Camera Setup E2E Tests for MiBee NVR.
+ * Xiaomi Camera Setup E2E Tests for AglusNVR.
  *
  * Tests the Xiaomi Device Discovery panel on the Cameras page:
  * - Panel visibility and expand/collapse

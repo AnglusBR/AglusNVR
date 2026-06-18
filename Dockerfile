@@ -30,7 +30,7 @@ COPY --from=frontend /build/web/dist ./internal/ui/static/
 # Static build — no C dependencies, pure Go binary
 ENV CGO_ENABLED=0
 ARG VERSION=dev
-RUN go build -ldflags="-s -w -X main.appVersion=${VERSION}" -o /mibee-nvr ./cmd/mibee-nvr/
+RUN go build -ldflags="-s -w -X main.appVersion=${VERSION}" -o /aglus-nvr ./cmd/aglus-nvr/
 
 # ---- Stage 3: Minimal runtime image ----
 FROM alpine:3.21
@@ -48,13 +48,13 @@ VOLUME ["/data"]
 ENV NVR_UID=1000
 ENV NVR_GID=1000
 
-COPY --from=backend /mibee-nvr /usr/local/bin/mibee-nvr
+COPY --from=backend /aglus-nvr /usr/local/bin/aglus-nvr
 COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
 EXPOSE 9090
 
-HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 CMD ["mibee-nvr", "health"]
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 CMD ["aglus-nvr", "health"]
 
 ENTRYPOINT ["docker-entrypoint.sh"]
-CMD ["-config", "/data/mibee-nvr.yaml"]
+CMD ["-config", "/data/aglus-nvr.yaml"]

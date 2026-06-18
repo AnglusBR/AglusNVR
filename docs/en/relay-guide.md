@@ -6,7 +6,7 @@
 
 ### 3-Step Setup: Camera → Bilibili Live
 
-1. **Configure your camera in `mibee-nvr.yaml`:**
+1. **Configure your camera in `aglus-nvr.yaml`:**
 ```yaml
 cameras:
   - id: "front-door"
@@ -38,8 +38,8 @@ cameras:
 
 3. **Start and verify:**
 ```bash
-# Start MiBee NVR
-./mibee-nvr -config mibee-nvr.yaml
+# Start AglusNVR
+./aglus-nvr -config aglus-nvr.yaml
 
 # Check relay status
 curl -u admin:PASSWORD http://localhost:9090/api/cameras/front-door/push-status
@@ -307,7 +307,7 @@ cameras:
 3. **Start Stream:**
 ```bash
 # Start the NVR
-./mibee-nvr -config mibee-nvr.yaml
+./aglus-nvr -config aglus-nvr.yaml
 
 # Wait 30 seconds for camera connection
 ```
@@ -325,7 +325,7 @@ cameras:
 6. **Stop Test:**
 ```bash
 # Disable target to stop streaming
-# Edit mibee-nvr.yaml to set enabled: false for bilibili-test
+# Edit aglus-nvr.yaml to set enabled: false for bilibili-test
 # Restart NVR or reload config
 ```
 
@@ -339,7 +339,7 @@ curl -s http://localhost:9090/api/cameras/test-camera | jq '.status.recording_st
 curl -s http://localhost:9090/api/cameras/test-camera | jq '.push_targets[]'
 
 # View NVR logs
-tail -f /var/log/mibee-nvr.log | grep relay
+tail -f /var/log/aglus-nvr.log | grep relay
 
 # Check stream key authentication (if applicable)
 curl -H "Authorization: Bearer YOUR_KEY" -X GET https://api.bilibili.com/x/web-interface/nav
@@ -360,7 +360,7 @@ curl -I "rtmp://live-push.bilivideo.com/live-bvc/"
 ffplay "rtsp://your-camera-ip:554/stream"
 
 # 3. Check NVR logs for connection errors
-journalctl -u mibee-nvr -f --since="5 minutes ago"
+journalctl -u aglus-nvr -f --since="5 minutes ago"
 
 # 4. Verify network connectivity
 ping live-push.bilivideo.com
@@ -422,7 +422,7 @@ curl -s http://localhost:9090/api/metrics | grep 'nvr_relay_transcoder_temperatu
 **Solutions:**
 ```bash
 # Check drift monitoring logs
-tail -f /var/log/mibee-nvr.log | grep 'AV drift'
+tail -f /var/log/aglus-nvr.log | grep 'AV drift'
 
 # System will automatically reconnect if drift exceeds 1 second sustained
 # No manual intervention usually required
@@ -491,11 +491,11 @@ type VideoPresetOverrides struct {
 ### Global Configuration
 
 ```yaml
-# mibee-nvr.yaml
+# aglus-nvr.yaml
 
 relay:
   # Path to custom presets file (optional)
-  presets_path: "/etc/mibee-nvr/relay-presets.yaml"
+  presets_path: "/etc/aglus-nvr/relay-presets.yaml"
   
   # Thermal throttle threshold in Celsius (optional)
   thermal_limit: 85
@@ -515,7 +515,7 @@ relay:
 ### Complete Configuration Example
 
 ```yaml
-# mibee-nvr.yaml - Full Relay Configuration
+# aglus-nvr.yaml - Full Relay Configuration
 
 cameras:
   - id: "front-door"
@@ -568,7 +568,7 @@ cameras:
 
 # Optional global relay configuration
 relay:
-  presets_path: "/etc/mibee-nvr/relay-presets.yaml"
+  presets_path: "/etc/aglus-nvr/relay-presets.yaml"
   thermal_limit: 85
 ```
 
@@ -602,9 +602,9 @@ ffmpeg -re -i test-video.mp4 -c:v copy -c:a aac -f flv "rtmp://live-push.bilivid
 - `nvr_relay_transcoder_thermal_throttles_total` - Thermal throttle events
 
 **Systemd Service:**
-- Service: `mibee-nvr.service`
-- Logs: `journalctl -u mibee-nvr`
-- Status: `systemctl status mibee-nvr`
+- Service: `aglus-nvr.service`
+- Logs: `journalctl -u aglus-nvr`
+- Status: `systemctl status aglus-nvr`
 
 **Health Checks:**
 ```bash

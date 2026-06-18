@@ -146,7 +146,7 @@
       stopQueuePolling();
       managerStatus = null;
     } catch (e) {
-      showToast(e instanceof Error ? e.message : 'Failed to disable transcoding', 'error');
+      showToast(e instanceof Error ? e.message : 'Falha ao desativar a transcodificação', 'error');
     }
   }
 

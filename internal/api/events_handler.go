@@ -6,8 +6,8 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/event"
 	"github.com/go-chi/chi/v5"
+	"github.com/seu-usuario/AglusNVR/internal/event"
 )
 
 // handleEvents handles GET /api/events.

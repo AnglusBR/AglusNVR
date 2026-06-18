@@ -8,8 +8,8 @@ import (
 	"os"
 	"strings"
 
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/config"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/middleware"
+	"github.com/seu-usuario/AglusNVR/internal/config"
+	"github.com/seu-usuario/AglusNVR/internal/middleware"
 )
 
 // setupRequest is the JSON body for POST /api/setup.
@@ -65,7 +65,7 @@ func (h *Handler) handleSetup(w http.ResponseWriter, r *http.Request) {
 		} else if info, err := os.Stat("/data"); err == nil && info.IsDir() {
 			dataDir = "/data"
 		} else {
-			dataDir = "/var/lib/mibee-nvr"
+			dataDir = "/var/lib/aglus-nvr"
 		}
 	}
 

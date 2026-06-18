@@ -1,9 +1,9 @@
-// MiBee NVR Service Worker
+// AglusNVR Service Worker
 // App Shell: Cache First (fast loads, works offline for UI)
 // API: Network First (fresh data, fallback to cache when offline)
 // Media streams (HLS/FLV/WebRTC): Never cached (always network)
 
-const CACHE_VERSION = 'mibee-nvr-v2';
+const CACHE_VERSION = 'aglus-nvr-v2';
 const APP_SHELL = [
   '/',
   '/index.html',

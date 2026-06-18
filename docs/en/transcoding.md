@@ -2,7 +2,7 @@
 
 ## Overview
 
-Transcoding converts video recordings between different codecs to optimize storage, improve playback compatibility, or reduce file sizes. MiBee NVR supports background transcoding of H.264 and H.265 recordings to either format with configurable quality presets.
+Transcoding converts video recordings between different codecs to optimize storage, improve playback compatibility, or reduce file sizes. AglusNVR supports background transcoding of H.264 and H.265 recordings to either format with configurable quality presets.
 
 Use transcoding when you need to:
 - Reduce storage usage by converting to more efficient codecs
@@ -51,7 +51,7 @@ cameras:
       bitrate: "2M"
 ```
 
-Restart MiBee NVR to apply the configuration.
+Restart AglusNVR to apply the configuration.
 
 ## Configuration Reference
 
@@ -274,10 +274,10 @@ cameras:
 ### Prometheus Metrics
 
 Transcoding metrics are exposed at `/api/metrics`:
-- `mibee_nvr_transcoding_queue_length`: Current queue size
-- `mibee_nvr_transcoding_active_jobs`: Running FFmpeg processes
-- `mibee_nvr_transcoding_total_completed`: Total completed tasks
-- `mibee_nvr_transcoding_failed_total`: Failed tasks count
+- `aglus_nvr_transcoding_queue_length`: Current queue size
+- `aglus_nvr_transcoding_active_jobs`: Running FFmpeg processes
+- `aglus_nvr_transcoding_total_completed`: Total completed tasks
+- `aglus_nvr_transcoding_failed_total`: Failed tasks count
 
 ### Web UI Status
 
@@ -314,7 +314,7 @@ A: Failed tasks remain in the queue. Check logs for FFmpeg error details. Retry 
 ### Technical Questions
 
 **Q: Why do I need to download FFmpeg?**
-A: FFmpeg provides the video processing capabilities. MiBee NVR includes a downloader to get the appropriate version for your platform.
+A: FFmpeg provides the video processing capabilities. AglusNVR includes a downloader to get the appropriate version for your platform.
 
 **Q: What's the difference between transcoding and merging?**
 A: Transcoding changes video codec/format, while merging combines multiple segments into fewer files.

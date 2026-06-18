@@ -2,13 +2,13 @@ FROM scratch
 
 ENV NVR_DATA_DIR=/data
 
-COPY .build-tmp/mibee-nvr /usr/local/bin/mibee-nvr
+COPY .build-tmp/aglus-nvr /usr/local/bin/aglus-nvr
 
 VOLUME ["/data"]
 
 EXPOSE 9090
 
-HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 CMD ["mibee-nvr", "health"]
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 CMD ["aglus-nvr", "health"]
 
-ENTRYPOINT ["mibee-nvr"]
-CMD ["-config", "/data/mibee-nvr.yaml"]
+ENTRYPOINT ["aglus-nvr"]
+CMD ["-config", "/data/aglus-nvr.yaml"]

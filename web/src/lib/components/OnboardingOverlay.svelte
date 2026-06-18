@@ -10,7 +10,7 @@
 
   let { onaddcamera, oncomplete, onskip }: Props = $props();
 
-  const DISMISSED_KEY = 'mibee_nvr_onboarding_dismissed';
+  const DISMISSED_KEY = 'aglus_nvr_onboarding_dismissed';
 
   let currentStep = $state(0);
   let visible = $state(true);

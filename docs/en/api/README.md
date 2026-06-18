@@ -1,6 +1,6 @@
-# MiBee NVR API Reference
+# AglusNVR API Reference
 
-This is the REST API reference for MiBee NVR. All API endpoints are documented with their request formats, response schemas, and example `curl` commands.
+This is the REST API reference for AglusNVR. All API endpoints are documented with their request formats, response schemas, and example `curl` commands.
 
 Most endpoints require authentication via HTTP Basic Auth. See [Authentication](authentication.md) for details.
 

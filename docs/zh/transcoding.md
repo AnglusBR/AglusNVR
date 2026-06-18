@@ -2,7 +2,7 @@
 
 ## 概述
 
-转码是将录像记录在不同编解码器之间转换，以优化存储空间、提高播放兼容性或减小文件大小。MiBee NVR 支持在后台将 H.264 和 H.265 录像转换为任意一种格式，并支持可配置的质量预设。
+转码是将录像记录在不同编解码器之间转换，以优化存储空间、提高播放兼容性或减小文件大小。AglusNVR 支持在后台将 H.264 和 H.265 录像转换为任意一种格式，并支持可配置的质量预设。
 
 在以下情况使用转码功能：
 - 通过转换为更高效的编解码器减少存储使用
@@ -51,7 +51,7 @@ cameras:
       bitrate: "2M"
 ```
 
-重启 MiBee NVR 以应用配置。
+重启 AglusNVR 以应用配置。
 
 ## 配置参考
 
@@ -274,10 +274,10 @@ cameras:
 ### Prometheus 指标
 
 转码指标在 `/api/metrics` 暴露：
-- `mibee_nvr_transcoding_queue_length`: 当前队列长度
-- `mibee_nvr_transcoding_active_jobs`: 运行的 FFmpeg 进程数
-- `mibee_nvr_transcoding_total_completed`: 总完成任务数
-- `mibee_nvr_transcoding_failed_total`: 失败任务计数
+- `aglus_nvr_transcoding_queue_length`: 当前队列长度
+- `aglus_nvr_transcoding_active_jobs`: 运行的 FFmpeg 进程数
+- `aglus_nvr_transcoding_total_completed`: 总完成任务数
+- `aglus_nvr_transcoding_failed_total`: 失败任务计数
 
 ### Web UI 状态
 
@@ -314,7 +314,7 @@ A: 失败的任务保留在队列中。检查日志获取 FFmpeg 错误详情。
 ### 技术问题
 
 **Q: 为什么需要下载 FFmpeg？**
-A: FFmpeg 提供视频处理功能。MiBee NVR 包含下载器以获取适合您平台的版本。
+A: FFmpeg 提供视频处理功能。AglusNVR 包含下载器以获取适合您平台的版本。
 
 **Q: 转码和合并有什么区别？**
 A: 转码改变视频编解码器/格式，而合并将多个片段组合成更少的文件。

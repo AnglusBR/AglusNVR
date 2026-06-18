@@ -1,6 +1,6 @@
 # 小米摄像头集成
 
-MiBee NVR 通过 CS2 P2P 协议为小米云摄像头提供全面支持。此集成允许您将小米摄像头连接到 NVR 系统，无需直接访问摄像头本身的网络，因为所有通信都通过小米云服务处理。
+AglusNVR 通过 CS2 P2P 协议为小米云摄像头提供全面支持。此集成允许您将小米摄像头连接到 NVR 系统，无需直接访问摄像头本身的网络，因为所有通信都通过小米云服务处理。
 
 ## 概述
 
@@ -126,7 +126,7 @@ cameras:
 
 ### 方法 1：Web UI 设置（推荐）
 
-1. **访问 Web UI**：打开 MiBee NVR 网页界面 `http://localhost:9090`
+1. **访问 Web UI**：打开 AglusNVR 网页界面 `http://localhost:9090`
 
 2. **导航到摄像头**：转到摄像头页面
 
@@ -497,8 +497,8 @@ xiaomi:
 
 ```bash
 # 安全配置文件
-chmod 600 mibee-nvr.yaml
-chown nvr:nvr mibee-nvr.yaml
+chmod 600 aglus-nvr.yaml
+chown nvr:nvr aglus-nvr.yaml
 ```
 
 ### 网络安全
@@ -704,13 +704,13 @@ xiaomi:
 
 ```bash
 # 系统日志
-journalctl -u mibee-nvr -f | grep xiaomi
+journalctl -u aglus-nvr -f | grep xiaomi
 
 # Docker 日志
-docker logs -f mibee-nvr | grep xiaomi
+docker logs -f aglus-nvr | grep xiaomi
 
 # 配置验证
-./mibee-nvr -config mibee-nvr.yaml --validate
+./aglus-nvr -config aglus-nvr.yaml --validate
 ```
 
 ### 性能监控
@@ -766,10 +766,10 @@ curl -X POST -H "Content-Type: application/json" \
 
 ```bash
 # 检查当前版本
-./mibee-nvr --version
+./aglus-nvr --version
 
 # 检查更新
-curl -s https://api.github.com/repos/Mi-Bee-Studio/MiBeeNvr/releases/latest | grep 'tag_name'
+curl -s https://api.github.com/repos/seu-usuario/AglusNVR/releases/latest | grep 'tag_name'
 ```
 
 ### 备份配置
@@ -782,13 +782,13 @@ curl -s https://api.github.com/repos/Mi-Bee-Studio/MiBeeNvr/releases/latest | gr
 
 BACKUP_DIR="/var/backups/xiaomi"
 DATE=$(date '+%Y%m%d_%H%M%S')
-CONFIG_FILE="/var/lib/mibee-nvr/mibee-nvr.yaml"
+CONFIG_FILE="/var/lib/aglus-nvr/aglus-nvr.yaml"
 
 # 创建备份目录
 mkdir -p "$BACKUP_DIR"
 
 # 备份配置（移除敏感数据）
-grep -v 'token:' "$CONFIG_FILE" > "$BACKUP_DIR/mibee-nvr_config_${DATE}.yaml"
+grep -v 'token:' "$CONFIG_FILE" > "$BACKUP_DIR/aglus-nvr_config_${DATE}.yaml"
 
 # 备份设备列表
 curl -s -u "admin:password" "http://localhost:9090/api/xiaomi/devices" \
@@ -799,7 +799,7 @@ echo "备份完成: $BACKUP_DIR"
 
 ## 最佳实践
 
-1. **定期更新**：保持 MiBee NVR 更新以获取最新的小米协议支持
+1. **定期更新**：保持 AglusNVR 更新以获取最新的小米协议支持
 2. **网络监控**：确保到小米云服务的可靠连接
 3. **令牌管理**：定期轮换小米凭据
 4. **备份策略**：定期备份配置和设备列表
@@ -855,4 +855,4 @@ if __name__ == "__main__":
     print(json.dumps(status, indent=2))
 ```
 
-通过全面的小米摄像头集成，MiBee NVR 实现了基于云的摄像头录制，具有丰富的自动化功能，让您可以轻松地将小米摄像头集成到您的监控和智能家居生态系统中。
+通过全面的小米摄像头集成，AglusNVR 实现了基于云的摄像头录制，具有丰富的自动化功能，让您可以轻松地将小米摄像头集成到您的监控和智能家居生态系统中。

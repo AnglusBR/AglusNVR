@@ -1,12 +1,12 @@
 BUILD_DIR  ?= build
-BUILD_TARGET ?= $(BUILD_DIR)/mibee-nvr
+BUILD_TARGET ?= $(BUILD_DIR)/aglus-nvr
 
 RPi_HOST ?= user@your-rpi-host
-RPi_BIN  := /mnt/data/nvr/bin/mibee-nvr
-RPi_SRV  := mibee-nvr
+RPi_BIN  := /mnt/data/nvr/bin/aglus-nvr
+RPi_SRV  := aglus-nvr
 
 # Docker image registry
-DOCKER_REGISTRY ?= ghcr.io/mi-bee-studio/mibeenvr
+DOCKER_REGISTRY ?= ghcr.io/seu-usuario/aglusnvr
 VERSION := $(shell git rev-parse --short HEAD 2>/dev/null || echo "dev")
 CONTAINER_RUNTIME := $(shell command -v docker 2>/dev/null || command -v podman 2>/dev/null)
 
@@ -18,7 +18,7 @@ frontend:
 
 build: frontend
 	@mkdir -p $(BUILD_DIR)
-	CGO_ENABLED=0 go build -ldflags="-s -w" -o $(BUILD_TARGET) ./cmd/mibee-nvr/
+	CGO_ENABLED=0 go build -ldflags="-s -w" -o $(BUILD_TARGET) ./cmd/aglus-nvr/
 
 
 
@@ -33,12 +33,12 @@ test-short:
 
 cross: frontend
 	@mkdir -p $(BUILD_DIR)
-	CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -ldflags="-s -w" -o $(BUILD_DIR)/mibee-nvr-arm64 ./cmd/mibee-nvr/
+	CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -ldflags="-s -w" -o $(BUILD_DIR)/aglus-nvr-arm64 ./cmd/aglus-nvr/
 
 
 cross-armv7: frontend
 	@mkdir -p $(BUILD_DIR)
-	CGO_ENABLED=0 GOOS=linux GOARCH=arm GOARM=7 go build -ldflags="-s -w" -o $(BUILD_DIR)/mibee-nvr-armv7 ./cmd/mibee-nvr/
+	CGO_ENABLED=0 GOOS=linux GOARCH=arm GOARM=7 go build -ldflags="-s -w" -o $(BUILD_DIR)/aglus-nvr-armv7 ./cmd/aglus-nvr/
 
 lint:
 	go vet ./...
@@ -50,14 +50,14 @@ install: build
 	cp $(BUILD_TARGET) /mnt/data/nvr/bin/
 
 install-service: install
-	cp deploy/mibee-nvr.service /etc/systemd/system/
+	cp deploy/aglus-nvr.service /etc/systemd/system/
 	systemctl daemon-reload
-	systemctl enable mibee-nvr
+	systemctl enable aglus-nvr
 
 uninstall-service:
-	systemctl stop mibee-nvr || true
-	systemctl disable mibee-nvr || true
-	rm -f /etc/systemd/system/mibee-nvr.service
+	systemctl stop aglus-nvr || true
+	systemctl disable aglus-nvr || true
+	rm -f /etc/systemd/system/aglus-nvr.service
 	systemctl daemon-reload
 
 # ---- Docker / Container Image ----
@@ -70,7 +70,7 @@ docker-build:
 # Uses scratch base image — Go binary is statically linked, no runtime deps
 docker-build-arm64: cross
 	@mkdir -p .build-tmp
-	cp $(BUILD_DIR)/mibee-nvr-arm64 .build-tmp/mibee-nvr
+	cp $(BUILD_DIR)/aglus-nvr-arm64 .build-tmp/aglus-nvr
 	$(CONTAINER_RUNTIME) build --platform linux/arm64 -f Dockerfile.arm64 \
 		-t $(DOCKER_REGISTRY):$(VERSION)-arm64 .
 	@rm -rf .build-tmp
@@ -96,8 +96,8 @@ deploy: cross
 	@echo "=== Deploying to $(RPi_HOST) ==="
 	ssh $(RPi_HOST) "sudo systemctl stop $(RPi_SRV) || true"
 	ssh $(RPi_HOST) "cp $(RPi_BIN) $(RPi_BIN).bak || true"
-	scp $(BUILD_DIR)/mibee-nvr-arm64 $(RPi_HOST):/tmp/mibee-nvr-new
-	ssh $(RPi_HOST) "mv /tmp/mibee-nvr-new $(RPi_BIN) && chmod +x $(RPi_BIN)"
+	scp $(BUILD_DIR)/aglus-nvr-arm64 $(RPi_HOST):/tmp/aglus-nvr-new
+	ssh $(RPi_HOST) "mv /tmp/aglus-nvr-new $(RPi_BIN) && chmod +x $(RPi_BIN)"
 	ssh $(RPi_HOST) "sudo systemctl start $(RPi_SRV)"
 	@echo "=== Deploy complete. Checking... ==="
 	@sleep 2
@@ -118,16 +118,16 @@ deploy-check:
 
 download-model-local: build
 	@echo "=== Downloading AI model locally ==="
-	$(BUILD_TARGET) download-model -config mibee-nvr.yaml
+	$(BUILD_TARGET) download-model -config aglus-nvr.yaml
 
 download-model: cross
 	@echo "=== Downloading AI model on $(RPi_HOST) ===
 	ssh $(RPi_HOST) "sudo systemctl stop $(RPi_SRV) || true"
 	$(MAKE) download-model-local
-	scp $(BUILD_DIR)/mibee-nvr-arm64 $(RPi_HOST):/tmp/mibee-nvr-new
+	scp $(BUILD_DIR)/aglus-nvr-arm64 $(RPi_HOST):/tmp/aglus-nvr-new
 	ssh $(RPi_HOST) "sudo mkdir -p /mnt/data/nvr/models"
-	ssh $(RPi_HOST) "mv /tmp/mibee-nvr-new $(RPi_BIN) && chmod +x $(RPi_BIN)"
-	ssh $(RPi_HOST) "$(RPi_BIN) download-model -config /mnt/data/nvr/mibee-nvr.yaml"
+	ssh $(RPi_HOST) "mv /tmp/aglus-nvr-new $(RPi_BIN) && chmod +x $(RPi_BIN)"
+	ssh $(RPi_HOST) "$(RPi_BIN) download-model -config /mnt/data/nvr/aglus-nvr.yaml"
 	ssh $(RPi_HOST) "sudo systemctl start $(RPi_SRV)"
 
 

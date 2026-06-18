@@ -52,30 +52,30 @@ describe('CameraCard', () => {
   it('shows recording badge for active camera with recording status', () => {
     const camera = makeCamera({ status: 'recording' });
     const { getByText } = render(CameraCard, { props: defaultProps(camera) });
-    expect(getByText('Recording')).toBeTruthy();
+    expect(getByText('Gravação')).toBeTruthy();
   });
 
   it('recording toggle has correct aria-labels', () => {
     const idle = makeCamera({ status: 'idle' });
     const { getByRole, unmount } = render(CameraCard, { props: defaultProps(idle) });
-    expect(getByRole('switch', { name: 'Start' })).toBeTruthy();
+    expect(getByRole('switch', { name: 'Iniciar' })).toBeTruthy();
     unmount();
 
     const rec = makeCamera({ status: 'recording' });
     const rendered = render(CameraCard, { props: defaultProps(rec) });
-    expect(rendered.getByRole('switch', { name: 'Stop' })).toBeTruthy();
-    expect(rendered.getByRole('button', { name: 'Restart' })).toBeTruthy();
+    expect(rendered.getByRole('switch', { name: 'Parar' })).toBeTruthy();
+    expect(rendered.getByRole('button', { name: 'Reiniciar' })).toBeTruthy();
   });
 
   it('action buttons contain text label spans', () => {
     const idle = makeCamera({ status: 'idle' });
     const { getByText, unmount } = render(CameraCard, { props: defaultProps(idle) });
-    expect(getByText('Start')).toBeTruthy();
+    expect(getByText('Iniciar')).toBeTruthy();
     unmount();
 
     const rec = makeCamera({ status: 'recording' });
     const rendered = render(CameraCard, { props: defaultProps(rec) });
-    expect(rendered.getByText('Stop')).toBeTruthy();
+    expect(rendered.getByText('Parar')).toBeTruthy();
   });
 
   it('live link has aria-label when HLS is available', () => {
@@ -83,6 +83,6 @@ describe('CameraCard', () => {
     const { container } = render(CameraCard, { props: defaultProps(camera) });
     const liveLink = container.querySelector('a[href="#/live/test"]');
     expect(liveLink).toBeTruthy();
-    expect(liveLink?.getAttribute('aria-label')).toBe('Live');
+    expect(liveLink?.getAttribute('aria-label')).toBe('Ao vivo');
   });
 });

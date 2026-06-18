@@ -1,6 +1,6 @@
 # 架构:推流接入 (Push-In Ingest) 与推流转发 (Push-Out Relay)
 
-> MiBee NVR 如何跨网络连接摄像头 —— 原生 Go 实现,无需 FFmpeg。
+> AglusNVR 如何跨网络连接摄像头 —— 原生 Go 实现,无需 FFmpeg。
 
 本文档介绍 v0.8.0 引入的两个流媒体子系统,使 NVR 能够跨越网络边界运行:
 

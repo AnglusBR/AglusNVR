@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e
 
-# MiBee NVR Docker Entrypoint
+# AglusNVR Docker Entrypoint
 # Automatically fixes /data ownership and drops privileges.
 #
 # Environment variables:
@@ -33,7 +33,7 @@ if [ "$(id -u)" = "0" ]; then
     echo "[entrypoint] storage: $NVR_DATA_DIR ($(ls -ld "$NVR_DATA_DIR"))"
 
     # Check for common storage path misconfiguration
-    CONFIG_FILE="$NVR_DATA_DIR/mibee-nvr.yaml"
+    CONFIG_FILE="$NVR_DATA_DIR/aglus-nvr.yaml"
     if [ -f "$CONFIG_FILE" ]; then
         CONFIG_ROOT=$(grep -E '^\s+root_dir:' "$CONFIG_FILE" 2>/dev/null | sed 's/.*root_dir:\s*//' | tr -d '"' | tr -d "'")
         if [ -n "$CONFIG_ROOT" ] && [ "$CONFIG_ROOT" != "$NVR_DATA_DIR" ]; then
@@ -43,8 +43,8 @@ if [ "$(id -u)" = "0" ]; then
     fi
 
     # Drop privileges and exec the binary
-    exec su-exec "${NVR_UID}:${NVR_GID}" /usr/local/bin/mibee-nvr "$@"
+    exec su-exec "${NVR_UID}:${NVR_GID}" /usr/local/bin/aglus-nvr "$@"
 fi
 
 # Already non-root, run directly
-exec /usr/local/bin/mibee-nvr "$@"
+exec /usr/local/bin/aglus-nvr "$@"

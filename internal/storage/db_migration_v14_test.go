@@ -5,7 +5,7 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/model"
+	"github.com/seu-usuario/AglusNVR/internal/model"
 	"github.com/stretchr/testify/require"
 )
 
@@ -226,7 +226,7 @@ func TestMergeColumnsExist(t *testing.T) {
 		var version string
 		err := db.db.QueryRowContext(ctx, "SELECT value FROM schema_meta WHERE key='schema_version'").Scan(&version)
 		require.NoError(t, err)
-	require.Equal(t, "22", version)
+		require.Equal(t, "22", version)
 
 		// Data intact
 		var count int

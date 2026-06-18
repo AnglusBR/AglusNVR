@@ -6,11 +6,11 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/hls"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/model"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/recorder"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/xiaomi"
 	"github.com/go-chi/chi/v5"
+	"github.com/seu-usuario/AglusNVR/internal/hls"
+	"github.com/seu-usuario/AglusNVR/internal/model"
+	"github.com/seu-usuario/AglusNVR/internal/recorder"
+	"github.com/seu-usuario/AglusNVR/internal/xiaomi"
 )
 
 // --- HLS streaming endpoints ---

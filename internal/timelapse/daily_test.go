@@ -9,8 +9,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/model"
+	"github.com/seu-usuario/AglusNVR/internal/model"
 )
+
 type mockRecordingLister struct{}
 
 func (m *mockRecordingLister) ListRecordings(ctx context.Context, filter model.RecordingFilter) ([]model.Recording, error) {
@@ -68,10 +69,10 @@ func (m *mockRecordingListerWithSegments) ListRecordings(_ context.Context, filt
 // trackDB records all merge status updates for verification.
 type trackDB struct {
 	mu       sync.Mutex
-	statuses map[string]string // recordingID -> status
-	errors   map[string]string // recordingID -> error message
+	statuses map[string]string                      // recordingID -> status
+	errors   map[string]string                      // recordingID -> error message
 	results  map[string]struct{ path, tier string } // recordingID -> result
-	progress map[string]int    // recordingID -> progress
+	progress map[string]int                         // recordingID -> progress
 }
 
 func newTrackDB() *trackDB {
@@ -148,7 +149,7 @@ func (d *trackDB) GetResult(id string) (path, tier string) {
 // errorMerger is a mock TimelapseMerger that always returns an error.
 type errorMerger struct{}
 
-func (e *errorMerger) CanMerge() bool { return true }
+func (e *errorMerger) CanMerge() bool  { return true }
 func (e *errorMerger) Tier() MergeTier { return TierGo }
 func (e *errorMerger) Merge(_ context.Context, _, _ string, _ int) (*MergeResult, error) {
 	return nil, fmt.Errorf("merge failed: test error")
@@ -157,7 +158,7 @@ func (e *errorMerger) Merge(_ context.Context, _, _ string, _ int) (*MergeResult
 // successMerger is a mock TimelapseMerger that always succeeds.
 type successMerger struct{ delay time.Duration }
 
-func (s *successMerger) CanMerge() bool { return true }
+func (s *successMerger) CanMerge() bool  { return true }
 func (s *successMerger) Tier() MergeTier { return TierGo }
 func (s *successMerger) Merge(ctx context.Context, _, _ string, _ int) (*MergeResult, error) {
 	select {

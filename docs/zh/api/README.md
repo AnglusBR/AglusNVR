@@ -1,6 +1,6 @@
-# MiBee NVR API 参考
+# AglusNVR API 参考
 
-本文档是 MiBee NVR 的 REST API 参考。所有 API 端点均包含其请求格式、响应模式及 `curl` 命令示例。
+本文档是 AglusNVR 的 REST API 参考。所有 API 端点均包含其请求格式、响应模式及 `curl` 命令示例。
 
 大多数端点需要通过 HTTP Basic Auth 进行身份验证。详见[身份验证](authentication.md)。
 

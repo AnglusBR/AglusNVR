@@ -6,7 +6,7 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/model"
+	"github.com/seu-usuario/AglusNVR/internal/model"
 )
 
 // cameraFreezeState tracks per-camera freeze detection state.
@@ -20,11 +20,11 @@ type cameraFreezeState struct {
 // FreezeDetector detects frozen video streams by monitoring frame timestamps.
 // It operates in Layer 2.5 of the health monitoring system.
 type FreezeDetector struct {
-	mu             sync.Mutex
-	freezeTimeout  time.Duration
+	mu              sync.Mutex
+	freezeTimeout   time.Duration
 	cameraOverrides map[string]time.Duration // per-camera freeze timeout overrides
-	cameras        map[string]*cameraFreezeState
-	eventHandler   func(cameraID string, event model.HealthEvent)
+	cameras         map[string]*cameraFreezeState
+	eventHandler    func(cameraID string, event model.HealthEvent)
 }
 
 // NewFreezeDetector creates a new freeze detector.

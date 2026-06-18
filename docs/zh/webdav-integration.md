@@ -1,6 +1,6 @@
 # WebDAV 集成
 
-MiBee NVR 提供 WebDAV 服务器功能，允许通过标准 WebDAV 协议访问摄像头录像和快照。支持只读和读写两种模式，便于与第三方系统集成。
+AglusNVR 提供 WebDAV 服务器功能，允许通过标准 WebDAV 协议访问摄像头录像和快照。支持只读和读写两种模式，便于与第三方系统集成。
 
 ## 概述
 
@@ -198,8 +198,8 @@ rclone sync /mnt/disk/nvr backup:video/recordings/
 
 # 定期备份脚本
 #!/bin/bash
-rclone sync /var/lib/mibee-nvr/recordings/ backup:recordings/
-rclone sync /var/lib/mibee-nvr/snapshots/ backup:snapshots/
+rclone sync /var/lib/aglus-nvr/recordings/ backup:recordings/
+rclone sync /var/lib/aglus-nvr/snapshots/ backup:snapshots/
 ```
 
 ### Windows 备份工具
@@ -208,7 +208,7 @@ rclone sync /var/lib/mibee-nvr/snapshots/ backup:snapshots/
 
 ```batch
 @echo off
-set SOURCE=D:\mibee-nvr\recordings\
+set SOURCE=D:\aglus-nvr\recordings\
 set DEST=\\192.168.1.100\dav\recordings\
 set USER=admin
 set PASS=password
@@ -323,10 +323,10 @@ curl -v -u admin:password -T /etc/hosts http://localhost:9090/dav/test.txt
 **检查系统日志**
 ```bash
 # 查看详细日志
-journalctl -u mibee-nvr -f | grep webdav
+journalctl -u aglus-nvr -f | grep webdav
 
 # Docker 容器
-docker logs -f mibee-nvr | grep webdav
+docker logs -f aglus-nvr | grep webdav
 ```
 
 ### 性能优化
@@ -370,12 +370,12 @@ defaults write com.apple.TimeMachine CustomBackupDisk "http://localhost:9090/dav
 
 ```bash
 # 使用 rsync 备份到 WebDAV
-rsync -avz /var/lib/mibee-nvr/recordings/ \
-  admin@localhost:/var/lib/mibee-nvr/recordings/backup/
+rsync -avz /var/lib/aglus-nvr/recordings/ \
+  admin@localhost:/var/lib/aglus-nvr/recordings/backup/
 
 # 排除特定文件
-rsync -avz --exclude='*.tmp' /var/lib/mibee-nvr/recordings/ \
-  admin@localhost:/var/lib/mibee-nvr/recordings/backup/
+rsync -avz --exclude='*.tmp' /var/lib/aglus-nvr/recordings/ \
+  admin@localhost:/var/lib/aglus-nvr/recordings/backup/
 ```
 
 ### Python 自动化脚本
@@ -529,4 +529,4 @@ if [[ ${DISK_USAGE%?} -gt 90 ]]; then
 fi
 ```
 
-通过 WebDAV 集成，MiBee NVR 可以轻松与各种第三方系统集成，实现自动备份、远程访问和文件管理等功能。
+通过 WebDAV 集成，AglusNVR 可以轻松与各种第三方系统集成，实现自动备份、远程访问和文件管理等功能。

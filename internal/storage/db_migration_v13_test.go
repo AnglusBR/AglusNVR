@@ -6,7 +6,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/model"
+	"github.com/seu-usuario/AglusNVR/internal/model"
 	"github.com/stretchr/testify/require"
 )
 
@@ -254,16 +254,16 @@ func TestMigrationV13_MergeAndReplaceUsesStatus(t *testing.T) {
 
 	// Merge some recordings
 	merged := &model.Recording{
-		ID:        "merged-v13",
-		CameraID:  "cam1",
-		FilePath:  "/path/merged-v13.mp4",
-		Format:    model.FormatH264,
-		StartedAt: mustParseTime(t, "2026-06-01 10:00:00"),
-		EndedAt:   mustParseTime(t, "2026-06-01 10:03:00"),
-		Duration:  180.0,
-		FileSize:  3072,
+		ID:         "merged-v13",
+		CameraID:   "cam1",
+		FilePath:   "/path/merged-v13.mp4",
+		Format:     model.FormatH264,
+		StartedAt:  mustParseTime(t, "2026-06-01 10:00:00"),
+		EndedAt:    mustParseTime(t, "2026-06-01 10:03:00"),
+		Duration:   180.0,
+		FileSize:   3072,
 		FrameCount: 180,
-		Merged:    true,
+		Merged:     true,
 	}
 	oldIDs := []string{"v12-pending-1", "v12-pending-2"}
 	err = db.MergeAndReplaceRecordings(ctx, merged, oldIDs)

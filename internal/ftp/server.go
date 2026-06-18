@@ -16,8 +16,8 @@ import (
 	"github.com/google/uuid"
 	"github.com/spf13/afero"
 
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/storage"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/model"
+	"github.com/seu-usuario/AglusNVR/internal/model"
+	"github.com/seu-usuario/AglusNVR/internal/storage"
 )
 
 var logger = slog.Default().With("component", "ftp")
@@ -79,7 +79,7 @@ func (s *Server) Close() {
 func (s *Server) GetSettings() (*ftpserverlib.Settings, error) {
 	settings := &ftpserverlib.Settings{
 		ListenAddr: s.addr,
-		Banner:     "MiBee NVR FTP Server",
+		Banner:     "AglusNVR FTP Server",
 	}
 
 	if s.portRange != "" {
@@ -98,7 +98,7 @@ func (s *Server) GetSettings() (*ftpserverlib.Settings, error) {
 
 // ClientConnected returns the welcome message sent before authentication.
 func (s *Server) ClientConnected(cc ftpserverlib.ClientContext) (string, error) {
-	return "220 Welcome to MiBee NVR FTP Server", nil
+	return "220 Welcome to AglusNVR FTP Server", nil
 }
 
 // ClientDisconnected is called when a client disconnects (even unauthenticated).
@@ -157,7 +157,7 @@ func (d *clientDriver) resolvePath(name string) (string, error) {
 
 // ---- afero.Fs implementation ----
 
-func (d *clientDriver) Name() string { return "mibee-nvr" }
+func (d *clientDriver) Name() string { return "aglus-nvr" }
 
 func (d *clientDriver) Create(name string) (afero.File, error) {
 	realPath, err := d.resolvePath(name)

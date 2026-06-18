@@ -7,8 +7,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/health"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/model"
+	"github.com/seu-usuario/AglusNVR/internal/health"
+	"github.com/seu-usuario/AglusNVR/internal/model"
 	"github.com/stretchr/testify/require"
 )
 
@@ -281,7 +281,7 @@ func newTestAuthMiddleware(username, password string) (func(http.Handler) http.H
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			u, p, ok := r.BasicAuth()
 			if !ok || u != username || p != password {
-				w.Header().Set("WWW-Authenticate", `Basic realm="MiBee NVR"`)
+				w.Header().Set("WWW-Authenticate", `Basic realm="AglusNVR"`)
 				w.WriteHeader(http.StatusUnauthorized)
 				json.NewEncoder(w).Encode(map[string]string{"error": "unauthorized"})
 				return

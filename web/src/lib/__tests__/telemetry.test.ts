@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { sendTelemetry, optInTelemetry, isTelemetryOptedIn, __resetOptIn } from '$lib/telemetry';
 
-const AUTH_KEY = 'mibee_nvr_auth';
+const AUTH_KEY = 'aglus_nvr_auth';
 const TEST_CRED = btoa('admin:admin123');
 
 function mockSendBeacon(): ReturnType<typeof vi.fn> {

@@ -1,6 +1,6 @@
 # Prometheus Metrics
 
-MiBee NVR exposes a comprehensive set of Prometheus metrics at the `/metrics` HTTP endpoint for monitoring, alerting, and dashboarding.
+AglusNVR exposes a comprehensive set of Prometheus metrics at the `/metrics` HTTP endpoint for monitoring, alerting, and dashboarding.
 
 ## Accessing Metrics
 
@@ -26,7 +26,7 @@ Add to your `prometheus.yml`:
 
 ```yaml
 scrape_configs:
-  - job_name: 'mibee-nvr'
+  - job_name: 'aglus-nvr'
     static_configs:
       - targets: ['localhost:9090']
     metrics_path: '/metrics'
@@ -380,7 +380,7 @@ go_goroutines > 500
 
 ```promql
 # Uptime — process start time
-time() - process_start_time_seconds{job="mibee-nvr"}
+time() - process_start_time_seconds{job="aglus-nvr"}
 
 # Memory usage
 nvr_process_resident_memory_bytes
@@ -439,7 +439,7 @@ topk(5, histogram_quantile(0.99, rate(nvr_frame_processing_duration_seconds_buck
 
 ## Configuration Reference
 
-The `/metrics` endpoint is set up in `cmd/mibee-nvr/main.go` using `promhttp.HandlerFor` with `ContinueOnError` error handling. It uses a custom Prometheus registry (not the global default) to isolate NVR metrics.
+The `/metrics` endpoint is set up in `cmd/aglus-nvr/main.go` using `promhttp.HandlerFor` with `ContinueOnError` error handling. It uses a custom Prometheus registry (not the global default) to isolate NVR metrics.
 
 Config field for metrics authentication:
 
@@ -452,4 +452,4 @@ metrics_auth:
 
 When `metrics_auth` is not configured, the `/metrics` endpoint is accessible without authentication.
 
-To configure, use `mibee-nvr hash-password yourpassword` to generate a bcrypt hash, or set the password as plaintext (auto-converted on first run).
+To configure, use `aglus-nvr hash-password yourpassword` to generate a bcrypt hash, or set the password as plaintext (auto-converted on first run).

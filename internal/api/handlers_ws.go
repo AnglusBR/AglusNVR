@@ -7,8 +7,8 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/wsstream"
 	"github.com/go-chi/chi/v5"
+	"github.com/seu-usuario/AglusNVR/internal/wsstream"
 )
 
 // --- WebSocket streaming endpoint ---

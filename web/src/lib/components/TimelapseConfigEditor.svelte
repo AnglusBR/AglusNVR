@@ -222,9 +222,9 @@
               value={config.frame_source}
               onchange={(e) => updateField('frame_source', (e.target as HTMLSelectElement).value)}
             >
-              <option value="auto">Auto</option>
-              <option value="snapshot">Snapshot</option>
-              <option value="rtsp_keyframe">RTSP Keyframe</option>
+              <option value="auto">Automático</option>
+              <option value="snapshot">Captura</option>
+              <option value="rtsp_keyframe">Quadro-chave RTSP</option>
               <option value="mjpeg">MJPEG</option>
             </select>
             <p class="th-text-muted text-xs mt-1">{t('timelapse.frameSourceHint')}</p>
@@ -292,7 +292,7 @@
                     value={range.start}
                     oninput={(e) => updateTimeRange(i, 'start', (e.target as HTMLInputElement).value)}
                   />
-                  <span class="th-text-muted text-xs">to</span>
+                  <span class="th-text-muted text-xs">até</span>
                   <input
                     type="time"
                     class="input text-sm w-32"

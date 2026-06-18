@@ -20,38 +20,38 @@ import (
 	_ "net/http/pprof"
 	_ "time/tzdata" // embed timezone database for minimal containers (scratch/alpine)
 
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/ai"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/api"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/camera"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/cleanup"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/config"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/event"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/flv"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/ftp"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/health"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/hls"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/merge"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/metrics"
-	authmw "github.com/Mi-Bee-Studio/MiBeeNvr/internal/middleware"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/middleware/remotelog"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/model"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/mqtt"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/relay"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/rtmp"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/srt"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/storage"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/timelapse"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/transcoding"
-	ui "github.com/Mi-Bee-Studio/MiBeeNvr/internal/ui"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/upload"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/webdav"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/webrtc"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/wsstream"
-	_ "github.com/Mi-Bee-Studio/MiBeeNvr/internal/xiaomi"
+	"github.com/seu-usuario/AglusNVR/internal/ai"
+	"github.com/seu-usuario/AglusNVR/internal/api"
+	"github.com/seu-usuario/AglusNVR/internal/camera"
+	"github.com/seu-usuario/AglusNVR/internal/cleanup"
+	"github.com/seu-usuario/AglusNVR/internal/config"
+	"github.com/seu-usuario/AglusNVR/internal/event"
+	"github.com/seu-usuario/AglusNVR/internal/flv"
+	"github.com/seu-usuario/AglusNVR/internal/ftp"
+	"github.com/seu-usuario/AglusNVR/internal/health"
+	"github.com/seu-usuario/AglusNVR/internal/hls"
+	"github.com/seu-usuario/AglusNVR/internal/merge"
+	"github.com/seu-usuario/AglusNVR/internal/metrics"
+	authmw "github.com/seu-usuario/AglusNVR/internal/middleware"
+	"github.com/seu-usuario/AglusNVR/internal/middleware/remotelog"
+	"github.com/seu-usuario/AglusNVR/internal/model"
+	"github.com/seu-usuario/AglusNVR/internal/mqtt"
+	"github.com/seu-usuario/AglusNVR/internal/relay"
+	"github.com/seu-usuario/AglusNVR/internal/rtmp"
+	"github.com/seu-usuario/AglusNVR/internal/srt"
+	"github.com/seu-usuario/AglusNVR/internal/storage"
+	"github.com/seu-usuario/AglusNVR/internal/timelapse"
+	"github.com/seu-usuario/AglusNVR/internal/transcoding"
+	ui "github.com/seu-usuario/AglusNVR/internal/ui"
+	"github.com/seu-usuario/AglusNVR/internal/upload"
+	"github.com/seu-usuario/AglusNVR/internal/webdav"
+	"github.com/seu-usuario/AglusNVR/internal/webrtc"
+	"github.com/seu-usuario/AglusNVR/internal/wsstream"
+	_ "github.com/seu-usuario/AglusNVR/internal/xiaomi"
 )
 
 var (
-	configPath = flag.String("config", "mibee-nvr.yaml", "path to configuration file")
+	configPath = flag.String("config", "aglus-nvr.yaml", "path to configuration file")
 	version    = flag.Bool("version", false, "print version and exit")
 )
 
@@ -65,7 +65,7 @@ func autoInitConfig(configPath string) *config.Config {
 		if info, err := os.Stat("/data"); err == nil && info.IsDir() {
 			dataDir = "/data"
 		} else {
-			dataDir = "/var/lib/mibee-nvr"
+			dataDir = "/var/lib/aglus-nvr"
 		}
 	}
 
@@ -163,7 +163,7 @@ func cmdHealth() {
 			if i < len(os.Args) {
 				cfg, err := config.Load(os.Args[i])
 				if err != nil {
-					fmt.Fprintf(os.Stderr, "Error loading config: %v\n", err)
+					fmt.Fprintf(os.Stderr, "Erro ao carregar a configuração: %v\n", err)
 					os.Exit(1)
 				}
 				if cfg.Server.Listen != "" {
@@ -174,12 +174,12 @@ func cmdHealth() {
 	}
 	resp, err := http.Get("http://localhost" + addr + "/api/health")
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Health check failed: %v\n", err)
+		fmt.Fprintf(os.Stderr, "A verificação de integridade falhou: %v\n", err)
 		os.Exit(1)
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != http.StatusOK {
-		fmt.Fprintf(os.Stderr, "Health check failed: HTTP %d\n", resp.StatusCode)
+		fmt.Fprintf(os.Stderr, "A verificação de integridade falhou: HTTP %d\n", resp.StatusCode)
 		os.Exit(1)
 	}
 	os.Exit(0)
@@ -220,13 +220,13 @@ func cmdInit() {
 		}
 	}
 	if dataDir == "" {
-		dataDir = "/var/lib/mibee-nvr"
+		dataDir = "/var/lib/aglus-nvr"
 	}
 	if listenAddr == "" {
 		listenAddr = ":9090"
 	}
 	if cfgPath == "" {
-		cfgPath = "mibee-nvr.yaml"
+		cfgPath = "aglus-nvr.yaml"
 	}
 	if username == "" {
 		username = "admin"
@@ -234,32 +234,32 @@ func cmdInit() {
 	if password == "" {
 		stat, _ := os.Stdin.Stat()
 		if (stat.Mode() & os.ModeCharDevice) != 0 {
-			fmt.Print("Enter password: ")
+			fmt.Print("Digite a senha: ")
 			scanner := bufio.NewScanner(os.Stdin)
 			if scanner.Scan() {
 				password = scanner.Text()
 			}
 		}
 		if password == "" {
-			fmt.Fprintln(os.Stderr, "Error: password is required (use --password or provide via terminal)")
+			fmt.Fprintln(os.Stderr, "Erro: a senha é obrigatória (use --password ou informe pelo terminal)")
 			os.Exit(1)
 		}
 	}
 	if len(password) < 8 {
-		fmt.Fprintln(os.Stderr, "Error: password must be at least 8 characters")
+		fmt.Fprintln(os.Stderr, "Erro: a senha deve ter pelo menos 8 caracteres")
 		os.Exit(1)
 	}
 	if _, err := os.Stat(cfgPath); err == nil && !force {
-		fmt.Fprintf(os.Stderr, "Error: config file %s already exists (use --force to overwrite)\n", cfgPath)
+		fmt.Fprintf(os.Stderr, "Erro: o arquivo de configuração %s já existe (use --force para substituir)\n", cfgPath)
 		os.Exit(2)
 	}
 	if err := os.MkdirAll(dataDir, 0755); err != nil {
-		fmt.Fprintf(os.Stderr, "Error creating data directory: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Erro ao criar o diretório de dados: %v\n", err)
 		os.Exit(1)
 	}
 	hash, err := authmw.HashPassword(password)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error hashing password: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Erro ao gerar o hash da senha: %v\n", err)
 		os.Exit(1)
 	}
 	cfg := config.Config{
@@ -280,26 +280,26 @@ func cmdInit() {
 		},
 	}
 	if err := config.Save(cfgPath, &cfg); err != nil {
-		fmt.Fprintf(os.Stderr, "Error saving config: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Erro ao salvar a configuração: %v\n", err)
 		os.Exit(1)
 	}
-	fmt.Printf("Configuration saved to %s\n", cfgPath)
-	fmt.Printf("Data directory: %s\n", dataDir)
-	fmt.Println("\nNext steps:")
-	fmt.Printf("  1. Edit %s to add your cameras\n", cfgPath)
-	fmt.Printf("  2. Run: ./mibee-nvr -config %s\n", cfgPath)
-	fmt.Printf("  3. Open http://localhost%s in your browser\n", listenAddr)
+	fmt.Printf("Configuração salva em %s\n", cfgPath)
+	fmt.Printf("Diretório de dados: %s\n", dataDir)
+	fmt.Println("\nPróximos passos:")
+	fmt.Printf("  1. Edite %s para adicionar suas câmeras\n", cfgPath)
+	fmt.Printf("  2. Execute: ./aglus-nvr -config %s\n", cfgPath)
+	fmt.Printf("  3. Abra http://localhost%s no navegador\n", listenAddr)
 	os.Exit(0)
 }
 
 func cmdHashPassword() {
 	if len(os.Args) < 3 {
-		fmt.Fprintln(os.Stderr, "Usage: mibee-nvr hash-password <password>")
+		fmt.Fprintln(os.Stderr, "Uso: aglus-nvr hash-password <senha>")
 		os.Exit(1)
 	}
 	hash, err := authmw.HashPassword(os.Args[2])
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Erro: %v\n", err)
 		os.Exit(1)
 	}
 	fmt.Println(hash)
@@ -307,7 +307,7 @@ func cmdHashPassword() {
 }
 
 func cmdEncryptConfig() {
-	cfgPath := "mibee-nvr.yaml"
+	cfgPath := "aglus-nvr.yaml"
 	for i := 2; i < len(os.Args); i++ {
 		switch os.Args[i] {
 		case "--config":
@@ -319,13 +319,13 @@ func cmdEncryptConfig() {
 	}
 	fields, err := config.EncryptConfigFile(cfgPath)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Erro: %v\n", err)
 		os.Exit(1)
 	}
 	if len(fields) == 0 {
-		fmt.Println("No plaintext sensitive fields found. All fields are already encrypted or empty.")
+		fmt.Println("Nenhum campo sensível em texto simples foi encontrado. Todos já estão criptografados ou vazios.")
 	} else {
-		fmt.Printf("Encrypted %d sensitive field(s) in %s:\n", len(fields), cfgPath)
+		fmt.Printf("%d campo(s) sensível(is) criptografado(s) em %s:\n", len(fields), cfgPath)
 		for _, f := range fields {
 			fmt.Printf("  - %s\n", f)
 		}
@@ -415,7 +415,7 @@ func NewApp(cfg *config.Config, configPath string) (*App, error) {
 	}
 
 	// Step 1: Open database
-	dbPath := filepath.Join(cfg.Storage.RootDir, "mibee-nvr.db")
+	dbPath := filepath.Join(cfg.Storage.RootDir, "aglus-nvr.db")
 	db, err := storage.New(dbPath)
 	if err != nil {
 		return nil, fmt.Errorf("db open: %w", err)
@@ -917,7 +917,7 @@ func (a *App) buildRouter() http.Handler {
 	r.Use(authmw.SecurityHeaders)
 	r.Use(authmw.COOPHeaders)
 
-	// API Key middleware — validates Bearer mbv_* tokens for MiBeeVision.
+	// API Key middleware — validates Bearer mbv_* tokens for AglusVision.
 	// Runs before authMW: if the request has an API Key Bearer token, it's
 	// authenticated here; otherwise it falls through to BasicAuth.
 	if len(cfg.APIKeys) > 0 {
@@ -1070,7 +1070,7 @@ func (a *App) Start() error {
 
 	// Start HTTP server
 	go func() {
-		slog.Info("MiBee NVR listening", "version", appVersion, "addr", a.cfg.Server.Listen)
+		slog.Info("AglusNVR listening", "version", appVersion, "addr", a.cfg.Server.Listen)
 		if err := a.httpServer.ListenAndServe(); err != nil && err != http.ErrServerClosed {
 			slog.Error("http", "error", err)
 			os.Exit(1)
@@ -1219,7 +1219,7 @@ func (a *App) Stop() error {
 		authmw.ComponentLogger("server").Warn("shutdown timed out, forcing exit")
 	}
 
-	slog.Info("MiBee NVR stopped")
+	slog.Info("AglusNVR stopped")
 	return nil
 }
 
@@ -1238,9 +1238,9 @@ func main() {
 		case "hash-password":
 			cmdHashPassword()
 		case "encrypt-config":
+			cmdEncryptConfig()
 		case "download-model":
 			cmdDownloadModel()
-			cmdEncryptConfig()
 		}
 	}
 
@@ -1251,7 +1251,7 @@ func main() {
 	flag.Parse()
 
 	if *version {
-		fmt.Printf("MiBee NVR version %s\n", appVersion)
+		fmt.Printf("AglusNVR versão %s\n", appVersion)
 		os.Exit(0)
 	}
 
@@ -1267,9 +1267,9 @@ func main() {
 		cfg = autoInitConfig(*configPath)
 	}
 	// Fix Docker storage path mismatch: if running in Docker but config has
-	// the non-Docker default /var/lib/mibee-nvr, auto-fix to /data.
+	// the non-Docker default /var/lib/aglus-nvr, auto-fix to /data.
 	if dockerDir := dockerStorageDir(); dockerDir != "" {
-		if cfg.Storage.RootDir == "/var/lib/mibee-nvr" || cfg.Storage.RootDir == "" {
+		if cfg.Storage.RootDir == "/var/lib/aglus-nvr" || cfg.Storage.RootDir == "" {
 			slog.Warn("auto-fixing storage.root_dir for Docker environment",
 				"old", cfg.Storage.RootDir, "new", dockerDir)
 			cfg.Storage.RootDir = dockerDir

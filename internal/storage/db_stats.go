@@ -6,7 +6,7 @@ import (
 	"sort"
 	"time"
 
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/model"
+	"github.com/seu-usuario/AglusNVR/internal/model"
 )
 
 func (d *DB) CountRecordings(ctx context.Context) (int, error) {
@@ -51,8 +51,8 @@ func (d *DB) GetRecordingTrends(ctx context.Context, days int, loc *time.Locatio
 
 	// Aggregate into per-date stats using local timezone dates
 	type dailyKey struct {
-		date     string
-		camID    string
+		date  string
+		camID string
 	}
 	agg := make(map[dailyKey]*model.DailyStats)
 

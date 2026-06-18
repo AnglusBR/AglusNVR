@@ -1,13 +1,13 @@
 # MediaMTX Integration Guide
 
-MediaMTX (formerly rtsp-simple-server) is a powerful media server that can serve as an RTSP proxy server for MiBee NVR. It provides RTSP to WebRTC, HLS, and other protocol conversion capabilities, making it particularly suitable for integration with MiBee NVR.
+MediaMTX (formerly rtsp-simple-server) is a powerful media server that can serve as an RTSP proxy server for AglusNVR. It provides RTSP to WebRTC, HLS, and other protocol conversion capabilities, making it particularly suitable for integration with AglusNVR.
 
 MediaMTX main advantages:
 - Supports multiple camera protocols (RTSP, RTMP, HTTP-FLV, WebRTC)
 - Provides real-time stream conversion
 - Supports load balancing and failover
 - Easy to configure and deploy
-- Perfect integration with MiBee NVR
+- Perfect integration with AglusNVR
 
 ## MediaMTX Overview
 
@@ -132,12 +132,12 @@ The stream is now available at `rtsp://localhost:8554/cam_front`.
 ```
 
 
-## Integrating with MiBee NVR
+## Integrating with AglusNVR
 
-Configure MiBee NVR to pull from MediaMTX:
+Configure AglusNVR to pull from MediaMTX:
 
 ```yaml
-# mibee-nvr.yaml
+# aglus-nvr.yaml
 cameras:
   - id: "front-door"
     name: "Front Door"
@@ -146,7 +146,7 @@ cameras:
     enabled: true
 ```
 
-MiBee NVR will connect to MediaMTX's RTSP port and record the stream.
+AglusNVR will connect to MediaMTX's RTSP port and record the stream.
 
 ## CSI Camera Pipeline
 
@@ -231,7 +231,7 @@ paths:
     source: udp://127.0.0.1:8555
 ```
 
-Then in MiBee NVR config:
+Then in AglusNVR config:
 
 ```yaml
 cameras:
@@ -429,7 +429,7 @@ ffmpeg -rtsp_transport tcp -i "rtsp://admin:password123@localhost:8554/cam1" -t 
 ```bash
 # Check storage permissions
 ls -la /mnt/data/nvr/recordings/
-sudo chown -R mibee:mibee /mnt/data/nvr/recordings/
+sudo chown -R aglus:aglus /mnt/data/nvr/recordings/
 
 # Check disk space
 df -h /mnt/data/nvr
@@ -461,7 +461,7 @@ logging:
 # Check MediaMTX statistics
 curl http://localhost:8889/stats
 
-# Check MiBee NVR statistics
+# Check AglusNVR statistics
 curl http://localhost:9090/api/stats
 ```
 
@@ -520,7 +520,7 @@ paths:
 ### Deployment Architecture
 
 ```
-camera → MediaMTX (load balancing) → MiBee NVR
+camera → MediaMTX (load balancing) → AglusNVR
          ↓
       monitoring node
          ↓
@@ -566,7 +566,7 @@ chmod +x update-mediamtx.sh
 
 ## Summary
 
-MediaMTX provides powerful media processing capabilities for MiBee NVR, enabling:
+MediaMTX provides powerful media processing capabilities for AglusNVR, enabling:
 
 - More stable camera connections
 - More protocol support

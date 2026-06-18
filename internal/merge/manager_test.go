@@ -1,20 +1,20 @@
 package merge
 
 import (
-"context"
-"fmt"
-"os"
-"path/filepath"
-	"sync"
-	"testing"
-"time"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/config"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/model"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/storage"
-	"github.com/stretchr/testify/require"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/metrics"
+	"context"
+	"fmt"
 	"github.com/prometheus/client_golang/prometheus"
 	dto "github.com/prometheus/client_model/go"
+	"github.com/seu-usuario/AglusNVR/internal/config"
+	"github.com/seu-usuario/AglusNVR/internal/metrics"
+	"github.com/seu-usuario/AglusNVR/internal/model"
+	"github.com/seu-usuario/AglusNVR/internal/storage"
+	"github.com/stretchr/testify/require"
+	"os"
+	"path/filepath"
+	"sync"
+	"testing"
+	"time"
 )
 
 // mergeTestEnv holds test dependencies for merge manager tests.
@@ -87,6 +87,7 @@ func (e *mergeTestEnv) insertMergeableRecording(t *testing.T, id string, cameraI
 
 	return finalPath
 }
+
 // newTestMergeManager creates a MergeManager with the given config for testing.
 func newTestMergeManager(db *storage.DB, store *storage.Manager, cfg config.MergeConfig, cameras []config.CameraConfig) *MergeManager {
 	return NewMergeManager(db, store, func() config.MergeConfig { return cfg }, func(string) *config.MergeConfig { return nil }, func() []config.CameraConfig { return cameras }, nil)
@@ -224,7 +225,6 @@ func TestRunOnce_NotEnoughSegments(t *testing.T) {
 	require.NoError(t, err)
 	require.NotNil(t, rec)
 }
-
 
 func TestRunOnce_ContextCancelled(t *testing.T) {
 	env := newMergeTestEnv(t)
@@ -388,7 +388,7 @@ func TestHotReload_PerCameraConfig(t *testing.T) {
 		},
 		func() []config.CameraConfig { return []config.CameraConfig{{ID: cameraID}} },
 		nil,
-)
+	)
 
 	// Per-camera override enables merge even when global is disabled.
 	err := mgr.RunOnce(ctx)
@@ -953,7 +953,7 @@ func TestRunOnce_BatchLimitTruncation(t *testing.T) {
 		BatchLimit:         2,
 		MinSegmentsToMerge: 2,
 	}
-	
+
 	mgr := newTestMergeManager(env.db, env.store, cfg, []config.CameraConfig{{ID: cameraID}})
 	require.NoError(t, mgr.RunOnce(ctx))
 
@@ -1009,7 +1009,6 @@ func TestRunOnce_MJPEGNotEnoughSegments(t *testing.T) {
 	require.NotNil(t, rec)
 	require.False(t, rec.Merged)
 }
-
 
 // insertMergeableH265Recording creates a real H.265 MP4 file and inserts a recording into the DB.
 func (e *mergeTestEnv) insertMergeableH265Recording(t *testing.T, id string, cameraID string, startedAt, endedAt time.Time) string {

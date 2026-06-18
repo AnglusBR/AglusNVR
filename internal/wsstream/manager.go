@@ -12,7 +12,7 @@ import (
 	"time"
 
 	"github.com/gorilla/websocket"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/model"
+	"github.com/seu-usuario/AglusNVR/internal/model"
 )
 
 var wsLogger atomic.Pointer[slog.Logger]
@@ -29,9 +29,9 @@ const (
 
 // Errors returned by the Manager.
 var (
-	ErrStreamExists   = errors.New("wsstream: stream already registered")
+	ErrStreamExists    = errors.New("wsstream: stream already registered")
 	ErrStreamNotActive = errors.New("wsstream: stream not active")
-	ErrMaxViewers     = errors.New("wsstream: max viewers reached")
+	ErrMaxViewers      = errors.New("wsstream: max viewers reached")
 )
 
 // frameMsg is an internal frame representation passed through the per-stream channel.
@@ -51,18 +51,18 @@ type viewerConn struct {
 
 // streamEntry holds per-camera WebSocket streaming state.
 type streamEntry struct {
-	codec      model.Format
-	sps        []byte
-	pps        []byte
-	vps        []byte
-	viewers    map[int64]*viewerConn
-	viewerSeq  atomic.Int64
-	viewerMu   sync.Mutex
-	frameCh    chan frameMsg
-	cancel     context.CancelFunc
-	hub        *model.StreamHub
-	hubSubID   string
-	dropCount  atomic.Int64
+	codec     model.Format
+	sps       []byte
+	pps       []byte
+	vps       []byte
+	viewers   map[int64]*viewerConn
+	viewerSeq atomic.Int64
+	viewerMu  sync.Mutex
+	frameCh   chan frameMsg
+	cancel    context.CancelFunc
+	hub       *model.StreamHub
+	hubSubID  string
+	dropCount atomic.Int64
 }
 
 // upgrader is the WebSocket upgrader used by ServeWS.
@@ -140,14 +140,14 @@ func (m *Manager) RegisterStream(camID string, codec model.Format, sps, pps, vps
 
 	ctx, cancel := context.WithCancel(context.Background())
 	entry := &streamEntry{
-		codec:    codec,
-		sps:       sps,
-		pps:       pps,
-		vps:       vps,
-		viewers:   make(map[int64]*viewerConn),
-		frameCh:   make(chan frameMsg, m.writeBufSize),
-		cancel:    cancel,
-		hub:       hub,
+		codec:   codec,
+		sps:     sps,
+		pps:     pps,
+		vps:     vps,
+		viewers: make(map[int64]*viewerConn),
+		frameCh: make(chan frameMsg, m.writeBufSize),
+		cancel:  cancel,
+		hub:     hub,
 	}
 
 	// Subscribe to recorder's StreamHub for live frames
@@ -322,8 +322,8 @@ func (m *Manager) writeLoop(ctx context.Context, camID string, entry *streamEntr
 				}
 			}
 			entry.viewerMu.Unlock()
+		}
 	}
-}
 }
 
 // ServeWS handles a WebSocket upgrade request for a camera stream.
@@ -450,8 +450,7 @@ func (m *Manager) ServeWS(camID string, w http.ResponseWriter, r *http.Request) 
 				}
 			}
 		}
-		}()
-
+	}()
 
 	// Write frames to WebSocket until disconnect
 	for {

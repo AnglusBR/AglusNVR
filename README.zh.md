@@ -1,7 +1,7 @@
-# MiBee NVR
+# AglusNVR
 
-[![GitHub Release](https://img.shields.io/github/v/release/Mi-Bee-Studio/MiBeeNvr?style=flat&label=Release)](https://github.com/Mi-Bee-Studio/MiBeeNvr/releases)
-[![CI](https://img.shields.io/github/actions/workflow/status/Mi-Bee-Studio/MiBeeNvr/ci.yml?style=flat&label=CI)](https://github.com/Mi-Bee-Studio/MiBeeNvr/actions/workflows/ci.yml)
+[![GitHub Release](https://img.shields.io/github/v/release/seu-usuario/AglusNVR?style=flat&label=Release)](https://github.com/seu-usuario/AglusNVR/releases)
+[![CI](https://img.shields.io/github/actions/workflow/status/seu-usuario/AglusNVR/ci.yml?style=flat&label=CI)](https://github.com/seu-usuario/AglusNVR/actions/workflows/ci.yml)
 [![Go](https://img.shields.io/badge/Go-00ADD8?style=flat&logo=go&logoColor=white)](https://go.dev/)
 [![Svelte](https://img.shields.io/badge/Svelte-FF3E00?style=flat&logo=svelte&logoColor=white)](https://svelte.dev/)
 [![SQLite](https://img.shields.io/badge/SQLite-003B57?style=flat&logo=sqlite&logoColor=white)](https://www.sqlite.org/)
@@ -58,27 +58,27 @@
 
 ### 方式 1：预编译二进制（推荐）
 
-从 [GitHub Releases](https://github.com/Mi-Bee-Studio/MiBeeNvr/releases) 下载最新二进制文件：
+从 [GitHub Releases](https://github.com/seu-usuario/AglusNVR/releases) 下载最新二进制文件：
 
 ```bash
 # AMD64（大多数 PC/服务器）
-wget https://github.com/Mi-Bee-Studio/MiBeeNvr/releases/latest/download/mibee-nvr-amd64
-chmod +x mibee-nvr-amd64
+wget https://github.com/seu-usuario/AglusNVR/releases/latest/download/aglus-nvr-amd64
+chmod +x aglus-nvr-amd64
 
 # ARM64（树莓派等）
-wget https://github.com/Mi-Bee-Studio/MiBeeNvr/releases/latest/download/mibee-nvr-arm64
-chmod +x mibee-nvr-arm64
+wget https://github.com/seu-usuario/AglusNVR/releases/latest/download/aglus-nvr-arm64
+chmod +x aglus-nvr-arm64
 
 # ARMv7（树莓派 2/3 等）
-wget https://github.com/Mi-Bee-Studio/MiBeeNvr/releases/latest/download/mibee-nvr-armv7
-chmod +x mibee-nvr-armv7
+wget https://github.com/seu-usuario/AglusNVR/releases/latest/download/aglus-nvr-armv7
+chmod +x aglus-nvr-armv7
 ```
 
 初始化配置并启动：
 
 ```bash
-./mibee-nvr-amd64 init --password yourpassword
-./mibee-nvr-amd64 -config mibee-nvr.yaml
+./aglus-nvr-amd64 init --password yourpassword
+./aglus-nvr-amd64 -config aglus-nvr.yaml
 ```
 
 打开 `http://localhost:9090` 即可访问管理界面。
@@ -105,19 +105,19 @@ docker compose up -d
 ### 方式 3：一键安装脚本
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/Mi-Bee-Studio/MiBeeNvr/main/install.sh | sudo bash
+curl -fsSL https://raw.githubusercontent.com/seu-usuario/AglusNVR/main/install.sh | sudo bash
 ```
 
-自动下载二进制文件、创建系统用户（`nvr`）、生成配置、安装 systemd 服务并启动。数据目录：`/var/lib/mibee-nvr`。
+自动下载二进制文件、创建系统用户（`nvr`）、生成配置、安装 systemd 服务并启动。数据目录：`/var/lib/aglus-nvr`。
 
 ### 方式 4：源码编译
 
 ```bash
-git clone https://github.com/Mi-Bee-Studio/MiBeeNvr.git
-cd MiBeeNvr
+git clone https://github.com/seu-usuario/AglusNVR.git
+cd AglusNVR
 make build
-./mibee-nvr init --password yourpassword
-./mibee-nvr -config mibee-nvr.yaml
+./aglus-nvr init --password yourpassword
+./aglus-nvr -config aglus-nvr.yaml
 ```
 
 详细设置请参考 [快速入门](docs/zh/getting-started.md)。
@@ -184,14 +184,14 @@ make docker-release
 
 | 镜像 | 架构 |
 |------|------|
-| `ghcr.io/mi-bee-studio/mibeenvr:<tag>` | amd64, arm64, armv7 |
+| `ghcr.io/seu-usuario/aglusnvr:<tag>` | amd64, arm64, armv7 |
 
 可用标签：`latest`、`v1.2.3`（semver）、`sha-abc1234`
 
 ## 项目结构
 
 ```
-cmd/mibee-nvr/       # 程序入口
+cmd/aglus-nvr/       # 程序入口
 internal/            # 核心模块（29 个）
   ai/               # AI 配置 + ROI 区域存储（推理在浏览器端，见 web/src/lib/ai-detection/）
   api/              # REST API

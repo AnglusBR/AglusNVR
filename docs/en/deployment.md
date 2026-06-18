@@ -1,6 +1,6 @@
 # Deployment Guide
 
-This guide covers installing, configuring, and maintaining MiBee NVR in production.
+This guide covers installing, configuring, and maintaining AglusNVR in production.
 
 ## Installation Methods
 
@@ -10,7 +10,7 @@ The install script downloads the latest release binary, creates the `nvr` system
 
 ```bash
 # Install latest version
-curl -fsSL https://raw.githubusercontent.com/Mi-Bee-Studio/MiBeeNvr/main/install.sh | sudo bash
+curl -fsSL https://raw.githubusercontent.com/seu-usuario/AglusNVR/main/install.sh | sudo bash
 ```
 
 Install a specific version:
@@ -19,7 +19,7 @@ Install a specific version:
 sudo ./install.sh --version v0.2.0
 ```
 
-Uninstall (preserves recordings in `/var/lib/mibee-nvr`):
+Uninstall (preserves recordings in `/var/lib/aglus-nvr`):
 
 ```bash
 sudo ./install.sh --uninstall
@@ -42,30 +42,30 @@ The installer will prompt for an admin password if no config file exists. After 
 
 # Option A: Just run — auto-initialization (recommended)
 docker run -d \
-  --name mibee-nvr \
+  --name aglus-nvr \
   --restart unless-stopped \
   -p 9090:9090 \
   -v ./data:/data \
-  ghcr.io/mi-bee-studio/mibeenvr:latest
+  ghcr.io/seu-usuario/aglusnvr:latest
 
 # Option B: With initial password
 docker run -d \
-  --name mibee-nvr \
+  --name aglus-nvr \
   --restart unless-stopped \
   -p 9090:9090 \
   -e NVR_PASSWORD=yourpassword \
   -v ./data:/data \
-  ghcr.io/mi-bee-studio/mibeenvr:latest
+  ghcr.io/seu-usuario/aglusnvr:latest
 
 # Option C: With docker-compose.yml
 mkdir -p data
 docker compose up -d
 
-> **First-time setup**: When started without a config file, MiBee NVR auto-generates a default configuration and runs in **setup mode** — all API endpoints are accessible without authentication. Set a password via the Web UI Settings page or the `NVR_PASSWORD` environment variable. Once a password is set, authentication is enforced.
+> **First-time setup**: When started without a config file, AglusNVR auto-generates a default configuration and runs in **setup mode** — all API endpoints are accessible without authentication. Set a password via the Web UI Settings page or the `NVR_PASSWORD` environment variable. Once a password is set, authentication is enforced.
 
 #### Configuration Notes
 
-- **Auto-initialization**: If no config file exists at `/data/mibee-nvr.yaml`, one is generated automatically with sensible defaults. No manual setup required.
+- **Auto-initialization**: If no config file exists at `/data/aglus-nvr.yaml`, one is generated automatically with sensible defaults. No manual setup required.
 - **Initial password**: Set via `NVR_PASSWORD` environment variable. If not set, the app starts in setup mode (no auth) — set a password through the Web UI Settings page.
 - **Data directory**: `storage.root_dir` is automatically set to `/data` inside Docker containers via the `NVR_DATA_DIR` environment variable.
 #### docker-compose.yml Reference
@@ -74,12 +74,12 @@ Full configuration with annotated fields:
 
 ```yaml
 services:
-  mibee-nvr:
+  aglus-nvr:
     # Docker image — official pre-built image
-    image: ghcr.io/mi-bee-studio/mibeenvr:latest
+    image: ghcr.io/seu-usuario/aglusnvr:latest
 
     # Container name (for easier management and log viewing)
-    container_name: mibee-nvr
+    container_name: aglus-nvr
 
     # Auto-restart policy: always restart unless manually stopped
     restart: unless-stopped
@@ -102,7 +102,7 @@ services:
 
     # Health check: verifies service status every 30 seconds
     healthcheck:
-      test: ["CMD", "mibee-nvr", "health"]  # Health check command
+      test: ["CMD", "aglus-nvr", "health"]  # Health check command
       interval: 30s                           # Check interval
       timeout: 5s                             # Timeout
       start_period: 10s                       # Grace period after start
@@ -113,7 +113,7 @@ services:
 
 **Option A: Use pre-built image (recommended)**
 
-- Image: `ghcr.io/mi-bee-studio/mibeenvr:latest`
+- Image: `ghcr.io/seu-usuario/aglusnvr:latest`
 - Architecture tags: `latest (multi-arch: amd64 + arm64)`
 
 No extra steps needed — the `docker-compose.yml` uses the pre-built image by default.
@@ -124,7 +124,7 @@ If you need custom builds or want the latest source code:
 
 ```bash
 # Multi-stage build (compiles frontend + backend inside container, requires network)
-docker build -t mibee-nvr .
+docker build -t aglus-nvr .
 
 # Cross-compile ARM64 (on host, no QEMU needed)
 make docker-build-arm64
@@ -139,13 +139,13 @@ After building locally, replace the `image:` field in `docker-compose.yml` with 
 
 ```bash
 # View logs (follow mode)
-docker compose logs -f mibee-nvr
+docker compose logs -f aglus-nvr
 
 # View recent logs (last 100 lines)
-docker compose logs --tail 100 mibee-nvr
+docker compose logs --tail 100 aglus-nvr
 
 # Restart container
-docker compose restart mibee-nvr
+docker compose restart aglus-nvr
 
 # Stop container (preserves data)
 docker compose down
@@ -161,10 +161,10 @@ docker compose up -d
 docker compose ps
 
 # Resource usage
-docker stats mibee-nvr
+docker stats aglus-nvr
 
 # Health check status
-docker inspect --format='{{.State.Health.Status}}' mibee-nvr
+docker inspect --format='{{.State.Health.Status}}' aglus-nvr
 ```
 
 > **Note**: The container uses a distroless/scratch base image, so `docker exec` shell access is not available. Use `docker compose logs` for debugging.
@@ -178,11 +178,11 @@ If you prefer not to use Docker Compose, you can run the container directly:
 echo YOUR_GITHUB_TOKEN | docker login ghcr.io -u USERNAME --password-stdin
 
 # 2. Pull the image
-docker pull ghcr.io/mi-bee-studio/mibeenvr:latest
+docker pull ghcr.io/seu-usuario/aglusnvr:latest
 
 # 3. Run the container
 docker run -d \
-  --name mibee-nvr \
+  --name aglus-nvr \
   --restart unless-stopped \
   -p 9090:9090 \
   -p 2121:2121 \
@@ -190,35 +190,35 @@ docker run -d \
   -v ./data:/data \
   -e NVR_DATA_DIR=/data \
   -e TZ=Asia/Shanghai \
-  ghcr.io/mi-bee-studio/mibeenvr:latest
+  ghcr.io/seu-usuario/aglusnvr:latest
 
 # 4. Check status
 docker ps
-docker logs -f mibee-nvr
-docker inspect --format='{{.State.Health.Status}}' mibee-nvr
+docker logs -f aglus-nvr
+docker inspect --format='{{.State.Health.Status}}' aglus-nvr
 ```
 
 **Run a specific version:**
 
 ```bash
-docker pull ghcr.io/mi-bee-studio/mibeenvr:v0.2.0
-docker run -d --name mibee-nvr ... ghcr.io/mi-bee-studio/mibeenvr:v0.2.0
+docker pull ghcr.io/seu-usuario/aglusnvr:v0.2.0
+docker run -d --name aglus-nvr ... ghcr.io/seu-usuario/aglusnvr:v0.2.0
 ```
 
 **Stop and remove:**
 
 ```bash
-docker stop mibee-nvr
-docker rm mibee-nvr
+docker stop aglus-nvr
+docker rm aglus-nvr
 ```
 
 **Update to latest:**
 
 ```bash
-docker stop mibee-nvr
-docker rm mibee-nvr
-docker pull ghcr.io/mi-bee-studio/mibeenvr:latest
-docker run -d ... ghcr.io/mi-bee-studio/mibeenvr:latest
+docker stop aglus-nvr
+docker rm aglus-nvr
+docker pull ghcr.io/seu-usuario/aglusnvr:latest
+docker run -d ... ghcr.io/seu-usuario/aglusnvr:latest
 ```
 #### Data Backup and Restore
 
@@ -255,8 +255,8 @@ Raspberry Pi requires the ARM64 image:
 ```yaml
 # docker-compose.yml — Raspberry Pi configuration
 services:
-  mibee-nvr:
-    image: ghcr.io/mi-bee-studio/mibeenvr:latest
+  aglus-nvr:
+    image: ghcr.io/seu-usuario/aglusnvr:latest
     deploy:
       resources:
         limits:
@@ -293,7 +293,7 @@ ports:
 Usually a config file error. Check logs:
 
 ```bash
-docker compose logs mibee-nvr
+docker compose logs aglus-nvr
 ```
 
 **FTP won't connect**
@@ -332,33 +332,33 @@ If you prefer full control or the install script doesn't cover your use case:
 
 ```bash
 # 1. Download binary from GitHub Releases
-#    https://github.com/Mi-Bee-Studio/MiBeeNvr/releases
-sudo cp mibee-nvr /usr/local/bin/mibee-nvr
-sudo chmod +x /usr/local/bin/mibee-nvr
+#    https://github.com/seu-usuario/AglusNVR/releases
+sudo cp aglus-nvr /usr/local/bin/aglus-nvr
+sudo chmod +x /usr/local/bin/aglus-nvr
 
 # 2. Create system user and data directory
-sudo useradd -r -s /bin/false -d /var/lib/mibee-nvr nvr
-sudo mkdir -p /var/lib/mibee-nvr
-sudo chown -R nvr:nvr /var/lib/mibee-nvr
+sudo useradd -r -s /bin/false -d /var/lib/aglus-nvr nvr
+sudo mkdir -p /var/lib/aglus-nvr
+sudo chown -R nvr:nvr /var/lib/aglus-nvr
 
 # 3. Initialize config (prompts for admin password)
-sudo -u nvr /usr/local/bin/mibee-nvr init \
+sudo -u nvr /usr/local/bin/aglus-nvr init \
     --password <your-password> \
-    --data-dir /var/lib/mibee-nvr \
-    --config /var/lib/mibee-nvr/mibee-nvr.yaml \
+    --data-dir /var/lib/aglus-nvr \
+    --config /var/lib/aglus-nvr/aglus-nvr.yaml \
     --listen ":9090"
 
 # 4. Install systemd service
-sudo cp deploy/mibee-nvr.service /etc/systemd/system/
+sudo cp deploy/aglus-nvr.service /etc/systemd/system/
 sudo systemctl daemon-reload
-sudo systemctl enable --now mibee-nvr
+sudo systemctl enable --now aglus-nvr
 ```
 
 ### Building from Source
 
 ```bash
-git clone https://github.com/Mi-Bee-Studio/MiBeeNvr.git
-cd MiBeeNvr
+git clone https://github.com/seu-usuario/AglusNVR.git
+cd AglusNVR
 
 # Build for current architecture
 make build
@@ -383,11 +383,11 @@ make rollback RPi_HOST=user@your-rpi-host
 
 ## Systemd Service
 
-The service file is maintained in [`deploy/mibee-nvr.service`](../../deploy/mibee-nvr.service). Key details:
+The service file is maintained in [`deploy/aglus-nvr.service`](../../deploy/aglus-nvr.service). Key details:
 
-- **Binary**: `/usr/local/bin/mibee-nvr`
-- **Config**: `/var/lib/mibee-nvr/mibee-nvr.yaml`
-- **Working directory**: `/var/lib/mibee-nvr`
+- **Binary**: `/usr/local/bin/aglus-nvr`
+- **Config**: `/var/lib/aglus-nvr/aglus-nvr.yaml`
+- **Working directory**: `/var/lib/aglus-nvr`
 - **Runs as**: `nvr` user
 - **Security**: `NoNewPrivileges`, `PrivateTmp`, `ProtectSystem=strict`, `ProtectHome`
 - **Memory limit**: `MemoryMax=512M` (commented out by default; uncomment for RPi 3B)
@@ -395,11 +395,11 @@ The service file is maintained in [`deploy/mibee-nvr.service`](../../deploy/mibe
 Common commands:
 
 ```bash
-sudo systemctl start mibee-nvr
-sudo systemctl stop mibee-nvr
-sudo systemctl restart mibee-nvr
-sudo systemctl status mibee-nvr
-sudo journalctl -u mibee-nvr -f   # follow logs
+sudo systemctl start aglus-nvr
+sudo systemctl stop aglus-nvr
+sudo systemctl restart aglus-nvr
+sudo systemctl status aglus-nvr
+sudo journalctl -u aglus-nvr -f   # follow logs
 ```
 
 ## Reverse Proxy
@@ -458,7 +458,7 @@ server {
 The Raspberry Pi 3B has 905MB RAM. For stable operation:
 
 - **Segment duration**: Use 30s (`segment_duration: "30s"`). Longer durations hold more frames in RAM (e.g., 120s = 60-80MB per segment).
-- **Memory limit**: Uncomment `MemoryMax=512M` in `deploy/mibee-nvr.service` to prevent OOM kills.
+- **Memory limit**: Uncomment `MemoryMax=512M` in `deploy/aglus-nvr.service` to prevent OOM kills.
 - **Storage**: Use an external USB disk (ext4) for recordings. The SD card will wear out quickly with continuous writes.
 - **Cameras**: Limit to 2-3 concurrent H.264/H.265 streams depending on resolution and bitrate.
 
@@ -475,16 +475,16 @@ The script stops the service, replaces the binary, and restarts automatically. C
 ### Manual Update
 
 ```bash
-sudo systemctl stop mibee-nvr
-sudo cp mibee-nvr /usr/local/bin/mibee-nvr
-sudo chmod +x /usr/local/bin/mibee-nvr
-sudo systemctl start mibee-nvr
+sudo systemctl stop aglus-nvr
+sudo cp aglus-nvr /usr/local/bin/aglus-nvr
+sudo chmod +x /usr/local/bin/aglus-nvr
+sudo systemctl start aglus-nvr
 ```
 
 Always back up your config before updating:
 
 ```bash
-sudo cp /var/lib/mibee-nvr/mibee-nvr.yaml /var/lib/mibee-nvr/mibee-nvr.yaml.backup
+sudo cp /var/lib/aglus-nvr/aglus-nvr.yaml /var/lib/aglus-nvr/aglus-nvr.yaml.backup
 ```
 
 ## Monitoring
@@ -492,23 +492,23 @@ sudo cp /var/lib/mibee-nvr/mibee-nvr.yaml /var/lib/mibee-nvr/mibee-nvr.yaml.back
 ### Logs
 
 ```bash
-sudo journalctl -u mibee-nvr -n 100    # last 100 lines
-sudo journalctl -u mibee-nvr -f        # follow
-sudo journalctl -u mibee-nvr --since "1 hour ago"
+sudo journalctl -u aglus-nvr -n 100    # last 100 lines
+sudo journalctl -u aglus-nvr -f        # follow
+sudo journalctl -u aglus-nvr --since "1 hour ago"
 ```
 
 ### Health Check
 
 ```bash
-sudo systemctl is-active mibee-nvr
+sudo systemctl is-active aglus-nvr
 curl -f http://localhost:9090/api/health
 ```
 
 ### Disk Usage
 
 ```bash
-df -h /var/lib/mibee-nvr
-du -sh /var/lib/mibee-nvr/recordings
+df -h /var/lib/aglus-nvr
+du -sh /var/lib/aglus-nvr/recordings
 ```
 
 ### Prometheus Metrics
@@ -524,9 +524,9 @@ curl http://localhost:9090/metrics
 ### Service won't start
 
 ```bash
-sudo journalctl -u mibee-nvr -n 50
+sudo journalctl -u aglus-nvr -n 50
 # Verify config syntax
-sudo -u nvr /usr/local/bin/mibee-nvr -config /var/lib/mibee-nvr/mibee-nvr.yaml
+sudo -u nvr /usr/local/bin/aglus-nvr -config /var/lib/aglus-nvr/aglus-nvr.yaml
 ```
 
 ### Camera connection failures
@@ -549,8 +549,8 @@ sudo lsof -i :2121
 ### Permission errors
 
 ```bash
-ls -la /var/lib/mibee-nvr/
-sudo -u nvr ls /var/lib/mibee-nvr/
+ls -la /var/lib/aglus-nvr/
+sudo -u nvr ls /var/lib/aglus-nvr/
 ```
 
 ### High memory usage

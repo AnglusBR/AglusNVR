@@ -1,5 +1,5 @@
 /**
- * HLS Playback E2E Tests for MiBee NVR.
+ * HLS Playback E2E Tests for AglusNVR.
  *
  * These tests verify HLS live streaming functionality on the Dashboard page.
  * They require a live NVR instance with at least one HLS-capable camera

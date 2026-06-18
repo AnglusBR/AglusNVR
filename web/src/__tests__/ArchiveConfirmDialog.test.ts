@@ -31,7 +31,7 @@ describe('ArchiveConfirmDialog', () => {
     const { getAllByRole } = render(ArchiveConfirmDialog, {
       props: { ...defaultProps, oncancel },
     });
-    const cancelBtns = getAllByRole('button').filter((b) => b.textContent?.includes('Cancel'));
+    const cancelBtns = getAllByRole('button').filter((b) => b.textContent?.includes('Cancelar'));
     await fireEvent.click(cancelBtns[0]);
     expect(oncancel).toHaveBeenCalled();
   });
@@ -40,7 +40,7 @@ describe('ArchiveConfirmDialog', () => {
     const { getByRole, getByPlaceholderText } = render(ArchiveConfirmDialog, {
       props: defaultProps,
     });
-    await fireEvent.click(getByRole('button', { name: 'Continue' }));
+    await fireEvent.click(getByRole('button', { name: 'Continuar' }));
     expect(getByPlaceholderText('DELETE')).toBeTruthy();
   });
 
@@ -48,9 +48,9 @@ describe('ArchiveConfirmDialog', () => {
     const { getByRole, getByPlaceholderText } = render(ArchiveConfirmDialog, {
       props: defaultProps,
     });
-    await fireEvent.click(getByRole('button', { name: 'Continue' }));
+    await fireEvent.click(getByRole('button', { name: 'Continuar' }));
 
-    const confirmBtn = getByRole('button', { name: 'Confirm Archive' });
+    const confirmBtn = getByRole('button', { name: 'Confirmar arquivamento' });
     expect((confirmBtn as HTMLButtonElement).disabled).toBe(true);
 
     const input = getByPlaceholderText('DELETE');

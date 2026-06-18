@@ -11,20 +11,20 @@ import (
 	"sync"
 	"time"
 
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/camera"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/config"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/event"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/flv"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/hls"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/merge"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/middleware"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/model"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/relay"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/storage"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/timelapse"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/webrtc"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/wsstream"
 	"github.com/go-chi/chi/v5"
+	"github.com/seu-usuario/AglusNVR/internal/camera"
+	"github.com/seu-usuario/AglusNVR/internal/config"
+	"github.com/seu-usuario/AglusNVR/internal/event"
+	"github.com/seu-usuario/AglusNVR/internal/flv"
+	"github.com/seu-usuario/AglusNVR/internal/hls"
+	"github.com/seu-usuario/AglusNVR/internal/merge"
+	"github.com/seu-usuario/AglusNVR/internal/middleware"
+	"github.com/seu-usuario/AglusNVR/internal/model"
+	"github.com/seu-usuario/AglusNVR/internal/relay"
+	"github.com/seu-usuario/AglusNVR/internal/storage"
+	"github.com/seu-usuario/AglusNVR/internal/timelapse"
+	"github.com/seu-usuario/AglusNVR/internal/webrtc"
+	"github.com/seu-usuario/AglusNVR/internal/wsstream"
 )
 
 var logger = slog.Default().With("component", "api")
@@ -182,7 +182,7 @@ func (h *Handler) Routes() http.Handler {
 				r.Get("/", h.handleGetRecording)
 				r.Delete("/", h.handleDeleteRecording)
 				r.Patch("/", h.handleUpdateRecording)
-				// MiBeeVision AI status update (API Key required inside handler)
+				// AglusVision AI status update (API Key required inside handler)
 				r.Patch("/ai-status", h.handleUpdateRecordingAIStatus)
 
 				r.Get("/frames", h.handleListFrames)
@@ -334,7 +334,7 @@ func (h *Handler) Routes() http.Handler {
 		r.Post("/api/ai/zones", h.aiHandler.handleAICreateZone)
 		r.Put("/api/ai/zones/{id}", h.aiHandler.handleAIUpdateZone)
 		r.Delete("/api/ai/zones/{id}", h.aiHandler.handleAIDeleteZone)
-		// AI event endpoints (MiBeeVision collaboration)
+		// AI event endpoints (AglusVision collaboration)
 		// POST /api/ai/events requires API Key auth (checked inside handler)
 		r.Post("/api/ai/events", h.handleCreateAIEvent)
 		// GET endpoints are user-authenticated (behind the group's authMW)

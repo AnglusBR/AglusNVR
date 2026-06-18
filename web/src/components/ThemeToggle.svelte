@@ -52,13 +52,13 @@
 <button
   onclick={toggleTheme}
   class="btn btn-ghost w-10 h-10 p-2 rounded-full transition-all duration-200 hover:bg-tertiary"
-  aria-label="Toggle theme"
-  title="Toggle theme">
+  aria-label="Alternar tema"
+  title="Alternar tema">
   {#if currentTheme === 'light'}
     <Sun size={20} />
   {:else if currentTheme === 'system'}
     <Monitor size={20} />
-    <span class="sr-only">System theme</span>
+    <span class="sr-only">Tema do sistema</span>
   {:else}
     <Moon size={20} />
   {/if}

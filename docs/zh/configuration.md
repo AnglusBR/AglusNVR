@@ -1,6 +1,6 @@
-# MiBee NVR 配置参考文档
+# AglusNVR 配置参考文档
 
-MiBee NVR 使用 YAML 格式的配置文件来控制所有功能模块。以下是所有可用选项的完整参考，包含默认值和使用示例。
+AglusNVR 使用 YAML 格式的配置文件来控制所有功能模块。以下是所有可用选项的完整参考，包含默认值和使用示例。
 
 ## 配置文件结构
 
@@ -8,7 +8,7 @@ MiBee NVR 使用 YAML 格式的配置文件来控制所有功能模块。以下�
 server:
   listen: ":9090"
 storage:
-  root_dir: "/var/lib/mibee-nvr"
+  root_dir: "/var/lib/aglus-nvr"
   segment_duration: "30s"
 auth:
   username: "admin"
@@ -54,8 +54,8 @@ ftp:
 mqtt:
   enabled: false
   broker: "tcp://localhost:1883"
-  topic: "mibeenr/trigger"
-  client_id: "mibee-nvr"
+  topic: "aglusnvr/trigger"
+  client_id: "aglus-nvr"
   username: ""
   password: ""
 webdav:
@@ -123,11 +123,11 @@ version: "1.0"
 
 ### `storage.root_dir`
 - **类型**: string
-- **默认**: `/var/lib/mibee-nvr`（二进制）或 `/data`（Docker）
+- **默认**: `/var/lib/aglus-nvr`（二进制）或 `/data`（Docker）
 - **描述**: 存储录像、数据库和临时文件的根目录。所有摄像头录像存储在 `{root_dir}/{camera_id}/` 下。
 - **Docker**: 在 Docker 中运行时，通过 `NVR_DATA_DIR` 环境变量设置。卷挂载和 `NVR_DATA_DIR` 必须一致。
-- **二进制**: 可通过 `mibee-nvr init --data-dir` 参数设置，或直接在 YAML 配置中指定。
-- **示例**: `/var/lib/mibee-nvr`、`/mnt/external/nvr`、`/data`
+- **二进制**: 可通过 `aglus-nvr init --data-dir` 参数设置，或直接在 YAML 配置中指定。
+- **示例**: `/var/lib/aglus-nvr`、`/mnt/external/nvr`、`/data`
 
 ### `storage.segment_duration`
 - **类型**: string
@@ -152,7 +152,7 @@ version: "1.0"
 ### `auth.password_hash`
 - **类型**: string
 - **必需**: 是（Web UI 和 FTP 需要）
-- **描述**: bcrypt 哈希密码。使用 `mibee-nvr hash-password <password>` 生成
+- **描述**: bcrypt 哈希密码。使用 `aglus-nvr hash-password <password>` 生成
 - **优先级**: 如果同时设置了 `password` 和 `password_hash`，`password_hash` 优先
 - **注意**: 如果只提供了 `auth.password`（明文），服务器会在首次启动时自动生成哈希值并写回到配置文件的 `password_hash`，然后清除 `password` 字段
 - **示例**: `$2a$10$N9qo8uLOickgx2ZMRZoMy...`
@@ -450,13 +450,13 @@ cameras:
 - **类型**: string
 - **必需**: 是（如果启用）
 - **描述**: 订阅的 MQTT 主题（用于录制触发器）
-- **示例**: `"mibeenr/trigger"`, `"cameras/front-door/record"`
+- **示例**: `"aglusnvr/trigger"`, `"cameras/front-door/record"`
 
 ### `mqtt.client_id`
 - **类型**: string
-- **默认**: `"mibee-nvr"`
+- **默认**: `"aglus-nvr"`
 - **描述**: MQTT 客户端标识符
-- **示例**: `"mibee-nvr"`, `"nvr-client-01"`
+- **示例**: `"aglus-nvr"`, `"nvr-client-01"`
 
 ### `mqtt.username`
 - **类型**: string
@@ -823,8 +823,8 @@ cameras:
 
 ## 文件路径和位置
 
-- **默认配置路径**: `./mibee-nvr.yaml`
-- **默认存储**: `/var/lib/mibee-nvr`
+- **默认配置路径**: `./aglus-nvr.yaml`
+- **默认存储**: `/var/lib/aglus-nvr`
 - **录像**: `{root_dir}/recordings/{encoding}/{camera_id}/`
 - **片段**: `{root_dir}/recordings/{encoding}/{camera_id}/`
 - **快照**: `{root_dir}/snapshots/{camera_id}/`
@@ -837,7 +837,7 @@ cameras:
 server:
   listen: ":9090"
 storage:
-  root_dir: "/var/lib/mibee-nvr"
+  root_dir: "/var/lib/aglus-nvr"
   segment_duration: "30s"
 auth:
   username: "admin"
@@ -896,7 +896,7 @@ ftp:
 mqtt:
   enabled: true
   broker: "tcp://192.168.1.100:1883"
-  topic: "mibeenr/trigger"
+  topic: "aglusnvr/trigger"
 webdav:
   enabled: true
   read_write: false

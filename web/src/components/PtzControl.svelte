@@ -150,7 +150,7 @@
           onchange={handleGoToPreset}
           disabled={goingToPreset}
         >
-          <option value="">Go to preset...</option>
+          <option value="">Ir para predefinição...</option>
           {#each presets as preset (preset.token)}
             <option value={preset.token}>{preset.name}</option>
           {/each}

@@ -72,7 +72,7 @@ function setupCacheMock() {
     match: vi.fn().mockImplementation(async (url: string) => {
       const cached = mockCacheStore.get(url);
       if (cached) {
-        return new Response(new Blob([cached]), { status: 200 });
+        return new Response(cached.slice(0), { status: 200 });
       }
       return undefined;
     }),
@@ -144,7 +144,7 @@ describe('AiRuntime', () => {
     });
 
     it('has correct cache name', () => {
-      expect(MODEL_CACHE_NAME).toBe('mibee-nvr-ai-models');
+      expect(MODEL_CACHE_NAME).toBe('aglus-nvr-ai-models');
     });
   });
 

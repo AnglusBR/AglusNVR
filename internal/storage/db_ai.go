@@ -8,7 +8,7 @@ import (
 	"time"
 )
 
-// AIEvent represents a single AI detection event written by MiBeeVision.
+// AIEvent represents a single AI detection event written by AglusVision.
 type AIEvent struct {
 	ID             int64   `json:"id"`
 	CameraID       string  `json:"camera_id"`
@@ -20,13 +20,13 @@ type AIEvent struct {
 	Confidence     float64 `json:"confidence"`
 	FrameIdx       int     `json:"frame_idx,omitempty"`
 	FrameTimestamp string  `json:"frame_timestamp,omitempty"`
-	BBox           string  `json:"bbox,omitempty"`        // JSON array [x1,y1,x2,y2] normalized
+	BBox           string  `json:"bbox,omitempty"` // JSON array [x1,y1,x2,y2] normalized
 	SnapshotPath   string  `json:"snapshot_path,omitempty"`
-	Metadata       string  `json:"metadata,omitempty"`    // JSON
+	Metadata       string  `json:"metadata,omitempty"` // JSON
 	CreatedAt      string  `json:"created_at"`
 }
 
-// InsertAIEvent stores a new AI event from MiBeeVision.
+// InsertAIEvent stores a new AI event from AglusVision.
 func (d *DB) InsertAIEvent(ctx context.Context, e *AIEvent) (int64, error) {
 	q := `INSERT INTO ai_events (camera_id, recording_id, event_type, severity, zone_name, class_name, confidence, frame_idx, frame_timestamp, bbox, snapshot_path, metadata)
 		VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`

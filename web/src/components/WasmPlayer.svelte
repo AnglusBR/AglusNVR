@@ -567,7 +567,7 @@ function handleWebGpuLost() {
       if (!webgpuRenderer) {
         if (!initWebGL2()) {
           console.error('[WasmPlayer] WebGL2 init failed — canvas context types:', canvasEl ? (canvasEl as unknown as Record<string, unknown>).__svelte_context || 'unknown' : 'no canvas');
-          unsupportedMsg = 'Failed to initialize WebGL2';
+          unsupportedMsg = 'Falha ao inicializar o WebGL2';
           streamState = 'error';
           return;
         }
@@ -575,7 +575,7 @@ function handleWebGpuLost() {
       }
 
       if (!initWorker()) {
-        unsupportedMsg = 'Failed to initialize Web Worker';
+        unsupportedMsg = 'Falha ao inicializar o Web Worker';
         streamState = 'error';
         return;
       }
@@ -671,7 +671,7 @@ onDestroy(() => {
         : streamState === 'error'
           ? t('dashboard.errorState')
           : streamState === 'offline'
-            ? 'Camera Offline'
+            ? 'Câmera off-line'
             : streamState === 'disconnected'
               ? t('live.webrtc.connecting') || 'Disconnected'
               : t('dashboard.snapshotMode'),
@@ -737,7 +737,7 @@ onDestroy(() => {
       <div class="absolute inset-0 bg-black/70"></div>
       <div class="relative flex flex-col items-center gap-3 z-10">
         <AlertCircle size={28} class="text-orange-400" />
-        <span class="text-white/70 text-xs">Camera Offline</span>
+        <span class="text-white/70 text-xs">Câmera off-line</span>
         <button
           onclick={() => cm?.reconnect()}
           class="flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-white/10 text-white/80 text-xs hover:bg-white/20 transition-colors"
@@ -775,7 +775,7 @@ onDestroy(() => {
           {t('settings.ai.loading')}
         </span>
       {:else if aiError}
-        <span class="text-red-400/70 text-xs" title={aiError}>AI ✗</span>
+        <span class="text-red-400/70 text-xs" title={aiError}>IA ✗</span>
       {:else if aiDetector}
         <span class="text-green-400/70 text-xs flex items-center gap-1">
           <span class="w-1.5 h-1.5 rounded-full bg-green-400"></span>

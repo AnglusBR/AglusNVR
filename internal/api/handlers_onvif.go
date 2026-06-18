@@ -10,9 +10,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/model"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/onvif"
 	"github.com/go-chi/chi/v5"
+	"github.com/seu-usuario/AglusNVR/internal/model"
+	"github.com/seu-usuario/AglusNVR/internal/onvif"
 )
 
 // --- ONVIF camera management endpoints ---
@@ -311,7 +311,7 @@ func (h *Handler) handlePTZGetPresets(w http.ResponseWriter, r *http.Request) {
 	}
 	presets, err := ptz.GetPresets(r.Context())
 	if err != nil {
-		// Limited ONVIF devices (e.g. ESP32 MiBeeCam) don't implement PTZ.
+		// Limited ONVIF devices (e.g. ESP32 AglusCam) don't implement PTZ.
 		// Return empty list instead of 500.
 		msg := err.Error()
 		if strings.Contains(msg, "not supported") || strings.Contains(msg, "<Fault>") {
@@ -442,7 +442,7 @@ func (h *Handler) handleSnapshotGetUri(w http.ResponseWriter, r *http.Request) {
 	}
 	uri, err := provider.GetSnapshotUri(r.Context())
 	if err != nil {
-		// Limited ONVIF devices (e.g. ESP32 MiBeeCam) don't implement GetSnapshotUri.
+		// Limited ONVIF devices (e.g. ESP32 AglusCam) don't implement GetSnapshotUri.
 		msg := err.Error()
 		if strings.Contains(msg, "not supported") || strings.Contains(msg, "<Fault>") {
 			slog.Debug("snapshot URI not supported by device", "camera_id", cameraID, "error", err)

@@ -15,7 +15,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/model"
+	"github.com/seu-usuario/AglusNVR/internal/model"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
@@ -355,7 +355,7 @@ func TestSnapshotCapturer_EmptySnapshotURL(t *testing.T) {
 	store := newMockSegmentStore(t)
 
 	cfg := SnapshotCapturerConfig{
-		CameraID:  "test-cam-empty",
+		CameraID:    "test-cam-empty",
 		SnapshotURL: "",
 		Interval:    50 * time.Millisecond,
 		SegmentDur:  time.Hour,
@@ -540,7 +540,7 @@ func TestSnapshotCapturer_ContextCancellation(t *testing.T) {
 		Store:       store,
 	}
 
-capturer := NewSnapshotCapturer(cfg, store)
+	capturer := NewSnapshotCapturer(cfg, store)
 	ctx := context.Background()
 
 	err := capturer.Start(ctx)

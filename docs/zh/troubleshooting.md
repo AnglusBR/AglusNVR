@@ -1,6 +1,6 @@
 # 故障排除指南
 
-本指南帮助您诊断和解决 MiBee NVR 的常见问题。如果在这里找不到解决方案，请查阅 [配置参考](configuration.md)或在 GitHub 上搜索现有问题。
+本指南帮助您诊断和解决 AglusNVR 的常见问题。如果在这里找不到解决方案，请查阅 [配置参考](configuration.md)或在 GitHub 上搜索现有问题。
 
 ## 常见问题
 
@@ -20,18 +20,18 @@
 **解决方案**:
 1. 检查存储目录是否存在且可写：
    ```bash
-   ls -la /var/lib/mibee-nvr/
-   sudo chown -R nvr:nvr /var/lib/mibee-nvr/
+   ls -la /var/lib/aglus-nvr/
+   sudo chown -R nvr:nvr /var/lib/aglus-nvr/
    ```
 2. 验证数据库文件是否损坏：
    ```bash
-   ls -la /var/lib/mibee-nvr/mibee-nvr.db
-   file /var/lib/mibee-nvr/mibee-nvr.db
+   ls -la /var/lib/aglus-nvr/aglus-nvr.db
+   file /var/lib/aglus-nvr/aglus-nvr.db
    ```
 3. 尝试重新初始化数据库：
    ```bash
-   mv /var/lib/mibee-nvr/mibee-nvr.db /var/lib/mibee-nvr/mibee-nvr.db.backup
-   ./mibee-nvr -config mibee-nvr.yaml
+   mv /var/lib/aglus-nvr/aglus-nvr.db /var/lib/aglus-nvr/aglus-nvr.db.backup
+   ./aglus-nvr -config aglus-nvr.yaml
    ```
 
 #### 存储空间问题
@@ -49,11 +49,11 @@
 1. 检查磁盘使用情况：
    ```bash
    df -h
-   du -sh /var/lib/mibee-nvr/recordings/
+   du -sh /var/lib/aglus-nvr/recordings/
    ```
 2. 清理旧录像：
    ```bash
-   find /var/lib/mibee-nvr/recordings/ -type f -mtime +30 -delete
+   find /var/lib/aglus-nvr/recordings/ -type f -mtime +30 -delete
    ```
 3. 调整配置中的保留天数：
    ```yaml
@@ -113,7 +113,7 @@
 **解决方案**:
 1. 检查摄像头日志中的连接错误：
    ```bash
-   journalctl -u mibee-nvr -f
+   journalctl -u aglus-nvr -f
    ```
 2. 手动测试摄像头流：
    ```bash
@@ -136,7 +136,7 @@
 **解决方案**:
 1. 检查配置验证错误：
    ```bash
-   ./mibee-nvr -config mibee-nvr.yaml --validate
+   ./aglus-nvr -config aglus-nvr.yaml --validate
    ```
 2. 验证所有必需的摄像头字段是否存在：
    ```yaml
@@ -150,7 +150,7 @@
    ```
 3. 检查重复的摄像头 ID：
    ```bash
-   grep -r "id:" mibee-nvr.yaml
+   grep -r "id:" aglus-nvr.yaml
    ```
 
 ### ONVIF 摄像头问题
@@ -239,7 +239,7 @@
 #SY|**根本原因**: HLS.js 1.6+ 默认使用 `fetch` API 而不是 XHR。如果未将身份验证头注入到 fetch 请求中，服务器将返回 401 未授权，流无法加载。
 #PR|
 #SY|**解决方案**:
-#HB|1. 确保您运行的是 MiBee NVR v0.6.0 或更高版本，包含 `fetchSetup` 身份验证修复
+#HB|1. 确保您运行的是 AglusNVR v0.6.0 或更高版本，包含 `fetchSetup` 身份验证修复
 #RP|2. 检查浏览器控制台（F12）查看 `.m3u8` 或 `.ts` 请求的 401 错误
 #WW|3. 在尝试实时预览之前，验证摄像头正在录制（状态 = "录制中"）
 #SR|4. 对于"重新连接"状态的摄像头，等待摄像头重新连接 — HLS 需要活动的录制流
@@ -306,15 +306,15 @@
 1. 检查磁盘空间：
    ```bash
    df -h
-   du -sh /var/lib/mibee-nvr/
+   du -sh /var/lib/aglus-nvr/
    ```
 2. 清理磁盘空间：
    ```bash
    # 查找并删除旧录像
-   find /var/lib/mibee-nvr/recordings/ -type f -mtime +30 -delete
+   find /var/lib/aglus-nvr/recordings/ -type f -mtime +30 -delete
    
    # 清理快照
-   find /var/lib/mibee-nvr/snapshots/ -type f -mtime +7 -delete
+   find /var/lib/aglus-nvr/snapshots/ -type f -mtime +7 -delete
    ```
 3. 降低磁盘阈值：
    ```yaml
@@ -328,18 +328,18 @@
 **解决方案**:
 1. 检查目录权限：
    ```bash
-   ls -la /var/lib/mibee-nvr/
-   ls -la /var/lib/mibee-nvr/recordings/
+   ls -la /var/lib/aglus-nvr/
+   ls -la /var/lib/aglus-nvr/recordings/
    ```
 2. 修复权限：
    ```bash
-   sudo chown -R nvr:nvr /var/lib/mibee-nvr/
-   sudo chmod -R 755 /var/lib/mibee-nvr/
+   sudo chown -R nvr:nvr /var/lib/aglus-nvr/
+   sudo chmod -R 755 /var/lib/aglus-nvr/
    ```
 3. 检查磁盘是否正确挂载：
    ```bash
-   mount | grep mibee-nvr
-   df -h /var/lib/mibee-nvr/
+   mount | grep aglus-nvr
+   df -h /var/lib/aglus-nvr/
    ```
 
 ### 录像损坏
@@ -350,8 +350,8 @@
 **解决方案**:
 1. 检查文件完整性：
    ```bash
-   file /var/lib/mibee-nvr/recordings/h264/cam_1704123456789012345.mp4
-   ffprobe -v quiet -show_format -show_streams /var/lib/mibee-nvr/recordings/h264/cam_1704123456789012345.mp4
+   file /var/lib/aglus-nvr/recordings/h264/cam_1704123456789012345.mp4
+   ffprobe -v quiet -show_format -show_streams /var/lib/aglus-nvr/recordings/h264/cam_1704123456789012345.mp4
    ```
 2. 调整片段时长：
    ```yaml
@@ -376,7 +376,7 @@
 1. 检查内存使用情况：
    ```bash
    free -h
-   ps aux | grep mibee-nvr
+   ps aux | grep aglus-nvr
    ```
 2. 减少片段时长：
    ```yaml
@@ -458,8 +458,8 @@
 **解决方案**:
 1. 监控 CPU 使用率：
    ```bash
-   top -p $(pgrep mibee-nvr)
-   htop -p $(pgrep mibee-nvr)
+   top -p $(pgrep aglus-nvr)
+   htop -p $(pgrep aglus-nvr)
    ```
 2. 减少并发摄像头处理：
    - 禁用不必要的摄像头
@@ -521,18 +521,18 @@
 **解决方案**:
 1. 检查容器日志：
    ```bash
-   docker compose logs mibee-nvr
-   docker logs mibee-nvr-container-id
+   docker compose logs aglus-nvr
+   docker logs aglus-nvr-container-id
    ```
 2. 验证配置文件已挂载：
    ```yaml
    # docker-compose.yml
    volumes:
-     - ./mibee-nvr.yaml:/mibee-nvr.yaml:ro
+     - ./aglus-nvr.yaml:/aglus-nvr.yaml:ro
    ```
 3. 检查容器内的文件权限：
    ```bash
-   docker exec -it mibee-nvr-container ls -la /mibee-nvr.yaml
+   docker exec -it aglus-nvr-container ls -la /aglus-nvr.yaml
    ```
 
 ### 卷权限问题
@@ -541,14 +541,14 @@
 **解决方案**:
 1. 设置正确的所有权：
    ```bash
-   sudo chown -R 1000:1000 ./data  # mibee-nvr 以 UID 1000 运行
+   sudo chown -R 1000:1000 ./data  # aglus-nvr 以 UID 1000 运行
    ```
 2. 在 Docker 中使用正确的用户：
    ```yaml
    # docker-compose.yml
    user: "1000:1000"
    volumes:
-     - ./data:/var/lib/mibee-nvr
+     - ./data:/var/lib/aglus-nvr
    ```
 
 ## 错误消息和解决方案
@@ -580,17 +580,17 @@ observability:
 #### 日志位置
 **Systemd 服务**:
 ```bash
-journalctl -u mibee-nvr -f
+journalctl -u aglus-nvr -f
 ```
 
 **Docker 容器**:
 ```bash
-docker logs -f mibee-nvr-container
+docker logs -f aglus-nvr-container
 ```
 
 **二进制文件直接运行**:
 ```bash
-./mibee-nvr -config mibee-nvr.yaml 2>&1 | tee mibee-nvr.log
+./aglus-nvr -config aglus-nvr.yaml 2>&1 | tee aglus-nvr.log
 ```
 
 #### 常见日志模式
@@ -604,7 +604,7 @@ ERROR: camera stream error: read timeout
 
 **存储问题**:
 ```
-WARN: storage directory not writable: /var/lib/mibee-nvr
+WARN: storage directory not writable: /var/lib/aglus-nvr
 ERROR: cannot write recording file: no space left on device
 ```
 
@@ -664,19 +664,19 @@ cleanup:
    lsb_release -a
    ```
 
-2. **MiBee NVR 版本**:
+2. **AglusNVR 版本**:
    ```bash
-   ./mibee-nvr --version
+   ./aglus-nvr --version
    ```
 
 3. **配置**（删除敏感数据）:
    ```bash
-   grep -v password mibee-nvr.yaml
+   grep -v password aglus-nvr.yaml
    ```
 
 4. **日志**（最后 50 行）:
    ```bash
-   journalctl -u mibee-nvr --since "1 hour ago"
+   journalctl -u aglus-nvr --since "1 hour ago"
    ```
 
 5. **重现步骤**:
@@ -694,11 +694,11 @@ cleanup:
 ### 系统无响应
 1. 停止服务：
    ```bash
-   sudo systemctl stop mibee-nvr
+   sudo systemctl stop aglus-nvr
    ```
 2. 终止任何剩余进程：
    ```bash
-   sudo pkill -f mibee-nvr
+   sudo pkill -f aglus-nvr
    ```
 3. 检查系统资源：
    ```bash
@@ -709,22 +709,22 @@ cleanup:
 4. 使用减少的配置重新启动：
    ```bash
    # 使用最小配置
-   cp mibee-nvr.yaml mibee-nvr.yaml.backup
+   cp aglus-nvr.yaml aglus-nvr.yaml.backup
    # 编辑以仅启用基本摄像头
-   sudo systemctl start mibee-nvr
+   sudo systemctl start aglus-nvr
    ```
 
 ### 配置损坏
 1. 从备份恢复：
    ```bash
-   cp mibee-nvr.yaml.backup mibee-nvr.yaml
+   cp aglus-nvr.yaml.backup aglus-nvr.yaml
    ```
 2. 或创建最小配置：
    ```yaml
    server:
      listen: ":9090"
    storage:
-     root_dir: "/var/lib/mibee-nvr"
+     root_dir: "/var/lib/aglus-nvr"
      segment_duration: "30s"
    auth:
      username: "admin"
@@ -735,14 +735,14 @@ cleanup:
 ### 数据库损坏
 1. 备份数据库：
    ```bash
-   cp /var/lib/mibee-nvr/mibee-nvr.db /var/lib/mibee-nvr/mibee-nvr.db.backup
+   cp /var/lib/aglus-nvr/aglus-nvr.db /var/lib/aglus-nvr/aglus-nvr.db.backup
    ```
 2. 删除损坏的数据库：
    ```bash
-   rm /var/lib/mibee-nvr/mibee-nvr.db
+   rm /var/lib/aglus-nvr/aglus-nvr.db
    ```
 3. 重新启动服务（数据库将被重新创建）：
    ```bash
-   sudo systemctl restart mibee-nvr
+   sudo systemctl restart aglus-nvr
    ```
 4. 重新配置所有摄像头

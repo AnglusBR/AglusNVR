@@ -12,10 +12,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/camera"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/model"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/storage"
 	"github.com/google/uuid"
+	"github.com/seu-usuario/AglusNVR/internal/camera"
+	"github.com/seu-usuario/AglusNVR/internal/model"
+	"github.com/seu-usuario/AglusNVR/internal/storage"
 	"golang.org/x/net/webdav"
 )
 
@@ -23,11 +23,11 @@ var webdavLogger = slog.Default().With("component", "webdav")
 
 // Server provides a WebDAV server for browsing and optionally uploading camera recordings.
 type Server struct {
-	store     *storage.Manager
+	store      *storage.Manager
 	pathPrefix string
-	authMW    func(http.Handler) http.Handler
-	db        *storage.DB
-	readWrite bool
+	authMW     func(http.Handler) http.Handler
+	db         *storage.DB
+	readWrite  bool
 }
 
 // NewServer creates a new WebDAV server.

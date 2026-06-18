@@ -1,6 +1,6 @@
 # Build artifacts
-mibee-nvr
-mibee-nvr-arm64
+aglus-nvr
+aglus-nvr-arm64
 *.exe
 *.test
 *.out
@@ -9,7 +9,7 @@ mibee-nvr-arm64
 *.db
 
 # Config (contains credentials)
-mibee-nvr.yaml
+aglus-nvr.yaml
 
 # Frontend build output (rebuilt inside Docker)
 web/dist/

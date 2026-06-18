@@ -1,6 +1,6 @@
 # FTP 集成
 
-MiBee NVR 包含内置 FTP 服务器，允许通过标准 FTP 协议访问摄像头录像和快照。支持被动模式、虚拟用户认证，便于与各种 FTP 客户端和系统集成。
+AglusNVR 包含内置 FTP 服务器，允许通过标准 FTP 协议访问摄像头录像和快照。支持被动模式、虚拟用户认证，便于与各种 FTP 客户端和系统集成。
 
 ## 概述
 
@@ -577,10 +577,10 @@ sudo iptables -A INPUT -p tcp --dport 2121 -j DROP
 
 ```bash
 # 查看 FTP 服务日志
-journalctl -u mibee-nvr -f | grep ftp
+journalctl -u aglus-nvr -f | grep ftp
 
 # Docker 容器日志
-docker logs -f mibee-nvr | grep ftp
+docker logs -f aglus-nvr | grep ftp
 
 # 分析 FTP 连接
 sudo netstat -anp | grep :2121
@@ -626,10 +626,10 @@ FTP_USER="ftp_user"
 FTP_PASS="ftp_password"
 
 # 清理录像文件
-find /var/lib/mibee-nvr/recordings/ -type f -mtime +$CLEAN_THRESHOLD_DAYS -delete
+find /var/lib/aglus-nvr/recordings/ -type f -mtime +$CLEAN_THRESHOLD_DAYS -delete
 
 # 清理快照文件
-find /var/lib/mibee-nvr/snapshots/ -type f -mtime +7 -delete
+find /var/lib/aglus-nvr/snapshots/ -type f -mtime +7 -delete
 
 # 清理 FTP 临时文件
 find /tmp/ -name "ftp*" -mtime +1 -delete
@@ -688,7 +688,7 @@ nmap -p 2121 localhost
 **检查配置文件**
 ```bash
 # 验证配置
-./mibee-nvr -config mibee-nvr.yaml --validate
+./aglus-nvr -config aglus-nvr.yaml --validate
 ```
 
 ## 性能优化
@@ -742,4 +742,4 @@ backup_ftp:
 6. **备份策略**：实施定期的自动备份策略
 7. **访问控制**：根据需要限制用户访问目录
 
-通过 FTP 集成，MiBee NVR 可以轻松与各种 FTP 客户端和系统集成，实现自动化备份、远程访问和文件管理等功能。
+通过 FTP 集成，AglusNVR 可以轻松与各种 FTP 客户端和系统集成，实现自动化备份、远程访问和文件管理等功能。

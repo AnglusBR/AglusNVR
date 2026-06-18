@@ -10,11 +10,11 @@ import (
 	"strings"
 	"time"
 
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/config"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/event"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/metrics"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/model"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/storage"
+	"github.com/seu-usuario/AglusNVR/internal/config"
+	"github.com/seu-usuario/AglusNVR/internal/event"
+	"github.com/seu-usuario/AglusNVR/internal/metrics"
+	"github.com/seu-usuario/AglusNVR/internal/model"
+	"github.com/seu-usuario/AglusNVR/internal/storage"
 )
 
 var logger = slog.Default().With("component", "cleanup")
@@ -34,7 +34,7 @@ type CleanupManager struct {
 	healthRetention           time.Duration
 	transcodeOrphanFn         func(ctx context.Context) error
 	transcodeHistoryRetention time.Duration // 0 = disabled
-	ffprobePath               string         // empty = skip repair
+	ffprobePath               string        // empty = skip repair
 	eventBus                  *event.EventBus
 }
 
@@ -78,7 +78,6 @@ func (cm *CleanupManager) SetTranscodeOrphanCleanup(fn func(ctx context.Context)
 func (cm *CleanupManager) SetTranscodeHistoryRetention(retention time.Duration) {
 	cm.transcodeHistoryRetention = retention
 }
-
 
 // Run starts the periodic cleanup loop. It blocks until ctx is cancelled.
 func (cm *CleanupManager) Run(ctx context.Context) {
@@ -234,13 +233,13 @@ func (cm *CleanupManager) SetEventBus(bus *event.EventBus) {
 
 // deleteRecording deletes the DB record first, then the file from disk.
 // File deletion errors are logged but not returned (orphaned files are acceptable).
-// Publishes a segment.deleted event so MiBeeVision can cancel in-progress processing.
-// Skips deletion if the recording is currently being processed by MiBeeVision
+// Publishes a segment.deleted event so AglusVision can cancel in-progress processing.
+// Skips deletion if the recording is currently being processed by AglusVision
 // (ai_status = "processing") to prevent losing in-flight AI analysis.
 func (cm *CleanupManager) deleteRecording(ctx context.Context, rec *model.Recording) error {
-	// Protect recordings being processed by MiBeeVision
+	// Protect recordings being processed by AglusVision
 	if status, err := cm.db.GetRecordingAIStatus(ctx, rec.ID); err == nil && status == "processing" {
-		logger.Debug("skipping deletion of recording being processed by MiBeeVision",
+		logger.Debug("skipping deletion of recording being processed by AglusVision",
 			"recording_id", rec.ID, "ai_status", status)
 		return nil
 	}
@@ -251,7 +250,7 @@ func (cm *CleanupManager) deleteRecording(ctx context.Context, rec *model.Record
 	if err := cm.store.DeleteFile(rec.FilePath); err != nil {
 		logger.Warn("failed to delete file", "file_path", rec.FilePath, "error", err)
 	}
-	// Publish segment.deleted event for MiBeeVision cancellation
+	// Publish segment.deleted event for AglusVision cancellation
 	if cm.eventBus != nil {
 		cm.eventBus.Publish(ctx, event.TopicSegmentDeleted, event.SegmentDeleted{
 			RecordingID: rec.ID,

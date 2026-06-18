@@ -104,12 +104,11 @@ func NewAuthMiddleware(provider AuthProvider, plaintextPassword string, rateLimi
 				// No password configured — reject all requests with setup guidance
 				recordAuthAttempt("no_password")
 				w.Header().Set("Content-Type", "application/json")
-				w.Header().Set("WWW-Authenticate", `Basic realm="MiBee NVR"`)
+				w.Header().Set("WWW-Authenticate", `Basic realm="AglusNVR"`)
 				w.WriteHeader(http.StatusServiceUnavailable)
 				w.Write([]byte(`{"error":"setup required","code":"SETUP_REQUIRED"}`))
 				return
 			}
-
 
 			user, pass, ok := r.BasicAuth()
 			if !ok {
@@ -216,7 +215,6 @@ func resetAuthFailures() {
 		return true
 	})
 }
-
 
 // RateLimiterConfig defines parameters for a per-IP rate limiter.
 type RateLimiterConfig struct {

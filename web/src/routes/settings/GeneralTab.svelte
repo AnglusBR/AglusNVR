@@ -400,11 +400,11 @@
               <p class="text-sm th-text-secondary">{t(`settings.protocolDocs.${docKey}.desc`)}</p>
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div class="p-3 rounded-md bg-[var(--color-success)]/5 border border-[var(--color-success)]/20">
-                  <div class="text-[10px] font-semibold uppercase tracking-wider text-[var(--color-success)] mb-1">Pros</div>
+                  <div class="text-[10px] font-semibold uppercase tracking-wider text-[var(--color-success)] mb-1">Vantagens</div>
                   <p class="text-xs th-text-secondary">{t(`settings.protocolDocs.${docKey}.pros`)}</p>
                 </div>
                 <div class="p-3 rounded-md bg-[var(--color-danger)]/5 border border-[var(--color-danger)]/20">
-                  <div class="text-[10px] font-semibold uppercase tracking-wider text-[var(--color-danger)] mb-1">Cons</div>
+                  <div class="text-[10px] font-semibold uppercase tracking-wider text-[var(--color-danger)] mb-1">Desvantagens</div>
                   <p class="text-xs th-text-secondary">{t(`settings.protocolDocs.${docKey}.cons`)}</p>
                 </div>
               </div>

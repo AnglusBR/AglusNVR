@@ -14,10 +14,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/middleware"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/model"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/storage"
 	"github.com/go-chi/chi/v5"
+	"github.com/seu-usuario/AglusNVR/internal/middleware"
+	"github.com/seu-usuario/AglusNVR/internal/model"
+	"github.com/seu-usuario/AglusNVR/internal/storage"
 )
 
 // --- Recording endpoints ---
@@ -88,7 +88,7 @@ func (h *Handler) handleListRecordings(w http.ResponseWriter, r *http.Request) {
 // handleTimelineSeekEvent records a timeline seek for observability (0.8.0 M6).
 // Body: {"camera_id":"front-door","type":"segment"}
 // type is "segment" (cross-recording) or "intra" (within same recording).
-// handleCreateRecording allows MiBeeVision (or other authenticated clients) to register
+// handleCreateRecording allows AglusVision (or other authenticated clients) to register
 // a recording in the NVR database. Requires API Key authentication.
 // POST /api/recordings  body: {camera_id, file_path, format, started_at, ...}
 func (h *Handler) handleCreateRecording(w http.ResponseWriter, r *http.Request) {
@@ -147,7 +147,7 @@ func (h *Handler) handleCreateRecording(w http.ResponseWriter, r *http.Request) 
 	writeJSON(w, http.StatusCreated, map[string]string{"id": rec.ID, "status": "created"})
 }
 
-// handleUpdateRecording allows MiBeeVision to update recording metadata.
+// handleUpdateRecording allows AglusVision to update recording metadata.
 // Requires API Key authentication.
 // PATCH /api/recordings/{id}  body: {file_path?, format?, duration?, ...}
 func (h *Handler) handleUpdateRecording(w http.ResponseWriter, r *http.Request) {

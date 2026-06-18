@@ -11,7 +11,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/transcoding"
+	"github.com/seu-usuario/AglusNVR/internal/transcoding"
 	"github.com/stretchr/testify/require"
 )
 

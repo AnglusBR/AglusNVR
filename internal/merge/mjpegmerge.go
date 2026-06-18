@@ -8,8 +8,8 @@ import (
 	"sort"
 	"time"
 
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/model"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/storage"
+	"github.com/seu-usuario/AglusNVR/internal/model"
+	"github.com/seu-usuario/AglusNVR/internal/storage"
 )
 
 // MergeMJPEGSegments merges multiple MJPEG segment directories into a single

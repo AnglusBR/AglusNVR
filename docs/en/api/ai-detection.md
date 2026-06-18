@@ -282,7 +282,7 @@ curl "http://localhost:9090/models/yolo11n.onnx" -o yolo11n.onnx
 Model files are placed into `{storage_root}/models/` by the operator — there is **no** HTTP upload/download endpoint for models. The bundled CLI subcommand downloads the default YOLOv11-nano model:
 
 ```bash
-mibee-nvr download-model -config mibee-nvr.yaml
+aglus-nvr download-model -config aglus-nvr.yaml
 # or: make download-model RPi_HOST=user@host  (deploys + downloads on a remote host)
 ```
 

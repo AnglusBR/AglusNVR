@@ -84,7 +84,7 @@
 
 // ── Merge tracking ──
 let prevMergeStatuses = $state<Record<string, string>>({});
-const MERGE_STORAGE_KEY = 'mibee_nvr_merge_active';
+const MERGE_STORAGE_KEY = 'aglus_nvr_merge_active';
 
 function getActiveMergesFromStorage(): Record<string, { progress: number; status: string }> {
   try {

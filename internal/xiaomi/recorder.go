@@ -17,11 +17,11 @@ import (
 	"sync"
 	"time"
 
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/event"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/metrics"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/model"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/muxer"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/recorder"
+	"github.com/seu-usuario/AglusNVR/internal/event"
+	"github.com/seu-usuario/AglusNVR/internal/metrics"
+	"github.com/seu-usuario/AglusNVR/internal/model"
+	"github.com/seu-usuario/AglusNVR/internal/muxer"
+	"github.com/seu-usuario/AglusNVR/internal/recorder"
 )
 
 var xiaomiLogger = slog.Default().With("component", "xiaomi-recorder")

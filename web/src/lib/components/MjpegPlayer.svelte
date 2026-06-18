@@ -75,7 +75,7 @@ let isLooping = $state(false);
             const img = new Image();
             await new Promise<void>((resolve, reject) => {
               img.onload = () => resolve();
-              img.onerror = () => reject(new Error(`Failed to load frame ${frame.index}`));
+              img.onerror = () => reject(new Error(`Falha ao carregar o quadro ${frame.index}`));
               img.src = blobUrl;
             });
             URL.revokeObjectURL(blobUrl);

@@ -51,7 +51,7 @@
     try {
       await goToPTZPreset(cameraId, token);
     } catch (e: any) {
-      showToast(e.message || 'Failed to go to preset', 'error');
+      showToast(e.message || 'Falha ao acessar a predefinição', 'error');
     } finally {
       goingTo = null;
     }
@@ -65,7 +65,7 @@
       await loadPresets();
       showToast(t('onvif.presets.deleted'), 'success');
     } catch (e: any) {
-      showToast(e.message || 'Failed to delete preset', 'error');
+      showToast(e.message || 'Falha ao excluir a predefinição', 'error');
     } finally {
       deleting = null;
     }

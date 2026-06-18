@@ -454,7 +454,7 @@ The backend stores AI config in the YAML `ai:` block (`config.AIConfig`) and per
 - `enabled_cameras` — cameras permitted to show AI in the UI
 - `zones` — `map[cameraID][]ROI`, normalized `[0,1]` polygon vertices
 
-**Model file:** place `.onnx` models in `{storage_root}/models/` (the `mibee-nvr download-model` CLI does this for the default `yolo11n.onnx`). The browser fetches them via `GET /models/{filename}`.
+**Model file:** place `.onnx` models in `{storage_root}/models/` (the `aglus-nvr download-model` CLI does this for the default `yolo11n.onnx`). The browser fetches them via `GET /models/{filename}`.
 
 ### Performance Tuning
 

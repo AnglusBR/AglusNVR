@@ -4,8 +4,8 @@ import (
 	"errors"
 	"net/http"
 
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/flv"
 	"github.com/go-chi/chi/v5"
+	"github.com/seu-usuario/AglusNVR/internal/flv"
 )
 
 // --- HTTP-FLV streaming endpoint ---

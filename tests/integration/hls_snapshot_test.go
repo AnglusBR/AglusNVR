@@ -9,9 +9,9 @@ package integration_test
 import (
 	"testing"
 
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/hls"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/model"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/storage"
+	"github.com/seu-usuario/AglusNVR/internal/hls"
+	"github.com/seu-usuario/AglusNVR/internal/model"
+	"github.com/seu-usuario/AglusNVR/internal/storage"
 )
 
 // ---------------------------------------------------------------------------
@@ -50,7 +50,6 @@ type mockHLSProvider struct{}
 func (m *mockHLSProvider) CodecParams() (codec model.Format, sps, pps, vps []byte) {
 	return model.FormatH264, []byte{}, []byte{}, nil
 }
-
 
 // ---------------------------------------------------------------------------
 // 2. Format and Protocol constants snapshot

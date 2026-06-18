@@ -12,8 +12,8 @@ import (
 
 	"gopkg.in/yaml.v3"
 
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/ai"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/model"
+	"github.com/seu-usuario/AglusNVR/internal/ai"
+	"github.com/seu-usuario/AglusNVR/internal/model"
 )
 
 type Config struct {
@@ -351,7 +351,7 @@ type MetricsAuthConfig struct {
 	PasswordHash string `yaml:"password_hash"`
 }
 
-// APIKeyConfig represents a single API key for MiBeeVision integration.
+// APIKeyConfig represents a single API key for AglusVision integration.
 type APIKeyConfig struct {
 	Key     string `yaml:"key" json:"key"`
 	Name    string `yaml:"name" json:"name"`
@@ -426,7 +426,7 @@ func Save(path string, cfg *Config) error {
 		return fmt.Errorf("marshal config: %w", err)
 	}
 	// Temp file in same directory to ensure same filesystem for rename.
-	tmp, err := os.CreateTemp(filepath.Dir(path), ".mibee-nvr.yaml.tmp")
+	tmp, err := os.CreateTemp(filepath.Dir(path), ".aglus-nvr.yaml.tmp")
 	if err != nil {
 		return fmt.Errorf("create temp file: %w", err)
 	}
@@ -912,7 +912,7 @@ func (cfg *Config) ApplyDefaults() {
 	}
 	// Storage
 	if strings.TrimSpace(cfg.Storage.RootDir) == "" {
-		cfg.Storage.RootDir = "/var/lib/mibee-nvr"
+		cfg.Storage.RootDir = "/var/lib/aglus-nvr"
 	}
 	if strings.TrimSpace(cfg.Storage.SegmentDuration) == "" {
 		cfg.Storage.SegmentDuration = "30s"

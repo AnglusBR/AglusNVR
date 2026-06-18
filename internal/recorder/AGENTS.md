@@ -1,4 +1,4 @@
-# MiBee NVR — Recorder Package
+# AglusNVR — Recorder Package
 
 ## OVERVIEW
 

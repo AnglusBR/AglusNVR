@@ -4,7 +4,7 @@ import (
 	"context"
 	"sync"
 
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/model"
+	"github.com/seu-usuario/AglusNVR/internal/model"
 )
 
 // StubRecorder is a no-op recorder that implements model.Recorder.

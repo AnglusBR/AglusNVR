@@ -1,6 +1,6 @@
-# MiBee NVR 部署指南
+# AglusNVR 部署指南
 
-本指南涵盖 MiBee NVR 的安装、配置和生产环境维护。
+本指南涵盖 AglusNVR 的安装、配置和生产环境维护。
 
 ## 安装方式
 
@@ -10,7 +10,7 @@
 
 ```bash
 # 安装最新版本
-curl -fsSL https://raw.githubusercontent.com/Mi-Bee-Studio/MiBeeNvr/main/install.sh | sudo bash
+curl -fsSL https://raw.githubusercontent.com/seu-usuario/AglusNVR/main/install.sh | sudo bash
 ```
 
 安装指定版本：
@@ -19,7 +19,7 @@ curl -fsSL https://raw.githubusercontent.com/Mi-Bee-Studio/MiBeeNvr/main/install
 sudo ./install.sh --version v0.2.0
 ```
 
-卸载（保留 `/var/lib/mibee-nvr` 中的录像数据）：
+卸载（保留 `/var/lib/aglus-nvr` 中的录像数据）：
 
 ```bash
 sudo ./install.sh --uninstall
@@ -42,30 +42,30 @@ sudo ./install.sh --uninstall
 
 # 方式 A：直接运行 — 自动初始化（推荐）
 docker run -d \
-  --name mibee-nvr \
+  --name aglus-nvr \
   --restart unless-stopped \
   -p 9090:9090 \
   -v ./data:/data \
-  ghcr.io/mi-bee-studio/mibeenvr:latest
+  ghcr.io/seu-usuario/aglusnvr:latest
 
 # 方式 B：带初始密码
 docker run -d \
-  --name mibee-nvr \
+  --name aglus-nvr \
   --restart unless-stopped \
   -p 9090:9090 \
   -e NVR_PASSWORD=你的密码 \
   -v ./data:/data \
-  ghcr.io/mi-bee-studio/mibeenvr:latest
+  ghcr.io/seu-usuario/aglusnvr:latest
 
 # 方式 C：使用 docker-compose.yml
 mkdir -p data
 docker compose up -d
 
-> **首次设置**：在没有配置文件的情况下启动时，MiBee NVR 会自动生成默认配置并以**设置模式**运行 — 所有 API 端点无需认证即可访问。通过 Web UI 设置页面或 `NVR_PASSWORD` 环境变量设置密码。一旦设置密码，将强制执行身份验证。
+> **首次设置**：在没有配置文件的情况下启动时，AglusNVR 会自动生成默认配置并以**设置模式**运行 — 所有 API 端点无需认证即可访问。通过 Web UI 设置页面或 `NVR_PASSWORD` 环境变量设置密码。一旦设置密码，将强制执行身份验证。
 
 #### 配置说明
 
-- **自动初始化**：如果在 `/data/mibee-nvr.yaml` 不存在配置文件，会自动生成包含合理默认值的配置。无需手动设置。
+- **自动初始化**：如果在 `/data/aglus-nvr.yaml` 不存在配置文件，会自动生成包含合理默认值的配置。无需手动设置。
 - **初始密码**：通过 `NVR_PASSWORD` 环境变量设置。如果未设置，应用将以设置模式启动（无认证） — 通过 Web UI 设置页面设置密码。
 - **数据目录**：通过 `NVR_DATA_DIR` 环境变量，`storage.root_dir` 在 Docker 容器中自动设置为 `/data`。
 #### docker-compose.yml 详解
@@ -74,12 +74,12 @@ docker compose up -d
 
 ```yaml
 services:
-  mibee-nvr:
+  aglus-nvr:
     # 容器镜像：官方预构建镜像
-    image: ghcr.io/mi-bee-studio/mibeenvr:latest
+    image: ghcr.io/seu-usuario/aglusnvr:latest
 
     # 容器名称（便于管理和查看日志）
-    container_name: mibee-nvr
+    container_name: aglus-nvr
 
     # 自动重启策略：除非手动停止，否则总是重启
     restart: unless-stopped
@@ -102,7 +102,7 @@ services:
 
     # 健康检查：每 30 秒检查一次服务状态
     healthcheck:
-      test: ["CMD", "mibee-nvr", "health"]  # 健康检查命令
+      test: ["CMD", "aglus-nvr", "health"]  # 健康检查命令
       interval: 30s                           # 检查间隔
       timeout: 5s                             # 超时时间
       start_period: 10s                       # 启动后延迟开始检查
@@ -113,7 +113,7 @@ services:
 
 **选项 A：使用预构建镜像（推荐）**
 
-- 镜像地址：`ghcr.io/mi-bee-studio/mibeenvr:latest`
+- 镜像地址：`ghcr.io/seu-usuario/aglusnvr:latest`
 - 架构标签：`latest`（多架构：amd64 + arm64）
 
 直接使用 `docker-compose.yml` 中的默认镜像地址即可，无需额外操作。
@@ -124,7 +124,7 @@ services:
 
 ```bash
 # 多阶段构建（在容器内编译前端和后端，需要网络拉取基础镜像）
-docker build -t mibee-nvr .
+docker build -t aglus-nvr .
 
 # 交叉编译 ARM64（在主机上交叉编译，不需要 QEMU）
 make docker-build-arm64
@@ -139,13 +139,13 @@ make docker-build-all
 
 ```bash
 # 查看实时日志
-docker compose logs -f mibee-nvr
+docker compose logs -f aglus-nvr
 
 # 查看最近 100 行日志
-docker compose logs --tail 100 mibee-nvr
+docker compose logs --tail 100 aglus-nvr
 
 # 重启服务
-docker compose restart mibee-nvr
+docker compose restart aglus-nvr
 
 # 停止服务（保留数据）
 docker compose down
@@ -161,10 +161,10 @@ docker compose up -d
 docker compose ps
 
 # 查看资源使用情况
-docker stats mibee-nvr
+docker stats aglus-nvr
 
 # 查看健康检查状态
-docker inspect --format='{{.State.Health.Status}}' mibee-nvr
+docker inspect --format='{{.State.Health.Status}}' aglus-nvr
 ```
 
 > **注意**：由于使用 distroless/scratch 基础镜像，无法通过 `docker exec` 进入容器调试。请使用 `docker compose logs` 查看日志。
@@ -178,11 +178,11 @@ docker inspect --format='{{.State.Health.Status}}' mibee-nvr
 echo YOUR_GITHUB_TOKEN | docker login ghcr.io -u USERNAME --password-stdin
 
 # 2. 拉取镜像
-docker pull ghcr.io/mi-bee-studio/mibeenvr:latest
+docker pull ghcr.io/seu-usuario/aglusnvr:latest
 
 # 3. 运行容器
 docker run -d \
-  --name mibee-nvr \
+  --name aglus-nvr \
   --restart unless-stopped \
   -p 9090:9090 \
   -p 2121:2121 \
@@ -190,35 +190,35 @@ docker run -d \
   -v ./data:/data \
   -e NVR_DATA_DIR=/data \
   -e TZ=Asia/Shanghai \
-  ghcr.io/mi-bee-studio/mibeenvr:latest
+  ghcr.io/seu-usuario/aglusnvr:latest
 
 # 4. 查看状态
 docker ps
-docker logs -f mibee-nvr
-docker inspect --format='{{.State.Health.Status}}' mibee-nvr
+docker logs -f aglus-nvr
+docker inspect --format='{{.State.Health.Status}}' aglus-nvr
 ```
 
 **运行指定版本：**
 
 ```bash
-docker pull ghcr.io/mi-bee-studio/mibeenvr:v0.2.0
-docker run -d --name mibee-nvr ... ghcr.io/mi-bee-studio/mibeenvr:v0.2.0
+docker pull ghcr.io/seu-usuario/aglusnvr:v0.2.0
+docker run -d --name aglus-nvr ... ghcr.io/seu-usuario/aglusnvr:v0.2.0
 ```
 
 **停止和删除：**
 
 ```bash
-docker stop mibee-nvr
-docker rm mibee-nvr
+docker stop aglus-nvr
+docker rm aglus-nvr
 ```
 
 **更新到最新版：**
 
 ```bash
-docker stop mibee-nvr
-docker rm mibee-nvr
-docker pull ghcr.io/mi-bee-studio/mibeenvr:latest
-docker run -d ... ghcr.io/mi-bee-studio/mibeenvr:latest
+docker stop aglus-nvr
+docker rm aglus-nvr
+docker pull ghcr.io/seu-usuario/aglusnvr:latest
+docker run -d ... ghcr.io/seu-usuario/aglusnvr:latest
 ```
 #### 数据备份与恢复
 
@@ -255,8 +255,8 @@ docker compose up -d
 ```yaml
 # docker-compose.yml — 树莓派配置
 services:
-  mibee-nvr:
-    image: ghcr.io/mi-bee-studio/mibeenvr:latest
+  aglus-nvr:
+    image: ghcr.io/seu-usuario/aglusnvr:latest
     deploy:
       resources:
         limits:
@@ -293,7 +293,7 @@ ports:
 通常是配置文件错误导致。检查日志：
 
 ```bash
-docker compose logs mibee-nvr
+docker compose logs aglus-nvr
 ```
 
 **FTP 无法连接**
@@ -332,33 +332,33 @@ ONVIF 自动发现使用 WS-Discovery 协议（UDP 组播至 `239.255.255.250:37
 
 ```bash
 # 1. 从 GitHub Releases 下载二进制文件
-#    https://github.com/Mi-Bee-Studio/MiBeeNvr/releases
-sudo cp mibee-nvr /usr/local/bin/mibee-nvr
-sudo chmod +x /usr/local/bin/mibee-nvr
+#    https://github.com/seu-usuario/AglusNVR/releases
+sudo cp aglus-nvr /usr/local/bin/aglus-nvr
+sudo chmod +x /usr/local/bin/aglus-nvr
 
 # 2. 创建系统用户和数据目录
-sudo useradd -r -s /bin/false -d /var/lib/mibee-nvr nvr
-sudo mkdir -p /var/lib/mibee-nvr
-sudo chown -R nvr:nvr /var/lib/mibee-nvr
+sudo useradd -r -s /bin/false -d /var/lib/aglus-nvr nvr
+sudo mkdir -p /var/lib/aglus-nvr
+sudo chown -R nvr:nvr /var/lib/aglus-nvr
 
 # 3. 初始化配置（提示输入管理员密码）
-sudo -u nvr /usr/local/bin/mibee-nvr init \
+sudo -u nvr /usr/local/bin/aglus-nvr init \
     --password <your-password> \
-    --data-dir /var/lib/mibee-nvr \
-    --config /var/lib/mibee-nvr/mibee-nvr.yaml \
+    --data-dir /var/lib/aglus-nvr \
+    --config /var/lib/aglus-nvr/aglus-nvr.yaml \
     --listen ":9090"
 
 # 4. 安装 systemd 服务
-sudo cp deploy/mibee-nvr.service /etc/systemd/system/
+sudo cp deploy/aglus-nvr.service /etc/systemd/system/
 sudo systemctl daemon-reload
-sudo systemctl enable --now mibee-nvr
+sudo systemctl enable --now aglus-nvr
 ```
 
 ### 从源码编译
 
 ```bash
-git clone https://github.com/Mi-Bee-Studio/MiBeeNvr.git
-cd MiBeeNvr
+git clone https://github.com/seu-usuario/AglusNVR.git
+cd AglusNVR
 
 # 编译当前架构版本
 make build
@@ -383,11 +383,11 @@ make rollback RPi_HOST=user@your-rpi-host
 
 ## Systemd 服务
 
-服务文件维护在 [`deploy/mibee-nvr.service`](../../deploy/mibee-nvr.service) 中。关键配置：
+服务文件维护在 [`deploy/aglus-nvr.service`](../../deploy/aglus-nvr.service) 中。关键配置：
 
-- **二进制文件**：`/usr/local/bin/mibee-nvr`
-- **配置文件**：`/var/lib/mibee-nvr/mibee-nvr.yaml`
-- **工作目录**：`/var/lib/mibee-nvr`
+- **二进制文件**：`/usr/local/bin/aglus-nvr`
+- **配置文件**：`/var/lib/aglus-nvr/aglus-nvr.yaml`
+- **工作目录**：`/var/lib/aglus-nvr`
 - **运行用户**：`nvr`
 - **安全加固**：`NoNewPrivileges`、`PrivateTmp`、`ProtectSystem=strict`、`ProtectHome`
 - **内存限制**：`MemoryMax=512M`（默认注释掉；树莓派 3B 建议取消注释）
@@ -395,11 +395,11 @@ make rollback RPi_HOST=user@your-rpi-host
 常用命令：
 
 ```bash
-sudo systemctl start mibee-nvr
-sudo systemctl stop mibee-nvr
-sudo systemctl restart mibee-nvr
-sudo systemctl status mibee-nvr
-sudo journalctl -u mibee-nvr -f   # 跟踪日志
+sudo systemctl start aglus-nvr
+sudo systemctl stop aglus-nvr
+sudo systemctl restart aglus-nvr
+sudo systemctl status aglus-nvr
+sudo journalctl -u aglus-nvr -f   # 跟踪日志
 ```
 
 ## 反向代理
@@ -458,7 +458,7 @@ server {
 树莓派 3B 仅有 905MB 内存。为保证稳定运行：
 
 - **片段时长**：使用 30 秒（`segment_duration: "30s"`）。更长的片段会在内存中缓存更多帧（如 120 秒片段占用 60-80MB）。
-- **内存限制**：在 `deploy/mibee-nvr.service` 中取消注释 `MemoryMax=512M`，防止 OOM。
+- **内存限制**：在 `deploy/aglus-nvr.service` 中取消注释 `MemoryMax=512M`，防止 OOM。
 - **存储**：使用外接 USB 硬盘（ext4）存储录像。SD 卡在持续写入场景下会快速磨损。
 - **摄像头数量**：建议同时录制不超过 2-3 路 H.264/H.265 流，具体取决于分辨率和码率。
 
@@ -475,16 +475,16 @@ sudo ./install.sh --version v0.2.0
 ### 手动更新
 
 ```bash
-sudo systemctl stop mibee-nvr
-sudo cp mibee-nvr /usr/local/bin/mibee-nvr
-sudo chmod +x /usr/local/bin/mibee-nvr
-sudo systemctl start mibee-nvr
+sudo systemctl stop aglus-nvr
+sudo cp aglus-nvr /usr/local/bin/aglus-nvr
+sudo chmod +x /usr/local/bin/aglus-nvr
+sudo systemctl start aglus-nvr
 ```
 
 更新前务必备份配置：
 
 ```bash
-sudo cp /var/lib/mibee-nvr/mibee-nvr.yaml /var/lib/mibee-nvr/mibee-nvr.yaml.backup
+sudo cp /var/lib/aglus-nvr/aglus-nvr.yaml /var/lib/aglus-nvr/aglus-nvr.yaml.backup
 ```
 
 ## 监控
@@ -492,23 +492,23 @@ sudo cp /var/lib/mibee-nvr/mibee-nvr.yaml /var/lib/mibee-nvr/mibee-nvr.yaml.back
 ### 日志
 
 ```bash
-sudo journalctl -u mibee-nvr -n 100    # 最近 100 行
-sudo journalctl -u mibee-nvr -f        # 实时跟踪
-sudo journalctl -u mibee-nvr --since "1 hour ago"
+sudo journalctl -u aglus-nvr -n 100    # 最近 100 行
+sudo journalctl -u aglus-nvr -f        # 实时跟踪
+sudo journalctl -u aglus-nvr --since "1 hour ago"
 ```
 
 ### 健康检查
 
 ```bash
-sudo systemctl is-active mibee-nvr
+sudo systemctl is-active aglus-nvr
 curl -f http://localhost:9090/api/health
 ```
 
 ### 磁盘使用
 
 ```bash
-df -h /var/lib/mibee-nvr
-du -sh /var/lib/mibee-nvr/recordings
+df -h /var/lib/aglus-nvr
+du -sh /var/lib/aglus-nvr/recordings
 ```
 
 ### Prometheus 指标
@@ -524,9 +524,9 @@ curl http://localhost:9090/metrics
 ### 服务无法启动
 
 ```bash
-sudo journalctl -u mibee-nvr -n 50
+sudo journalctl -u aglus-nvr -n 50
 # 验证配置文件语法
-sudo -u nvr /usr/local/bin/mibee-nvr -config /var/lib/mibee-nvr/mibee-nvr.yaml
+sudo -u nvr /usr/local/bin/aglus-nvr -config /var/lib/aglus-nvr/aglus-nvr.yaml
 ```
 
 ### 摄像头连接失败
@@ -549,8 +549,8 @@ sudo lsof -i :2121
 ### 权限错误
 
 ```bash
-ls -la /var/lib/mibee-nvr/
-sudo -u nvr ls /var/lib/mibee-nvr/
+ls -la /var/lib/aglus-nvr/
+sudo -u nvr ls /var/lib/aglus-nvr/
 ```
 
 ### 内存占用过高

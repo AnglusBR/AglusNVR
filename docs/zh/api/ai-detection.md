@@ -282,7 +282,7 @@ curl "http://localhost:9090/models/yolo11n.onnx" -o yolo11n.onnx
 模型文件由运维人员放入 `{storage_root}/models/` 目录——**没有**用于模型上传/下载的 HTTP 端点。内置 CLI 子命令会下载默认的 YOLOv11-nano 模型：
 
 ```bash
-mibee-nvr download-model -config mibee-nvr.yaml
+aglus-nvr download-model -config aglus-nvr.yaml
 # 或：make download-model RPi_HOST=user@host  （在远程主机上部署并下载）
 ```
 

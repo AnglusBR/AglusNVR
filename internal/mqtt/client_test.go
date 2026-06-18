@@ -5,8 +5,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stretchr/testify/assert"
 	mqtt "github.com/eclipse/paho.mqtt.golang"
+	"github.com/stretchr/testify/assert"
 )
 
 // mockCallback tracks calls to the onAction callback.
@@ -28,22 +28,22 @@ type mockMessage struct {
 	payload []byte
 }
 
-func (m *mockMessage) Duplicate() bool                          { return false }
-func (m *mockMessage) Qos() byte                                { return 1 }
-func (m *mockMessage) Retained() bool                           { return false }
-func (m *mockMessage) Topic() string                            { return m.topic }
-func (m *mockMessage) MessageID() uint16                        { return 0 }
-func (m *mockMessage) Payload() []byte                          { return m.payload }
-func (m *mockMessage) Ack()                                     {}
+func (m *mockMessage) Duplicate() bool   { return false }
+func (m *mockMessage) Qos() byte         { return 1 }
+func (m *mockMessage) Retained() bool    { return false }
+func (m *mockMessage) Topic() string     { return m.topic }
+func (m *mockMessage) MessageID() uint16 { return 0 }
+func (m *mockMessage) Payload() []byte   { return m.payload }
+func (m *mockMessage) Ack()              {}
 
 func TestNewClient(t *testing.T) {
 	t.Helper()
 	cb := &mockCallback{}
-	c := NewClient("tcp://localhost:1883", "test-client", "mibee-nvr", "", "", cb.callback)
+	c := NewClient("tcp://localhost:1883", "test-client", "aglus-nvr", "", "", cb.callback)
 
 	assert.Equal(t, "tcp://localhost:1883", c.brokerURL)
 	assert.Equal(t, "test-client", c.clientID)
-	assert.Equal(t, "mibee-nvr", c.topicPrefix)
+	assert.Equal(t, "aglus-nvr", c.topicPrefix)
 	assert.Equal(t, "", c.username)
 	assert.Equal(t, "", c.password)
 	assert.NotNil(t, c.onAction)
@@ -52,10 +52,10 @@ func TestNewClient(t *testing.T) {
 func TestParseActionStart(t *testing.T) {
 	t.Helper()
 	cb := &mockCallback{}
-	c := NewClient("tcp://localhost:1883", "test", "mibee-nvr", "", "", cb.callback)
+	c := NewClient("tcp://localhost:1883", "test", "aglus-nvr", "", "", cb.callback)
 
 	msg := &mockMessage{
-		topic:   "mibee-nvr/trigger/camera1",
+		topic:   "aglus-nvr/trigger/camera1",
 		payload: []byte(`{"action": "start"}`),
 	}
 
@@ -69,10 +69,10 @@ func TestParseActionStart(t *testing.T) {
 func TestParseActionStop(t *testing.T) {
 	t.Helper()
 	cb := &mockCallback{}
-	c := NewClient("tcp://localhost:1883", "test", "mibee-nvr", "", "", cb.callback)
+	c := NewClient("tcp://localhost:1883", "test", "aglus-nvr", "", "", cb.callback)
 
 	msg := &mockMessage{
-		topic:   "mibee-nvr/trigger/camera2",
+		topic:   "aglus-nvr/trigger/camera2",
 		payload: []byte(`{"action": "stop"}`),
 	}
 
@@ -85,13 +85,13 @@ func TestParseActionStop(t *testing.T) {
 
 func TestIsConfigured(t *testing.T) {
 	t.Helper()
-	c := NewClient("tcp://localhost:1883", "test", "mibee-nvr", "", "", nil)
+	c := NewClient("tcp://localhost:1883", "test", "aglus-nvr", "", "", nil)
 	assert.True(t, c.IsConfigured())
 }
 
 func TestNotConfiguredNoOp(t *testing.T) {
 	t.Helper()
-	c := NewClient("", "test", "mibee-nvr", "", "", nil)
+	c := NewClient("", "test", "aglus-nvr", "", "", nil)
 	assert.False(t, c.IsConfigured())
 
 	ctx, cancel := context.WithCancel(context.Background())
@@ -105,7 +105,7 @@ func TestNotConfiguredNoOp(t *testing.T) {
 func TestNewClientWithAuth(t *testing.T) {
 	t.Helper()
 	cb := &mockCallback{}
-	c := NewClient("tcp://localhost:1883", "test-client", "mibee-nvr", "mqtt-user", "mqtt-pass", cb.callback)
+	c := NewClient("tcp://localhost:1883", "test-client", "aglus-nvr", "mqtt-user", "mqtt-pass", cb.callback)
 
 	assert.Equal(t, "mqtt-user", c.username)
 	assert.Equal(t, "mqtt-pass", c.password)
@@ -121,10 +121,10 @@ type mockToken struct {
 	err error
 }
 
-func (t *mockToken) Wait() bool                          { return true }
-func (t *mockToken) WaitTimeout(d time.Duration) bool    { return true }
-func (t *mockToken) Done() <-chan struct{}               { return nil }
-func (t *mockToken) Error() error                        { return t.err }
+func (t *mockToken) Wait() bool                       { return true }
+func (t *mockToken) WaitTimeout(d time.Duration) bool { return true }
+func (t *mockToken) Done() <-chan struct{}            { return nil }
+func (t *mockToken) Error() error                     { return t.err }
 
 // mockPahoClient implements mqtt.Client for testing.
 type mockPahoClient struct {
@@ -132,16 +132,22 @@ type mockPahoClient struct {
 	publishToken mqtt.Token
 }
 
-func (m *mockPahoClient) IsConnected() bool                                              { return m.connected }
-func (m *mockPahoClient) IsConnectionOpen() bool                                         { return m.connected }
-func (m *mockPahoClient) Connect() mqtt.Token                                            { return nil }
-func (m *mockPahoClient) Disconnect(quiesce uint)                                        {}
-func (m *mockPahoClient) Publish(topic string, qos byte, retained bool, payload interface{}) mqtt.Token { return m.publishToken }
-func (m *mockPahoClient) Subscribe(topic string, qos byte, callback mqtt.MessageHandler) mqtt.Token      { return nil }
-func (m *mockPahoClient) SubscribeMultiple(filters map[string]byte, callback mqtt.MessageHandler) mqtt.Token { return nil }
-func (m *mockPahoClient) Unsubscribe(topics ...string) mqtt.Token                       { return nil }
-func (m *mockPahoClient) AddRoute(topic string, callback mqtt.MessageHandler)            {}
-func (m *mockPahoClient) OptionsReader() mqtt.ClientOptionsReader                        { return mqtt.ClientOptionsReader{} }
+func (m *mockPahoClient) IsConnected() bool       { return m.connected }
+func (m *mockPahoClient) IsConnectionOpen() bool  { return m.connected }
+func (m *mockPahoClient) Connect() mqtt.Token     { return nil }
+func (m *mockPahoClient) Disconnect(quiesce uint) {}
+func (m *mockPahoClient) Publish(topic string, qos byte, retained bool, payload interface{}) mqtt.Token {
+	return m.publishToken
+}
+func (m *mockPahoClient) Subscribe(topic string, qos byte, callback mqtt.MessageHandler) mqtt.Token {
+	return nil
+}
+func (m *mockPahoClient) SubscribeMultiple(filters map[string]byte, callback mqtt.MessageHandler) mqtt.Token {
+	return nil
+}
+func (m *mockPahoClient) Unsubscribe(topics ...string) mqtt.Token             { return nil }
+func (m *mockPahoClient) AddRoute(topic string, callback mqtt.MessageHandler) {}
+func (m *mockPahoClient) OptionsReader() mqtt.ClientOptionsReader             { return mqtt.ClientOptionsReader{} }
 
 func TestPublish_NilClient(t *testing.T) {
 	t.Helper()

@@ -4,8 +4,8 @@
 *.out
 
 # Binary outputs
-/mibee-nvr
-/mibee-nvr-arm64
+/aglus-nvr
+/aglus-nvr-arm64
 *-arm64
 *-armv7
 
@@ -13,7 +13,7 @@
 *.db
 
 # Config files (contain credentials)
-mibee-nvr.yaml
+aglus-nvr.yaml
 
 # Frontend
 web/node_modules/

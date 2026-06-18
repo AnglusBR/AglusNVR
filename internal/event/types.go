@@ -16,17 +16,17 @@ type StorageHealthChanged struct {
 // SegmentCompleted is published when a recording segment finishes writing.
 type SegmentCompleted struct {
 	CameraID    string `json:"camera_id"`
-	FilePath    string `json:"file_path"`      // relative to storage root for cross-server compatibility
+	FilePath    string `json:"file_path"` // relative to storage root for cross-server compatibility
 	Format      string `json:"format"`
-	Encoding    string `json:"encoding"`       // h264, h265, mjpeg — enables MiBeeVision to choose decoder
-	StartedAt   string `json:"started_at"`     // RFC3339Nano or DB timestamp format
+	Encoding    string `json:"encoding"`   // h264, h265, mjpeg — enables AglusVision to choose decoder
+	StartedAt   string `json:"started_at"` // RFC3339Nano or DB timestamp format
 	EndedAt     string `json:"ended_at"`
 	FileSize    int64  `json:"file_size"`
 	RecordingID string `json:"recording_id"`
 }
 
 // SegmentDeleted is published when a recording segment is deleted (retention
-// expiry or manual deletion). MiBeeVision subscribes to cancel in-progress
+// expiry or manual deletion). AglusVision subscribes to cancel in-progress
 // processing tasks and orphan associated AI event snapshots.
 type SegmentDeleted struct {
 	RecordingID string `json:"recording_id"`
@@ -46,8 +46,8 @@ type AIDetectionEvent struct {
 }
 
 type AIDetection struct {
-	BBox        [4]float64 `json:"bbox"`
-	Confidence  float64    `json:"confidence"`
-	ClassID     int        `json:"class_id"`
-	ClassLabel  string     `json:"class_label"`
+	BBox       [4]float64 `json:"bbox"`
+	Confidence float64    `json:"confidence"`
+	ClassID    int        `json:"class_id"`
+	ClassLabel string     `json:"class_label"`
 }

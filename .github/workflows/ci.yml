@@ -64,4 +64,4 @@ jobs:
       - name: Build
         run: |
           cp -r web/dist/* internal/ui/static/
-          CGO_ENABLED=0 go build ./cmd/mibee-nvr/
+          CGO_ENABLED=0 go build ./cmd/aglus-nvr/

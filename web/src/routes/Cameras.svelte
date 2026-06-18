@@ -172,7 +172,7 @@
 
   function downloadRecording(rec: Recording) {
     const url = `/api/archives/${expandedArchiveId}/recordings/${rec.id}/download`;
-    const encoded = localStorage.getItem('mibee_nvr_auth');
+    const encoded = localStorage.getItem('aglus_nvr_auth');
     if (encoded) {
       fetch(url, {
         headers: { 'Authorization': `Basic ${encoded}` }
@@ -269,7 +269,7 @@
       error = friendlyError(e, t('cameras.failedLoad'));
     } finally {
       loading = false;
-      if (!loading && cameras.length === 0 && !sessionStorage.getItem('mibee_nvr_onboarding_dismissed')) {
+      if (!loading && cameras.length === 0 && !sessionStorage.getItem('aglus_nvr_onboarding_dismissed')) {
         showOnboarding = true;
       }
     }

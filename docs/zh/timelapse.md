@@ -1,6 +1,6 @@
 #BN|# 延时摄影录制
 #KM|
-#KM|延时摄影功能从摄像头录制中创建延时摄影视频，将数小时或数天压缩为几分钟。MiBee NVR v2 引入了重大改进，包括灵活的合并间隔、H.264/H.265 双模式支持以及统一的录制界面。
+#KM|延时摄影功能从摄像头录制中创建延时摄影视频，将数小时或数天压缩为几分钟。AglusNVR v2 引入了重大改进，包括灵活的合并间隔、H.264/H.265 双模式支持以及统一的录制界面。
 #RW|
 #RZ|## 概览
 #SY|
@@ -406,7 +406,7 @@ v2 版本将延时摄影和常规录制合并到统一 Library 页面，具有�
 #NZ>curl -u admin:password "http://localhost:9090/api/cameras/camera-id"
 #SW>
 #ZM># 查看合并日志（如果可用）
-#XV>journalctl -u mibee-nvr -f | grep merge
+#XV>journalctl -u aglus-nvr -f | grep merge
 #KS>```
 #HM>
 #TT## 性能考虑

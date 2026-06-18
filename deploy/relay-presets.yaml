@@ -1,30 +1,30 @@
 # =============================================================================
-# MiBee NVR — Live Platform Relay Presets
+# AglusNVR — Presets de Retransmissão de Plataforma ao Vivo
 # =============================================================================
-# This file is OPTIONAL.  If it is absent, unreadable, or contains no valid
-# presets the application falls back to the 5 built-in defaults compiled into
-# the binary (see internal/relay/presets.go:builtinPresets).
+# Este arquivo é OPCIONAL. Se estiver ausente, ilegível ou não contiver
+# predefinições válidas, o aplicativo usará os cinco padrões internos
+# compilados no binário (veja internal/relay/presets.go:builtinPresets).
 #
-# Each entry under "presets:" is a map key (the preset name) whose value must
-# match the Preset struct fields exactly.  Unknown fields are rejected.
+# Cada entrada em "presets:" usa o nome da predefinição como chave. O valor deve
+# corresponder exatamente aos campos da estrutura Preset. Campos desconhecidos são rejeitados.
 #
-# WARNING: Do NOT put stream keys, credentials, or any secrets in this file.
-# URL hints are public ingest endpoints only — append the stream key at relay
-# configuration time (or inject via environment variable in the URL string).
+# AVISO: não coloque chaves de transmissão, credenciais ou outros segredos neste arquivo.
+# As sugestões de URL são apenas endpoints públicos de entrada. Acrescente a chave
+# durante a configuração da retransmissão ou injete-a por variável de ambiente.
 #
-# Reference: Preset struct in internal/relay/presets.go
+# Referência: estrutura Preset em internal/relay/presets.go
 # =============================================================================
 
 presets:
 
   # ---------------------------------------------------------------------------
-  # Bilibili — bilibili live streaming
-  # Source: builtinPresets["bilibili"] in internal/relay/presets.go
-  # Ingest: rtmp://live-push.bilivideo.com/live-bvc/
+  # Bilibili — transmissão ao vivo do bilibili
+  # Origem: builtinPresets["bilibili"] em internal/relay/presets.go
+  # Entrada: rtmp://live-push.bilivideo.com/live-bvc/
   # ---------------------------------------------------------------------------
   bilibili:
     name: bilibili
-    description: Bilibili live streaming
+    description: Transmissão ao vivo do Bilibili
     url_hint: rtmp://live-push.bilivideo.com/live-bvc/
     gop_seconds: 2
     video_bitrate_kbps: 4000
@@ -36,14 +36,14 @@ presets:
     audio_codec_required: aac
 
   # ---------------------------------------------------------------------------
-  # Douyin — Douyin/TikTok live (vertical video)
-  # Source: builtinPresets["douyin"] in internal/relay/presets.go
-  # Ingest: rtmp://live-push.douyin.com/
-  # Note: Resolution is 1080x1920 (portrait) — NOT 1920x1080
+  # Douyin — Douyin/TikTok ao vivo (vídeo vertical)
+  # Origem: builtinPresets["douyin"] em internal/relay/presets.go
+  # Entrada: rtmp://live-push.douyin.com/
+  # Nota: a resolução é 1080x1920 (retrato), não 1920x1080
   # ---------------------------------------------------------------------------
   douyin:
     name: douyin
-    description: Douyin/TikTok live
+    description: Douyin/TikTok ao vivo
     url_hint: rtmp://live-push.douyin.com/
     gop_seconds: 2
     video_bitrate_kbps: 3500
@@ -56,8 +56,8 @@ presets:
 
   # ---------------------------------------------------------------------------
   # YouTube — YouTube Live
-  # Source: builtinPresets["youtube"] in internal/relay/presets.go
-  # Ingest: rtmp://a.youtube.com/live2/
+  # Origem: builtinPresets["youtube"] em internal/relay/presets.go
+  # Entrada: rtmp://a.youtube.com/live2/
   # ---------------------------------------------------------------------------
   youtube:
     name: youtube
@@ -73,13 +73,13 @@ presets:
     audio_codec_required: aac
 
   # ---------------------------------------------------------------------------
-  # Kuaishou — Kuaishou live
-  # Source: builtinPresets["kuaishou"] in internal/relay/presets.go
-  # Ingest: rtmp://txyun-push.voip.yximgs.com/gifshow/
+  # Kuaishou — Kuaishou ao vivo
+  # Origem: builtinPresets["kuaishou"] em internal/relay/presets.go
+  # Entrada: rtmp://txyun-push.voip.yximgs.com/gifshow/
   # ---------------------------------------------------------------------------
   kuaishou:
     name: kuaishou
-    description: Kuaishou live
+    description: Kuaishou ao vivo
     url_hint: rtmp://txyun-push.voip.yximgs.com/gifshow/
     gop_seconds: 2
     video_bitrate_kbps: 4000
@@ -91,15 +91,15 @@ presets:
     audio_codec_required: aac
 
   # ---------------------------------------------------------------------------
-  # Generic — generic RTMP target (fallback for unknown/unnamed platforms)
-  # Source: builtinPresets["generic"] in internal/relay/presets.go
-  # Note: audio_codec_required "any" accepts both AAC and G.711.
-  #       bframes=0 means no B-frames (lowest latency).
-  #       url_hint is intentionally empty — user must provide the URL.
+  # Genérico — destino RTMP para plataformas desconhecidas ou sem nome
+  # Origem: builtinPresets["generic"] em internal/relay/presets.go
+  # Nota: audio_codec_required "any" aceita AAC e G.711.
+  # bframes=0 significa sem B-frames (menor latência).
+  # url_hint está intencionalmente vazio — o usuário deve fornecer a URL.
   # ---------------------------------------------------------------------------
   generic:
     name: generic
-    description: Generic RTMP target
+    description: Alvo genérico RTMP
     url_hint: ""
     gop_seconds: 2
     video_bitrate_kbps: 3000

@@ -454,7 +454,7 @@ const defaultConfig: AIConfig = {
 - `enabled_cameras` —— 允许在 UI 中显示 AI 的摄像头
 - `zones` —— `map[cameraID][]ROI`，归一化 `[0,1]` 多边形顶点
 
-**模型文件：** 将 `.onnx` 模型放入 `{storage_root}/models/`（`mibee-nvr download-model` CLI 会为默认的 `yolo11n.onnx` 完成此操作）。浏览器通过 `GET /models/{filename}` 获取。
+**模型文件：** 将 `.onnx` 模型放入 `{storage_root}/models/`（`aglus-nvr download-model` CLI 会为默认的 `yolo11n.onnx` 完成此操作）。浏览器通过 `GET /models/{filename}` 获取。
 
 ### 性能调优
 

@@ -1,20 +1,20 @@
-package mibee_nvr_tests
+package aglus_nvr_tests
 
 import (
 	"bytes"
 	"context"
 	"encoding/json"
+	"fmt"
 	"image"
 	"image/color"
 	"image/jpeg"
-	"fmt"
-	"runtime"
 	"io"
 	"net/http"
 	"net/http/httptest"
 	"os"
 	"os/exec"
 	"path/filepath"
+	"runtime"
 	"strings"
 	"sync"
 	"testing"
@@ -23,17 +23,17 @@ import (
 	"github.com/go-chi/chi/v5"
 	"github.com/stretchr/testify/require"
 
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/api"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/camera"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/config"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/hls"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/model"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/onvif"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/recorder"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/storage"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/upload"
 	"github.com/gorilla/websocket"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/wsstream"
+	"github.com/seu-usuario/AglusNVR/internal/api"
+	"github.com/seu-usuario/AglusNVR/internal/camera"
+	"github.com/seu-usuario/AglusNVR/internal/config"
+	"github.com/seu-usuario/AglusNVR/internal/hls"
+	"github.com/seu-usuario/AglusNVR/internal/model"
+	"github.com/seu-usuario/AglusNVR/internal/onvif"
+	"github.com/seu-usuario/AglusNVR/internal/recorder"
+	"github.com/seu-usuario/AglusNVR/internal/storage"
+	"github.com/seu-usuario/AglusNVR/internal/upload"
+	"github.com/seu-usuario/AglusNVR/internal/wsstream"
 )
 
 // --- Shared helpers ---
@@ -131,17 +131,13 @@ type uploadResponse struct {
 	FileSize   int64  `json:"file_size"`
 }
 
-
 // recordingsResponse mirrors the API response format for GET /api/recordings
 
 type recordingsResponse struct {
+	Recordings []model.Recording `json:"recordings"`
 
-    Recordings []model.Recording `json:"recordings"`
-
-    Total      int                `json:"total"`
-
+	Total int `json:"total"`
 }
-
 
 // =============================================================================
 // Test 1: Full Flow
@@ -273,7 +269,7 @@ func TestCrashRecovery(t *testing.T) {
 	// Note: Go's zero time.Time marshals as "0001-01-01T00:00:00Z", not SQL NULL.
 	// We must use raw SQL to insert NULL ended_at to simulate a crash.
 	_, err = db.DB().Exec(
-	`INSERT INTO recordings(id, camera_id, file_path, format, started_at, ended_at, duration, file_size, frame_count, merged) VALUES(?,?,?,?,?,NULL,?,?,?,?)`,
+		`INSERT INTO recordings(id, camera_id, file_path, format, started_at, ended_at, duration, file_size, frame_count, merged) VALUES(?,?,?,?,?,NULL,?,?,?,?)`,
 		"crash-rec-1", cameraID, completedFile, "h264", time.Now().UTC(), 0.0, 100, 30, 0,
 	)
 	require.NoError(t, err)
@@ -1254,10 +1250,10 @@ func TestCameraConnectionFailure(t *testing.T) {
 
 	// Create H264 recorder with invalid RTSP URL
 	rec := recorder.NewH264Recorder(recorder.H264Config{
-		CameraID:    "cam-fail",
-		RTSPURL:     "rtsp://127.0.0.1:1/nonexistent", // port 1 = connection refused
-		SegmentDur:  5 * time.Minute,
-		RingBufCap:  100,
+		CameraID:   "cam-fail",
+		RTSPURL:    "rtsp://127.0.0.1:1/nonexistent", // port 1 = connection refused
+		SegmentDur: 5 * time.Minute,
+		RingBufCap: 100,
 	}, store)
 
 	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
@@ -1277,6 +1273,7 @@ func TestCameraConnectionFailure(t *testing.T) {
 	require.NoError(t, rec.Stop())
 	require.Equal(t, model.StatusStopped, rec.Status())
 }
+
 // ============================================================================
 // Test 22: Concurrent Recording Stress Test (5 cameras)
 // ============================================================================
@@ -1290,10 +1287,10 @@ func TestConcurrentRecordingStress(t *testing.T) {
 	recorders := make([]*recorder.H264Recorder, len(cameraIDs))
 	for i, id := range cameraIDs {
 		recorders[i] = recorder.NewH264Recorder(recorder.H264Config{
-			CameraID:    id,
-			RTSPURL:     fmt.Sprintf("rtsp://127.0.0.1:1/%s", id),
-			SegmentDur:  5 * time.Minute,
-			RingBufCap:  50,
+			CameraID:   id,
+			RTSPURL:    fmt.Sprintf("rtsp://127.0.0.1:1/%s", id),
+			SegmentDur: 5 * time.Minute,
+			RingBufCap: 50,
 		}, store)
 	}
 
@@ -1437,7 +1434,6 @@ func TestDatabaseLockingConcurrency(t *testing.T) {
 	require.NotNil(t, got)
 }
 
-
 // ===========================================================================
 // Test 25: WebSocket Stream Integration
 // ===========================================================================
@@ -1495,7 +1491,6 @@ func TestWebSocketStreamIntegration(t *testing.T) {
 	require.GreaterOrEqual(t, len(msg), 5, "CodecInfo message too short: %d bytes", len(msg))
 	require.Equal(t, wsstream.MsgTypeCodecInfo, msg[0], "first message should be CodecInfo")
 
-
 	// --- Step 7: Broadcast frames via hub and verify VideoFrame messages ---
 	idrNALU := []byte{0x65, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07}
 	hub.Broadcast(90000, [][]byte{idrNALU}, false)
@@ -1504,7 +1499,6 @@ func TestWebSocketStreamIntegration(t *testing.T) {
 	_, msg, err = conn.ReadMessage()
 	require.NoError(t, err)
 	require.Equal(t, wsstream.MsgTypeVideoFrame, msg[0], "second message should be VideoFrame")
-
 
 	// --- Step 8: Broadcast additional frames and verify delivery ---
 	for i := 0; i < 2; i++ {
@@ -1564,4 +1558,3 @@ func eventuallyWS(t *testing.T, fn func() bool, timeout, interval time.Duration)
 		}
 	}
 }
-

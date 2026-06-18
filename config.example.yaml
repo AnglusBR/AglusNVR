@@ -1,230 +1,230 @@
-# MiBee NVR Configuration
-# Copy to mibee-nvr.yaml and customize for your setup
-# Or use: ./mibee-nvr init --password <your-password>
+# Configuração do AglusNVR
+# Copie para o aglus-nvr.yaml e personalize para sua configuração
+# Ou use: ./aglus-nvr init --password <sua-senha>
 #
-# All durations use Go duration format: 30s, 5m, 1h, 24h
-# Camera IDs must be unique and kebab-case (e.g., "front-door")
-# Enables, ports, and thresholds are validated on startup
+# Todas as durações usam o formato do Go: 30s, 5m, 1h, 24h
+# Os IDs das câmeras devem ser únicos e usar kebab-case (por exemplo, "porta-frontal")
+# Habilitações, portas e limites são validados na inicialização
 
-# HTTP server listen address (default: ":9090")
+# Endereço de escuta do servidor HTTP (padrão: ":9090")
 server:
   listen: ":9090"
 
-# Storage settings
-# root_dir: where recordings, database, and HLS segments are stored.
-# Docker: set via NVR_DATA_DIR env var (default /data). See docker-compose.yml.
-# Binary: set via --data-dir flag or directly in YAML.
+# Configurações de armazenamento
+# root_dir: local de armazenamento das gravações, banco de dados e segmentos HLS.
+# Docker: definido pela variável NVR_DATA_DIR (padrão: /data). Veja docker-compose.yml.
+# Binário: definido pela opção --data-dir ou diretamente no YAML.
 storage:
-  root_dir: "/var/lib/mibee-nvr"   # Change to your preferred path (e.g. /mnt/external/nvr)
-  segment_duration: "30s"          # MP4 segment duration (max 30s on RPi)
+  root_dir: "/var/lib/aglus-nvr"   # Mude para o seu caminho preferido (ex.: /mnt/external/nvr)
+  segment_duration: "30s"          # Duração do segmento MP4 (máximo de 30s no Raspberry Pi)
 
-# Authentication
-# Option 1: Set password_hash (generate with: mibee-nvr hash-password <pw>)
-# Option 2: Set password in plaintext (auto-converted to hash on first run)
+# Autenticação
+# Opção 1: definir password_hash (gere com: aglus-nvr hash-password <senha>)
+# Opção 2: Definir senha em texto simples (convertida automaticamente para hash na primeira execução)
 auth:
   username: "admin"
-  password_hash: ""  # Use `mibee-nvr hash-password <password>` to generate
-  # password: ""      # Or set plaintext here (auto-hashed on first start)
+  password_hash: ""  # Use `aglus-nvr hash-password <senha>` para gerar
+  # password: ""      # Ou defina texto simples aqui (auto-hashado no primeiro início)
 
-# Camera configuration — add your cameras here
-# Each camera must have a unique ID and valid URL with scheme + host
-# Supported protocols: rtsp, http, onvif, xiaomi
-# Supported encodings: h264, h265, mjpeg, jpeg
+# Configuração da câmera — adicione suas câmeras aqui
+# Cada câmera deve ter um ID único e URL válida com esquema + host
+# Protocolos suportados: rtsp, http, onvif, xiaomi
+# Codificações suportadas: h264, h265, mjpeg, jpeg
 cameras: []
-# Example cameras:
+# Exemplos de câmeras:
 # cameras:
 #   - id: "front-door"
-#     name: "Front Door"
-#     protocol: "rtsp"        # Transport: rtsp, http, onvif, xiaomi
-#     encoding: "h264"         # Encoding: h264, h265, mjpeg, jpeg
+#     name: "Porta da frente"
+#     protocol: "rtsp"        # Transporte: rtsp, http, onvif, xiaomi
+#     encoding: "h264"         # Codificação: h264, h265, mjpeg, jpeg
 #     url: "rtsp://192.168.1.100:554/stream"
 #     enabled: true
-#     audio_enabled: false          # Enable audio recording (default: false)
-#     frame_watchdog_timeout: "30s"  # Timeout before declaring camera unhealthy (default: 30s)
-#     timelapse:                      # Per-camera timelapse recording
-#       enabled: false               # Enable timelapse (default: false)
-#       interval: "30s"              # Snapshot interval (default: 30s)
-#     health_overrides:              # Per-camera health threshold overrides
-#       freeze_timeout: "10s"        # Timeout for detecting frozen stream (default: 10s)
-#   - id: "backyard"
-#     name: "Back Yard"
+#     audio_enabled: false          # Ativar gravação de áudio (padrão: falso)
+#     frame_watchdog_timeout: "30s"  # Tempo antes de declarar a câmera como não saudável (padrão: 30s)
+#     timelapse:                      # Gravação em timelapse por câmera
+#       enabled: false               # Ativar timelapse (padrão: falso)
+#       interval: "30s"              # Intervalo de snapshot (padrão: 30s)
+#     health_overrides:              # Overries de limiar de saúde por câmera
+#       freeze_timeout: "10s"        # Tempo de espera para detectar stream congelado (padrão: 10s)
+#   - id: "quintal"
+#     name: "Quintal"
 #     protocol: "http"
 #     encoding: "jpeg"
 #     url: "http://192.168.1.101/capture"
 #     enabled: true
-#     audio_enabled: false          # Enable audio recording (default: false). Not supported for MJPEG/HTTP-JPEG.
-#     frame_watchdog_timeout: "30s"  # Timeout before declaring camera unhealthy (default: 30s)
-#     timelapse:                      # Per-camera timelapse recording
-#       enabled: false               # Enable timelapse (default: false)
-#       interval: "30s"              # Snapshot interval (default: 30s)
-#     health_overrides:              # Per-camera health threshold overrides
-#       freeze_timeout: "10s"        # Timeout for detecting frozen stream (default: 10s)
+#     audio_enabled: false          # Ativar gravação de áudio (padrão: falso). Não suportado para MJPEG/HTTP-JPEG.
+#     frame_watchdog_timeout: "30s"  # Tempo antes de declarar a câmera como não saudável (padrão: 30s)
+#     timelapse:                      # Gravação em timelapse por câmera
+#       enabled: false               # Ativar timelapse (padrão: falso)
+#       interval: "30s"              # Intervalo de snapshot (padrão: 30s)
+#     health_overrides:              # Overries de limiar de saúde por câmera
+#       freeze_timeout: "10s"        # Tempo de espera para detectar stream congelado (padrão: 10s)
 #   - id: "xiaomi-cam"
-#     name: "Xiaomi Camera"
+#     name: "Câmera Xiaomi"
 #     protocol: "xiaomi"
 #     encoding: "h264"
-#     did: "xiaomi_device_id"      # Xiaomi Device ID
-#     vendor: "cs2"                # Transport vendor: "cs2" (default)
+#     did: "xiaomi_device_id"      # ID do Xiaomi do dispositivo
+#     vendor: "cs2"                # Fornecedor de transporte: "cs2" (padrão)
 #     enabled: true
-#     audio_enabled: false          # Enable audio recording (default: false)
-#     frame_watchdog_timeout: "30s"  # Timeout before declaring camera unhealthy (default: 30s)
-#     timelapse:                      # Per-camera timelapse recording
-#       enabled: false               # Enable timelapse (default: false)
-#       interval: "30s"              # Snapshot interval (default: 30s)
-#     health_overrides:              # Per-camera health threshold overrides
-#       freeze_timeout: "10s"        # Timeout for detecting frozen stream (default: 10s)
+#     audio_enabled: false          # Ativar gravação de áudio (padrão: falso)
+#     frame_watchdog_timeout: "30s"  # Tempo antes de declarar a câmera como não saudável (padrão: 30s)
+#     timelapse:                      # Gravação em timelapse por câmera
+#       enabled: false               # Ativar timelapse (padrão: falso)
+#       interval: "30s"              # Intervalo de snapshot (padrão: 30s)
+#     health_overrides:              # Overries de limiar de saúde por câmera
+#       freeze_timeout: "10s"        # Tempo de espera para detectar stream congelado (padrão: 10s)
 
-# Xiaomi cloud account settings (required for xiaomi cameras)
+# Xiaomi configurações da conta na nuvem (necessárias para câmeras Xiaomi)
 # xiaomi:
-#   user_id: ""    # Populated after first login
-#   token: ""      # Xiaomi passToken (obtained via /api/xiaomi/auth)
-#   region: "cn"   # Region: cn, sg, de, etc.
+#   user_id: ""    # Preenchido após o primeiro login
+#   token: ""      # Xiaomi passToken (obtido via /api/xiaomi/auth)
+#   region: "cn"   # Região: cn, sg, de, etc.
 
-# Cleanup — retention and disk threshold policies
-# Cleanup runs on a schedule and removes old recordings
+# Limpeza — políticas de retenção e limiar de disco
+# A limpeza segue um cronograma e remove gravações antigas
 cleanup:
-  retention_days: 30               # Delete recordings older than N days (1-3650)
-  check_interval: "1h"             # How often to check for expired recordings
-  disk_threshold_percent: 95       # Start cleanup when disk usage exceeds N% (50-99)
+  retention_days: 30               # Exclua gravações com mais de N dias (1-3650)
+  check_interval: "1h"             # Com que frequência verificar gravações vencidas
+  disk_threshold_percent: 95       # Iniciar a limpeza quando o uso do disco ultrapassar N% (50-99)
 
-# Segment merging — combine short segments into longer recordings
-# Only active when enabled: true. All duration fields are required when enabled.
+# Fusão de segmentos — combinar segmentos curtos em gravações mais longas
+# Só entra em funcionamento quando enabled é true. Nesse caso, todos os campos de duração são obrigatórios.
 merge:
-  enabled: false                   # Enable segment merging
-  check_interval: "1h"             # How often to check for merge candidates
-  window_size: "1h"                # Time window for merging segments
-  batch_limit: 200                 # Max segments to merge in one batch
-  min_segment_age: "10m"           # Minimum age before a segment can be merged
-  min_segments_to_merge: 3         # Minimum segments required to trigger a merge
+  enabled: false                   # Ativar a fusão de segmentos
+  check_interval: "1h"             # Com que frequência verificar candidatos à fusão
+  window_size: "1h"                # Janela de tempo para fusão de segmentos
+  batch_limit: 200                 # Segmentos máximos para se unir em um único lote
+  min_segment_age: "10m"           # Idade mínima antes de um segmento poder ser fundido
+  min_segments_to_merge: 3         # Segmentos mínimos necessários para acionar uma fusão
 
-# FTP server — provides file access over FTP protocol
-# Configurable port and passive port range
+# Servidor FTP — fornece acesso a arquivos via protocolo FTP
+# Porta de controle e intervalo de portas passivas configuráveis
 ftp:
-  enabled: true                    # Enable FTP server (default: true)
-  port: 2121                       # FTP control port (1-65535)
-  passive_port_range: "2122-2140"  # Passive mode port range
+  enabled: true                    # Ativar servidor FTP (padrão: verdadeiro)
+  port: 2121                       # Porta de controle FTP (1-65535)
+  passive_port_range: "2122-2140"  # Faixa de portas em modo passivo
 
-# MQTT trigger-based recording for smart home integration
-# When enabled, subscribe to topic for recording triggers
+# MQTT gravação baseada em gatilhos para integração com casas inteligentes
+# Quando ativado, inscreva-se no tópico para gravação de gatilhos
 mqtt:
-  enabled: false                   # Enable MQTT client
-  broker: "tcp://localhost:1883"   # MQTT broker URL
-  topic: "mibeenr/trigger"         # MQTT topic to subscribe to
-  client_id: "mibee-nvr"           # MQTT client ID
-  username: ""                     # MQTT broker authentication (optional)
-  password: ""                     # MQTT broker password (optional, auto-encrypted if encryption key is set)
+  enabled: false                   # Habilitar MQTT cliente
+  broker: "tcp://localhost:1883"   # URL do broker MQTT
+  topic: "aglusnvr/trigger"        # Tópico MQTT para assinatura
+  client_id: "aglus-nvr"           # ID do cliente MQTT
+  username: ""                     # Usuário do broker MQTT (opcional)
+  password: ""                     # Senha do broker MQTT (opcional; criptografada automaticamente quando configurado)
 
-# WebDAV server — file access over WebDAV protocol
-# Shares recordings directory over HTTP
+# Servidor WebDAV — acesso a arquivos pelo protocolo WebDAV
+# Compartilha diretório de gravações sobre HTTP
 webdav:
-  enabled: true                    # Enable WebDAV server (default: true)
-  path_prefix: "/dav"              # URL path prefix for WebDAV access
-  read_write: false                # Allow write operations (PUT, MKCOL, DELETE, etc.)
+  enabled: true                    # Ativar WebDAV servidor (padrão: true)
+  path_prefix: "/dav"              # Prefixo de caminho de URL para acesso WebDAV
+  read_write: false                # Permitir operações de escrita (PUT, MKCOL, DELETE, etc.)
 
-# HLS streaming — on-demand live view via Web UI
-# RPi constraint: max 4 concurrent streams
+# Transmissão HLS — visualização ao vivo sob demanda pela interface web
+# Restrição do Raspberry Pi: no máximo 4 transmissões simultâneas
 hls:
-  write_buffer_size: 40            # Async frame buffer per stream (default: 100)
-  segment_max_size_mb: 10          # HLS segment max size in MB (default: 10)
-  segment_count: 7                 # Segments per stream (range: 3-10, default: 7)
-  max_streams: 4                   # Max concurrent HLS streams (range: 1-20, default: 4)
-  low_latency: false               # Enable Low-Latency HLS (default: false)
-  part_min_duration: "200ms"       # LL-HLS part duration (range: 100ms-1s, default: 200ms)
+  write_buffer_size: 40            # Buffer de quadros assíncrono por stream (padrão: 100)
+  segment_max_size_mb: 10          # HLS tamanho máximo de segmento em MB (padrão: 10)
+  segment_count: 7                 # Segmentos por stream (intervalo: 3-10, padrão: 7)
+  max_streams: 4                   # Fluxo máximo de HLS concorrentes (intervalo: 1-20, padrão: 4)
+  low_latency: false               # Ativar HLS de baixa latência (padrão: falso)
+  part_min_duration: "200ms"       # LL-HLS duração da peça (faixa: 100ms-1s, padrão: 200ms)
 
-# Observability — logging and debugging
+# Observabilidade — registro e depuração
 observability:
-  log_level: "info"                # Log level: debug, info, warn, error (default: info)
-  log_format: "text"               # Log format: json or text (default: text)
-  # enable_pprof: false            # Enable pprof debug endpoints (default: false)
+  log_level: "info"                # Nível de log: debug, info, warn, error (padrão: info)
+  log_format: "text"               # Formato do log: json ou texto (padrão: texto)
+  # enable_pprof: false            # Habilitar endpoints de depuração pprof (padrão: falso)
 
-# Transcoding — optional video transcoding via FFmpeg
-# Used to reduce bitrate, change codec format, or adjust quality
-# Requires ffmpeg to be installed on the system
+# Transcodificação — transcodificação opcional de vídeo via FFmpeg
+# Usado para reduzir a taxa de bits, mudar o formato do codec ou ajustar qualidade
+# Exige que o ffmpeg seja instalado no sistema
 # transcoding:
-#   enabled: false              # Enable transcoding (default: false)
-#   ffmpeg_path: ""              # Path to ffmpeg binary (empty = auto-detect)
-#   max_workers: 1               # Max concurrent transcoding jobs (range: 1-4, default: 1)
-#   replace_original: false      # Replace original recordings with transcoded versions
-#   download_url: ""             # Auto-populated FFmpeg download URL per platform
+#   enabled: false              # Ativar transcodificação (padrão: falso)
+#   ffmpeg_path: ""              # Caminho para o binário ffmpeg (vazio = auto-detectação)
+#   max_workers: 1               # Máximo de trabalhos concorrentes de transcodificação (intervalo: 1-4, padrão: 1)
+#   replace_original: false      # Substituir as gravações originais por versões transcodificadas
+#   download_url: ""             # URL de download FFmpeg preenchida automaticamente por plataforma
 #
-# Per-camera transcoding overrides:
+# Sobreposições de transcodificação por câmera:
 #   cameras:
 #     - id: "front-door"
 #       ...
 #       transcoding:
-#         enabled: true           # Override global enabled for this camera
-#         target_codec: "h264"    # Target codec: h264, h265 (default: same as source)
-#         preset: "ultrafast"     # FFmpeg preset: ultrafast, faster, medium (default: ultrafast)
-#         bitrate: "2M"           # Target bitrate (e.g. "1M", "2M", "500K")
+#         enabled: true           # Ativado o override global para esta câmera
+#         target_codec: "h264"    # Codec alvo: h264, h265 (padrão: igual à fonte)
+#         preset: "ultrafast"     # FFmpeg predefinição: ultrarápido, rápido, médio (padrão: ultrarápido)
+#         bitrate: "2M"           # Taxa de bits alvo (ex.: "1M", "2M", "500K")
 
-# Streaming — default live view protocol and per-protocol settings
+# Streaming — protocolo padrão de visualização ao vivo e configurações por protocolo
 # streaming:
-#   default_protocol: "hls"          # Default streaming protocol: hls, ll-hls, webrtc, flv (default: hls)
+#   default_protocol: "hls"          # Protocolo padrão de streaming: HLS, LL-HLS, WEBRTC, FLV (padrão: HLS)
 #   webrtc:
-#     enabled: true                   # Enable WebRTC WHEP streaming (default: true)
-#     max_viewers: 2                  # Max concurrent WebRTC viewers (range: 1-10, default: 2)
-#     idle_timeout: "60s"             # WebRTC viewer idle timeout (default: 60s)
+#     enabled: true                   # Ativar WebRTC WHEP streaming (padrão: verdadeiro)
+#     max_viewers: 2                  # Máximo de visualizações concorrentes WebRTC (intervalo: 1-10, padrão: 2)
+#     idle_timeout: "60s"             # WebRTC tempo de espera do visualizador (padrão: 60s)
 #   flv:
-#     enabled: true                   # Enable HTTP-FLV streaming (default: true)
-#     max_viewers: 10                 # Max concurrent FLV viewers (range: 1-50, default: 10)
-#     idle_timeout: "60s"             # FLV viewer idle timeout (default: 60s)
-#     gop_cache_size: 1               # FLV GOP cache size (default: 1)
+#     enabled: true                   # Ativar HTTP-FLV streaming (padrão: true)
+#     max_viewers: 10                 # Visualizadores FLV simultâneos no máximo (intervalo: 1-50, padrão: 10)
+#     idle_timeout: "60s"             # Tempo de espera do visualizador FLV (padrão: 60s)
+#     gop_cache_size: 1               # Tamanho do cache FLV GOP (padrão: 1)
 
-# WebSocket streaming — binary frame streaming
+# WebSocket streaming — streaming binário de quadros
 # websocket:
-#   max_viewers: 10                  # Max concurrent WebSocket viewers (default: 10)
-#   write_buf_size: 100               # WebSocket write buffer size (default: 100)
-#   idle_timeout: "60s"               # WebSocket idle timeout (default: 60s)
+#   max_viewers: 10                  # Máximo de WebSocket concorrentes (padrão: 10)
+#   write_buf_size: 100               # WebSocket tamanho do buffer de escrita (padrão: 100)
+#   idle_timeout: "60s"               # WebSocket tempo de espera (padrão: 60s)
 
-# Camera health monitoring — automatic health detection and remediation
+# Monitoramento de saúde de câmeras — detecção e remediação automática de saúde
 # health:
-#   enabled: false                   # Enable health monitoring (default: false)
-#   events_retention: "720h"          # Health events retention duration (default: 720h / 30 days)
+#   enabled: false                   # Ativar monitoramento de saúde (padrão: falso)
+#   events_retention: "720h"          # Duração da retenção dos eventos de saúde (padrão: 720h / 30 dias)
 #   alerts:
-#     cooldown: "5m"                 # Alert cooldown between notifications (default: 5m)
-#     mqtt: false                     # Send health alerts via MQTT (default: false)
+#     cooldown: "5m"                 # Tempo de recarga do alerta entre notificações (padrão: 5m)
+#     mqtt: false                     # Envie alertas de saúde via MQTT (padrão: falso)
 #   layer1:
-#     offline_threshold: "30s"        # Timeout before declaring camera offline (default: 30s)
+#     offline_threshold: "30s"        # Tempo antes de declarar a câmera offline (padrão: 30s)
 #   layer2:
-#     bitrate_change_threshold: 0.5   # Max bitrate change ratio (0-1, default: 0.5)
-#     min_fps: 5                      # Minimum acceptable FPS (default: 5)
-#     max_idr_interval: "60s"          # Max IDR interval (default: 60s)
+#     bitrate_change_threshold: 0.5   # Razão máxima de alteração de taxa de bits (0-1, padrão: 0,5)
+#     min_fps: 5                      # FPS mínimo aceitável (padrão: 5)
+#     max_idr_interval: "60s"          # Intervalo máximo IDR (padrão: 60s)
 #   layer2_5:
-#     freeze_timeout: "10s"           # Timeout for detecting frozen stream (default: 10s)
+#     freeze_timeout: "10s"           # Tempo de espera para detectar stream congelado (padrão: 10s)
 #   auto_remediation:
-#     enabled: false                  # Enable automatic camera restart (default: false)
-#     max_restarts_per_hour: 3         # Max restarts per hour per camera (default: 3)
-#     cooldown_minutes: 5             # Cooldown between restarts in minutes (default: 5)
-#     blacklist_hours: 1              # Hours to blacklist camera after repeated failures (default: 1)
-#     global_max_per_min: 10          # Max restarts across all cameras per minute (default: 10)
+#     enabled: false                  # Ativar reinicialização automática da câmera (padrão: falso)
+#     max_restarts_per_hour: 3         # Reinicialização máxima por hora por câmera (padrão: 3)
+#     cooldown_minutes: 5             # Tempo de recarga entre reinicializações em minutos (padrão: 5)
+#     blacklist_hours: 1              # Horas para colocar a câmera na lista negra após falhas repetidas (padrão: 1)
+#     global_max_per_min: 10          # Reinicialização máxima em todas as câmeras por minuto (padrão: 10)
 
-# Remote logging — send logs to external HTTP endpoint
+# Registro remoto — envie logs para um endpoint externo de HTTP
 # remote_log:
-#   enabled: false                   # Enable remote logging (default: false)
-#   endpoint: ""                      # HTTP endpoint URL for log delivery
-#   format: "jsonline"               # Log format: jsonline, loki (default: jsonline)
+#   enabled: false                   # Ativar registro remoto (padrão: falso)
+#   endpoint: ""                      # HTTP URL de endpoint para entrega de logs
+#   format: "jsonline"               # Formato do log: jsonline, loki (padrão: jsonline)
 
-# AI inference — ONNX Runtime object detection
+# Inferência de IA — Detecção de objetos em tempo de execução ONNX
 # ai:
-#   inference_timeout_ms: 5000        # Inference timeout in ms (default: 5000)
-#   frame_skip_rate: 10              # Process every Nth frame (default: 10)
-#   confidence_threshold: 0.5         # Detection confidence threshold (default: 0.5)
-#   model_path: ""                   # Path to ONNX model (empty = auto-download)
+#   inference_timeout_ms: 5000        # Tempo limite de inferência em ms (padrão: 5000)
+#   frame_skip_rate: 10              # Processe todo frame N-ésimo (padrão: 10)
+#   confidence_threshold: 0.5         # Limiar de confiança em detecção (padrão: 0,5)
+#   model_path: ""                   # Caminho para o modelo ONNX (vazio = download automático)
 
-# RTMP ingest server — receive RTMP push streams
+# RTMP servidor de ingest — receber RTMP push streams
 # rtmp:
-#   enabled: false                   # Enable RTMP server (default: false)
-#   port: 1935                       # RTMP listen port (default: 1935)
-#   stream_keys: {}                  # Camera ID to stream key mapping (e.g. front-door: mykey)
+#   enabled: false                   # Ativar RTMP servidor (padrão: falso)
+#   port: 1935                       # RTMP Catch port (padrão: 1935)
+#   stream_keys: {}                  # ID da câmera para mapeamento de teclas de stream (ex.: porta da frente: mykey)
 
-# SRT listener — receive SRT/MPEG-TS streams
+# SRT ouvinte — receba streams SRT/MPEG-TS
 # srt:
-#   enabled: false                   # Enable SRT listener (default: false)
-#   port: 9000                       # SRT listen port (default: 9000)
-#   streams: []                      # SRT stream mappings (camera_id, mode, address, passphrase, stream_id)
+#   enabled: false                   # Ativar SRT ouvinte (padrão: falso)
+#   port: 9000                       # SRT Listen Port (padrão: 9000)
+#   streams: []                      # SRT mapeamentos de fluxo (camera_id, modo, endereço, senha, stream_id)
 
-# Metrics authentication — optional BasicAuth for /metrics endpoint
+# Autenticação por métricas — BasicAuth opcional para o endpoint /metrics
 # metrics_auth:
-#   username: ""                     # Metrics endpoint username (empty = public access)
-#   password: ""                     # Metrics endpoint password
-#   password_hash: ""                 # Metrics endpoint password hash (bcrypt)
+#   username: ""                     # Nome de usuário do endpoint de métricas (vazio = acesso público)
+#   password: ""                     # Senha de endpoint de métricas
+#   password_hash: ""                 # Hash de senha de endpoint de métricas (bcrypt)

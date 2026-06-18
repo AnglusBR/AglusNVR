@@ -6,7 +6,7 @@ import (
 	"sync"
 	"testing"
 
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/transcoding"
+	"github.com/seu-usuario/AglusNVR/internal/transcoding"
 )
 
 func TestDetectTierFFmpeg(t *testing.T) {
@@ -185,4 +185,3 @@ func TestDetectMergeTier(t *testing.T) {
 		}
 	})
 }
-

@@ -9,7 +9,7 @@ import (
 	"strings"
 )
 
-// APIKeyPrefix identifies MiBeeVision API keys.
+// APIKeyPrefix identifies AglusVision API keys.
 const APIKeyPrefix = "mbv_"
 
 // apiKeyContextKey is the context key for the authenticated API key name.
@@ -18,7 +18,7 @@ type apiKeyContextKey struct{}
 // APIKeyAuthMiddleware validates Bearer tokens with the "mbv_" prefix against
 // a set of configured API keys. It runs alongside BasicAuth — if the request
 // has a Bearer token, API Key auth is attempted first; otherwise BasicAuth
-// handles it. This allows MiBeeVision to use API Keys while regular users
+// handles it. This allows AglusVision to use API Keys while regular users
 // continue using BasicAuth.
 //
 // validKeys is a map of key → name (for logging/audit). The middleware does

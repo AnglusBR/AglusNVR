@@ -1,6 +1,6 @@
 package middleware
 
-import "github.com/Mi-Bee-Studio/MiBeeNvr/internal/metrics"
+import "github.com/seu-usuario/AglusNVR/internal/metrics"
 
 // authMetrics holds the optional metrics instance for auth event tracking.
 // Set via SetAuthMetrics() from main.go. When nil, auth events are not counted

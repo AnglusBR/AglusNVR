@@ -1,4 +1,4 @@
-# MiBee NVR — Segment Merge Package
+# AglusNVR — Segment Merge Package
 
 ## OVERVIEW
 

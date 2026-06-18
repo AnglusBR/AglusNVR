@@ -3,7 +3,7 @@ package config
 import (
 	"testing"
 
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/ai"
+	"github.com/seu-usuario/AglusNVR/internal/ai"
 	"github.com/stretchr/testify/require"
 )
 

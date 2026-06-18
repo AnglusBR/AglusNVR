@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/model"
+	"github.com/seu-usuario/AglusNVR/internal/model"
 )
 
 // RecordingLister is the interface for listing recordings from the database.
@@ -19,7 +19,7 @@ type RecordingLister interface {
 // It wraps PeriodicMergeManager with a 24-hour interval for backward compatibility.
 type DailyMergeManager struct {
 	inner *PeriodicMergeManager
-	loc  *time.Location
+	loc   *time.Location
 }
 
 // NewDailyMergeManager creates a new DailyMergeManager wrapping a PeriodicMergeManager with 24h duration.

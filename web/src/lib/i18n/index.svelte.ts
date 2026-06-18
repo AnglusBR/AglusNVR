@@ -1,27 +1,29 @@
 /**
- * Lightweight i18n module for MiBee NVR
+ * Lightweight i18n module for AglusNVR
  * Svelte 5 reactive — state.currentLang is $state, t() reads it directly
  */
 
 import zh from './zh.json';
 import en from './en.json';
+import ptBR from './pt-BR.json';
 
 type Translations = Record<string, string>;
 
-const locales: Record<string, Translations> = { zh, en };
+const locales: Record<string, Translations> = {
+  'pt-BR': ptBR as Translations,
+  en: en as Translations,
+  zh: zh as Translations,
+};
 
 // $state object — components import and read state.currentLang for reactive tracking
 // t() also reads state.currentLang, so any template calling t() re-evaluates on lang change
-export const state = $state({ currentLang: 'en' });
+export const state = $state({ currentLang: 'pt-BR' });
 
 function detectLanguage(): string {
-  const saved = localStorage.getItem('mibee_nvr_lang');
+  const saved = localStorage.getItem('aglus_nvr_lang');
   if (saved && locales[saved]) return saved;
 
-  const nav = navigator.language || '';
-  if (/^zh\b/i.test(nav)) return 'zh';
-
-  return 'en';
+  return 'pt-BR';
 }
 
 export function initI18n(): void {
@@ -31,18 +33,18 @@ export function initI18n(): void {
 export function setLang(lang: string): void {
   if (!locales[lang]) return;
   state.currentLang = lang;
-  localStorage.setItem('mibee_nvr_lang', lang);
+  localStorage.setItem('aglus_nvr_lang', lang);
 }
 
 export function t(key: string, params?: Record<string, string | number>): string {
   // Read state.currentLang ($state) and USE the value — compiler cannot optimize away
   const lang = state.currentLang;
-  const dict = locales[lang] || locales['en'];
+  const dict = locales[lang] || locales['pt-BR'];
   let value = dict[key];
 
   if (value === undefined) {
-    // Fallback to English
-    value = locales['en'][key];
+    // Fallback padrão do projeto: português do Brasil.
+    value = locales['pt-BR'][key];
   }
 
   if (value === undefined) {

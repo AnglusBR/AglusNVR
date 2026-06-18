@@ -2,10 +2,10 @@ package health
 
 import (
 	"context"
+	"github.com/seu-usuario/AglusNVR/internal/model"
 	"log/slog"
 	"sync"
 	"time"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/model"
 )
 
 // HealthStorage interface for health events (for testability).

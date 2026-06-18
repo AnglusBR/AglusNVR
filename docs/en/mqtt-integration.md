@@ -1,6 +1,6 @@
 # MQTT Integration
 
-MiBee NVR supports MQTT-based recording triggers for smart home automation and event-driven recording. When an MQTT message is received, the system can start recording on a specific camera for a configurable duration.
+AglusNVR supports MQTT-based recording triggers for smart home automation and event-driven recording. When an MQTT message is received, the system can start recording on a specific camera for a configurable duration.
 
 ## Overview
 
@@ -17,8 +17,8 @@ MiBee NVR supports MQTT-based recording triggers for smart home automation and e
 ```yaml
 mqtt:
   broker_url: "tcp://192.168.1.100:1883"
-  client_id: "mibee-nvr"
-  topic_prefix: "mibee"
+  client_id: "aglus-nvr"
+  topic_prefix: "aglus"
   username: "mqtt_user"
   password: "mqtt_password"
 ```
@@ -29,7 +29,7 @@ mqtt:
 |-------|----------|------|---------|-------------|
 | `broker_url` | Yes | string | - | MQTT broker address (e.g., `tcp://192.168.1.100:1883`) |
 | `client_id` | Yes | string | - | Unique client ID for MQTT connection |
-| `topic_prefix` | Yes | string | - | Prefix for trigger topics (e.g., `mibee`) |
+| `topic_prefix` | Yes | string | - | Prefix for trigger topics (e.g., `aglus`) |
 | `username` | No | string | - | MQTT username (if broker requires auth) |
 | `password` | No | string | - | MQTT password (if broker requires auth) |
 
@@ -38,7 +38,7 @@ mqtt:
 ```yaml
 mqtt:
   broker_url: "tcp://mqtt.example.com:1883"
-  client_id: "mibee-nvr-home"
+  client_id: "aglus-nvr-home"
   topic_prefix: "home/security"
   username: "smart_home_user"
   password: "secure_password_123"
@@ -162,7 +162,7 @@ import time
 def on_connect(client, userdata, flags, rc):
     print("Connected to MQTT broker")
 
-client = mqtt.Client("mibee-nvr-trigger")
+client = mqtt.Client("aglus-nvr-trigger")
 client.username_pw_set("mqtt_user", "mqtt_password")
 client.connect("192.168.1.100", 1883)
 
@@ -187,10 +187,10 @@ Check MQTT connection status and messages:
 
 ```bash
 # View system logs
-journalctl -u mibee-nvr -f | grep mqtt
+journalctl -u aglus-nvr -f | grep mqtt
 
 # Docker logs
-docker logs -f mibee-nvr | grep mqtt
+docker logs -f aglus-nvr | grep mqtt
 ```
 
 #### Health Check
@@ -235,7 +235,7 @@ WARN: invalid mqtt message payload format
 ```yaml
 mqtt:
   broker_url: "tcp://192.168.1.100:1883"
-  client_id: "mibee-nvr"
+  client_id: "aglus-nvr"
   topic_prefix: "security"
 ```
 
@@ -252,7 +252,7 @@ security/trigger/camera3
 ```yaml
 mqtt:
   broker_url: "ssl://mqtt.example.com:8883"
-  client_id: "mibee-nvr"
+  client_id: "aglus-nvr"
   topic_prefix: "home/security"
   username: "secure_user"
   password: "complex_password"
@@ -270,7 +270,7 @@ mqtt:
 # Zigbee2MQTT Integration
 mqtt:
   broker_url: "tcp://192.168.1.100:1883"
-  client_id: "mibee-nvr"
+  client_id: "aglus-nvr"
   topic_prefix: "zigbee2mqtt"
 
 # Camera trigger from motion sensor
@@ -322,7 +322,7 @@ mqtt:
 
 1. Check logs for processing errors:
    ```bash
-   journalctl -u mibee-nvr -f | grep mqtt
+   journalctl -u aglus-nvr -f | grep mqtt
    ```
 
 2. Verify topic matching:
@@ -335,7 +335,7 @@ mqtt:
 
 Validate configuration file:
 ```bash
-./mibee-nvr -config mibee-nvr.yaml --validate
+./aglus-nvr -config aglus-nvr.yaml --validate
 ```
 
 #### Debug Mode
@@ -344,7 +344,7 @@ Enable debug logging:
 ```yaml
 mqtt:
   broker_url: "tcp://192.168.1.100:1883"
-  client_id: "mibee-nvr"
+  client_id: "aglus-nvr"
   topic_prefix: "home/security"
 
 observability:

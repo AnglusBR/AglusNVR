@@ -7,8 +7,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/model"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/storage"
+	"github.com/seu-usuario/AglusNVR/internal/model"
+	"github.com/seu-usuario/AglusNVR/internal/storage"
 	"github.com/stretchr/testify/require"
 )
 
@@ -32,25 +32,25 @@ func TestMergeMJPEGSegments_MultipleSources(t *testing.T) {
 
 	segments := []*model.Recording{
 		{
-			ID:        "seg1",
-			CameraID:  cameraID,
-			FilePath:  srcDir1,
-			Format:    model.FormatMJPEG,
-			StartedAt: time.Now().Add(-2 * time.Hour),
-			EndedAt:   time.Now().Add(-time.Hour),
-			Duration:  3600.0,
-			FileSize:  24,
+			ID:         "seg1",
+			CameraID:   cameraID,
+			FilePath:   srcDir1,
+			Format:     model.FormatMJPEG,
+			StartedAt:  time.Now().Add(-2 * time.Hour),
+			EndedAt:    time.Now().Add(-time.Hour),
+			Duration:   3600.0,
+			FileSize:   24,
 			FrameCount: 2,
 		},
 		{
-			ID:        "seg2",
-			CameraID:  cameraID,
-			FilePath:  srcDir2,
-			Format:    model.FormatMJPEG,
-			StartedAt: time.Now().Add(-time.Hour),
-			EndedAt:   time.Now(),
-			Duration:  3600.0,
-			FileSize:  12,
+			ID:         "seg2",
+			CameraID:   cameraID,
+			FilePath:   srcDir2,
+			Format:     model.FormatMJPEG,
+			StartedAt:  time.Now().Add(-time.Hour),
+			EndedAt:    time.Now(),
+			Duration:   3600.0,
+			FileSize:   12,
 			FrameCount: 1,
 		},
 	}
@@ -102,14 +102,14 @@ func TestMergeMJPEGSegments_SingleSource(t *testing.T) {
 
 	segments := []*model.Recording{
 		{
-			ID:        "seg1",
-			CameraID:  cameraID,
-			FilePath:  srcDir,
-			Format:    model.FormatMJPEG,
-			StartedAt: time.Now().Add(-time.Hour),
-			EndedAt:   time.Now(),
-			Duration:  3600.0,
-			FileSize:  15,
+			ID:         "seg1",
+			CameraID:   cameraID,
+			FilePath:   srcDir,
+			Format:     model.FormatMJPEG,
+			StartedAt:  time.Now().Add(-time.Hour),
+			EndedAt:    time.Now(),
+			Duration:   3600.0,
+			FileSize:   15,
 			FrameCount: 1,
 		},
 	}

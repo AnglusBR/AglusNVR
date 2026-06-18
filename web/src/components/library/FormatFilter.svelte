@@ -32,7 +32,7 @@
         <span>{icon}</span>
         <span class="hidden sm:inline">{label}</span>
       {:else}
-        <span>All</span>
+        <span>Todos</span>
       {/if}
     </button>
   {/each}

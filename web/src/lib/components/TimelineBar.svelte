@@ -132,7 +132,7 @@
         windowEndMs = center + 1800_000;
       }
     } catch (e) {
-      error = e instanceof Error ? e.message : 'Failed to load timeline';
+      error = e instanceof Error ? e.message : 'Falha ao carregar a linha do tempo';
       segments = [];
     } finally {
       loading = false;

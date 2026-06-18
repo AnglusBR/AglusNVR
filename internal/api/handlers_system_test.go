@@ -8,7 +8,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/config"
+	"github.com/seu-usuario/AglusNVR/internal/config"
 	"github.com/stretchr/testify/require"
 )
 

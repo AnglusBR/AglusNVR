@@ -1,6 +1,6 @@
 {
-  "name": "MiBee NVR",
-  "short_name": "MiBee",
+  "name": "AglusNVR",
+  "short_name": "Aglus",
   "description": "轻量级网络视频录像机 — Lightweight Network Video Recorder",
   "start_url": "/",
   "scope": "/",

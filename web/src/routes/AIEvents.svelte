@@ -4,7 +4,7 @@
   import type { AIEvent, AIEventStats } from '$lib/api/ai-events';
   import { listCameras } from '$lib/api';
   import type { Camera } from '$lib/api';
-  import { getMiBeeVisionConnected, getMiBeeVisionLoaded, refreshMiBeeVisionStatus } from '$lib/mibeevision-status.svelte';
+  import { getAglusVisionConnected, getAglusVisionLoaded, refreshAglusVisionStatus } from '$lib/aglusvision-status.svelte';
   import { t } from '$lib/i18n';
   import { formatDate } from '$lib/format';
   import { AlertCircle, Brain, ChevronDown, Settings } from 'lucide-svelte';
@@ -89,12 +89,12 @@
     loadStats();
   }
 
-  const miBeeVisionConnected = $derived(getMiBeeVisionConnected());
-  const miBeeVisionLoaded = $derived(getMiBeeVisionLoaded());
+  const aglusVisionConnected = $derived(getAglusVisionConnected());
+  const aglusVisionLoaded = $derived(getAglusVisionLoaded());
 
   onMount(async () => {
-    await refreshMiBeeVisionStatus();
-    if (!getMiBeeVisionConnected()) return;
+    await refreshAglusVisionStatus();
+    if (!getAglusVisionConnected()) return;
     try {
       cameras = await listCameras();
     } catch { /* ignore */ }
@@ -104,7 +104,7 @@
 
 <div class="p-4 md:p-6 max-w-6xl mx-auto">
   <!-- Not connected guard -->
-  {#if miBeeVisionLoaded && !miBeeVisionConnected}
+  {#if aglusVisionLoaded && !aglusVisionConnected}
     <div class="flex flex-col items-center justify-center py-20 text-center">
       <Brain size={48} class="text-gray-400 mb-4 opacity-50" />
       <h2 class="text-lg font-semibold th-text-primary mb-2">{t('aiEvents.notConnectedTitle')}</h2>
@@ -114,7 +114,7 @@
         {t('aiEvents.goToSettings')}
       </a>
     </div>
-  {:else if !miBeeVisionLoaded}
+  {:else if !aglusVisionLoaded}
     <!-- Loading -->
     <div class="flex items-center justify-center py-20">
       <span class="spinner"></span>
@@ -218,24 +218,24 @@
           {#if expandedEvent === evt.id}
             <div class="px-3 pb-3 pt-1 border-t th-border space-y-1 text-xs th-text-secondary">
               {#if evt.frame_timestamp}
-                <div><span class="th-text-muted">Frame time:</span> {evt.frame_timestamp}</div>
+                <div><span class="th-text-muted">Horário do quadro:</span> {evt.frame_timestamp}</div>
               {/if}
               {#if evt.frame_idx}
-                <div><span class="th-text-muted">Frame index:</span> {evt.frame_idx}</div>
+                <div><span class="th-text-muted">Índice do quadro:</span> {evt.frame_idx}</div>
               {/if}
               {#if evt.recording_id}
-                <div><span class="th-text-muted">Recording:</span> {evt.recording_id}</div>
+                <div><span class="th-text-muted">Gravação:</span> {evt.recording_id}</div>
               {/if}
               {#if parseBBox(evt.bbox)}
-                <div><span class="th-text-muted">Bounding box:</span> {parseBBox(evt.bbox)!.map(v => v.toFixed(3)).join(', ')}</div>
+                <div><span class="th-text-muted">Caixa delimitadora:</span> {parseBBox(evt.bbox)!.map(v => v.toFixed(3)).join(', ')}</div>
               {/if}
               {#if evt.snapshot_path}
-                <div><span class="th-text-muted">Snapshot:</span> {evt.snapshot_path}</div>
+                <div><span class="th-text-muted">Captura:</span> {evt.snapshot_path}</div>
               {/if}
               {#if evt.metadata && evt.metadata !== 'null'}
-                <div><span class="th-text-muted">Metadata:</span> {evt.metadata}</div>
+                <div><span class="th-text-muted">Metadados:</span> {evt.metadata}</div>
               {/if}
-              <div><span class="th-text-muted">Event ID:</span> {evt.id}</div>
+              <div><span class="th-text-muted">ID do evento:</span> {evt.id}</div>
             </div>
           {/if}
         </div>
@@ -254,5 +254,5 @@
       </div>
     {/if}
   {/if} <!-- /loading -->
-  {/if} <!-- /miBeeVision guard -->
+  {/if} <!-- /aglusVision guard -->
 </div>

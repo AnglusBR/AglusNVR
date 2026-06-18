@@ -1,6 +1,6 @@
 # WebDAV Integration
 
-MiBee NVR includes a built-in WebDAV server that provides access to camera recordings and snapshots through the standard WebDAV protocol. Supports both read-only and read-write modes, making it easy to integrate with third-party systems.
+AglusNVR includes a built-in WebDAV server that provides access to camera recordings and snapshots through the standard WebDAV protocol. Supports both read-only and read-write modes, making it easy to integrate with third-party systems.
 
 ## Overview
 
@@ -198,8 +198,8 @@ rclone sync /mnt/disk/nvr backup:video/recordings/
 
 # Regular backup script
 #!/bin/bash
-rclone sync /var/lib/mibee-nvr/recordings/ backup:recordings/
-rclone sync /var/lib/mibee-nvr/snapshots/ backup:snapshots/
+rclone sync /var/lib/aglus-nvr/recordings/ backup:recordings/
+rclone sync /var/lib/aglus-nvr/snapshots/ backup:snapshots/
 ```
 
 ### Windows Backup Tools
@@ -208,7 +208,7 @@ Use Robocopy for backup:
 
 ```batch
 @echo off
-set SOURCE=D:\mibee-nvr\recordings\
+set SOURCE=D:\aglus-nvr\recordings\
 set DEST=\\192.168.1.100\dav\recordings\
 set USER=admin
 set PASS=password
@@ -323,10 +323,10 @@ curl -v -u admin:password -T /etc/hosts http://localhost:9090/dav/test.txt
 **Check System Logs**
 ```bash
 # View detailed logs
-journalctl -u mibee-nvr -f | grep webdav
+journalctl -u aglus-nvr -f | grep webdav
 
 # Docker container
-docker logs -f mibee-nvr | grep webdav
+docker logs -f aglus-nvr | grep webdav
 ```
 
 ### Performance Optimization
@@ -370,12 +370,12 @@ defaults write com.apple.TimeMachine CustomBackupDisk "http://localhost:9090/dav
 
 ```bash
 # Use rsync to backup to WebDAV
-rsync -avz /var/lib/mibee-nvr/recordings/ \
-  admin@localhost:/var/lib/mibee-nvr/recordings/backup/
+rsync -avz /var/lib/aglus-nvr/recordings/ \
+  admin@localhost:/var/lib/aglus-nvr/recordings/backup/
 
 # Exclude specific files
-rsync -avz --exclude='*.tmp' /var/lib/mibee-nvr/recordings/ \
-  admin@localhost:/var/lib/mibee-nvr/recordings/backup/
+rsync -avz --exclude='*.tmp' /var/lib/aglus-nvr/recordings/ \
+  admin@localhost:/var/lib/aglus-nvr/recordings/backup/
 ```
 
 ### Python Automation Script
@@ -529,4 +529,4 @@ if [[ ${DISK_USAGE%?} -gt 90 ]]; then
 fi
 ```
 
-Through WebDAV integration, MiBee NVR can easily integrate with various third-party systems to achieve automatic backup, remote access, and file management capabilities.
+Through WebDAV integration, AglusNVR can easily integrate with various third-party systems to achieve automatic backup, remote access, and file management capabilities.

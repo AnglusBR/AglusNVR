@@ -1,21 +1,21 @@
-# MiBee NVR ONVIF 指南
+# AglusNVR ONVIF 指南
 
-本指南介绍 MiBee NVR 与 ONVIF（开放网络视频接口论坛）的集成，包括摄像头发现、管理、PTZ 控制和故障排除。
+本指南介绍 AglusNVR 与 ONVIF（开放网络视频接口论坛）的集成，包括摄像头发现、管理、PTZ 控制和故障排除。
 
 ## 什么是 ONVIF 和 Profile S 概述
 
-ONVIF 是网络视频产品的开放行业标准，使不同制造商的 IP 摄像头能够协同工作。MiBee NVR 主要实现 ONVIF Profile S，专注于核心视频流功能：
+ONVIF 是网络视频产品的开放行业标准，使不同制造商的 IP 摄像头能够协同工作。AglusNVR 主要实现 ONVIF Profile S，专注于核心视频流功能：
 
 - **Profile S**：视频流、PTZ 控制、设备管理
 - **Profile T**：安全增强功能（访问控制事件）
 - **Profile G**：分析和元数据
 - **Profile Q**：高级 PTZ 控制
 
-MiBee NVR 主要支持 Profile S 功能，设备管理和事件监控取决于摄像头固件。
+AglusNVR 主要支持 Profile S 功能，设备管理和事件监控取决于摄像头固件。
 
 ## 支持的 ONVIF 服务
 
-MiBee NVR 提供以下 ONVIF 服务集成：
+AglusNVR 提供以下 ONVIF 服务集成：
 
 ### 设备服务
 - 设备信息和功能
@@ -54,7 +54,7 @@ MiBee NVR 提供以下 ONVIF 服务集成：
 
 ## 摄像头发现
 
-MiBee NVR 支持两种摄像头发现方法：
+AglusNVR 支持两种摄像头发现方法：
 
 ### WS-Discovery（多播）
 
@@ -101,7 +101,7 @@ cameras:
 
 ### 方法 1：Web UI 发现（推荐）
 
-1. 打开 MiBee NVR Web 界面
+1. 打开 AglusNVR Web 界面
 2. 导航到 **摄像头** → **添加摄像头**
 3. 从协议下拉菜单中选择 **ONVIF**
 4. 点击 **发现摄像头**
@@ -329,7 +329,7 @@ curl -X GET http://localhost:9090/api/cameras/{id}/snapshot \
 - **格式**：摄像头原生格式（通常是 JPEG）
 - **浏览器兼容性**：大多数浏览器支持 JPEG 快照
 - **分辨率**：原生摄像头分辨率（可能无法在所有浏览器中查看）
-- **缓存**：MiBee NVR 缓存快照 5 秒以减少负载
+- **缓存**：AglusNVR 缓存快照 5 秒以减少负载
 - **替代方案**：使用 RTSP/HTTP JPEG 流获得一致的格式
 
 ### Web UI 快照
@@ -387,13 +387,13 @@ curl -X POST http://localhost:9090/api/cameras/{id}/onvif/events/subscribe \
 - **依赖摄像头**：仅支持 ONVIF 事件服务的摄像头
 - **需要固件**：通常需要特定固件版本
 - **协议差异**：不同制造商的实现不同
-- **MiBee NVR 集成**：目前支持基本事件订阅
+- **AglusNVR 集成**：目前支持基本事件订阅
 
 ### 替代移动检测
 
 对于不支持 ONVIF 事件服务的摄像头：
 - 使用摄像头内置的移动检测
-- 在 MiBee NVR 中配置外部移动检测
+- 在 AglusNVR 中配置外部移动检测
 - 使用第三方移动检测解决方案
 
 ## 设备管理
@@ -500,7 +500,7 @@ cameras:
 ```yaml
 # 使用主机网络的 docker-compose.yml
 services:
-  mibee-nvr:
+  aglus-nvr:
     network_mode: host  # 启用多播
     ports:
       - "9090:9090"
@@ -557,7 +557,7 @@ curl --connect-timeout 5 http://192.168.1.100/onvif/device_service
 1. **主机网络**（推荐）：
    ```yaml
    services:
-     mibee-nvr:
+     aglus-nvr:
        network_mode: host
        ports:
          - "9090:9090"
@@ -586,7 +586,7 @@ curl --connect-timeout 5 http://192.168.1.100/onvif/device_service
 **Docker 端口映射**：
 ```yaml
 services:
-  mibee-nvr:
+  aglus-nvr:
     ports:
       - "9090:9090"        # Web 界面
       - "2121:2121"        # FTP
@@ -683,13 +683,13 @@ services:
 ## 支持资源
 
 ### 文档
-- [MiBee NVR 入门指南](./getting-started.md)
-- [MiBee NVR 配置指南](./configuration.md)
-- [MiBee NVR API 参考](./api/README.md)
+- [AglusNVR 入门指南](./getting-started.md)
+- [AglusNVR 配置指南](./configuration.md)
+- [AglusNVR API 参考](./api/README.md)
 
 ### 社区支持
-- GitHub Issues：[MiBee NVR Issues](https://github.com/Mi-Bee-Studio/MiBeeNvr/issues)
-- 讨论区：[MiBee NVR Discussions](https://github.com/Mi-Bee-Studio/MiBeeNvr/discussions)
+- GitHub Issues：[AglusNVR Issues](https://github.com/seu-usuario/AglusNVR/issues)
+- 讨论区：[AglusNVR Discussions](https://github.com/seu-usuario/AglusNVR/discussions)
 
 ### ONVIF 资源
 - ONVIF 官方网站：https://www.onvif.org/
@@ -698,4 +698,4 @@ services:
 
 ---
 
-本指南提供了 MiBee NVR ONVIF 集成的全面覆盖。对于特定摄像头型号，请查阅制造商文档了解 ONVIF 功能和限制。
+本指南提供了 AglusNVR ONVIF 集成的全面覆盖。对于特定摄像头型号，请查阅制造商文档了解 ONVIF 功能和限制。

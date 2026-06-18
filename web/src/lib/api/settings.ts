@@ -63,7 +63,7 @@ export interface StreamingConfig {
   srt?: SRTConfig;
 }
 
-export interface MiBeeVisionConfig {
+export interface AglusVisionConfig {
   api_keys: Array<{
     name: string;
     prefix: string;
@@ -75,7 +75,7 @@ export interface SettingsConfig {
   cleanup: CleanupConfig;
   webdav: WebDAVConfig;
   streaming?: StreamingConfig;
-  mibeevision?: MiBeeVisionConfig;
+  aglusvision?: AglusVisionConfig;
   timezone?: string; // "Local", "UTC", or IANA timezone name
   timezone_display?: string; // Human-readable timezone label (e.g. "Asia/Shanghai (UTC+8)")
 }
@@ -169,7 +169,7 @@ export async function updateStreamingSettings(
   });
 }
 
-// --- MiBeeVision API Key Management ---
+// --- AglusVision API Key Management ---
 
 export async function generateAPIKey(name: string): Promise<{ name: string; key: string; prefix: string }> {
   return apiRequest<{ name: string; key: string; prefix: string }>('/settings/api-keys', {

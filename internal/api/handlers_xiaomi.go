@@ -7,8 +7,8 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/camera"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/config"
+	"github.com/seu-usuario/AglusNVR/internal/camera"
+	"github.com/seu-usuario/AglusNVR/internal/config"
 )
 
 // --- Xiaomi cloud endpoints ---
@@ -267,7 +267,7 @@ func (h *Handler) handleCheckVendor(w http.ResponseWriter, r *http.Request) {
 		writeJSON(w, http.StatusOK, map[string]any{
 			"vendor":     "tutk",
 			"compatible": false,
-			"message":    "This device uses TUTK protocol which is not supported by MiBee NVR. Only CS2 protocol cameras are supported.",
+			"message":    "This device uses TUTK protocol which is not supported by AglusNVR. Only CS2 protocol cameras are supported.",
 		})
 		return
 	}

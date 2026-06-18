@@ -10,9 +10,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/metrics"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/model"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/storage"
+	"github.com/seu-usuario/AglusNVR/internal/metrics"
+	"github.com/seu-usuario/AglusNVR/internal/model"
+	"github.com/seu-usuario/AglusNVR/internal/storage"
 	"github.com/stretchr/testify/require"
 )
 
@@ -73,9 +73,9 @@ exit 0
 	m := metrics.NewMetrics()
 
 	cfg := QueueConfig{
-		MaxWorkers:   maxWorkers,
-		FFmpegPath:   mockFFmpeg,
-		FFprobePath:  mockFFprobe,
+		MaxWorkers:  maxWorkers,
+		FFmpegPath:  mockFFmpeg,
+		FFprobePath: mockFFprobe,
 	}
 
 	return NewTranscodeQueue(db, caps, nil, cfg, m)
@@ -134,13 +134,13 @@ func helperInsertTask(t *testing.T, db *storage.DB, inputPath, outputPath string
 	t.Helper()
 	ctx := context.Background()
 	task := &storage.TranscodeTask{
-		CameraID:    "test-cam",
-		RecordingID: "rec-001",
-		InputPath:   inputPath,
-		InputFormat: "h265",
-		OutputPath:  outputPath,
+		CameraID:     "test-cam",
+		RecordingID:  "rec-001",
+		InputPath:    inputPath,
+		InputFormat:  "h265",
+		OutputPath:   outputPath,
 		OutputFormat: "h264",
-		CreatedAt:   time.Now().UTC().Format("2006-01-02 15:04:05.999999999"),
+		CreatedAt:    time.Now().UTC().Format("2006-01-02 15:04:05.999999999"),
 	}
 	err := db.EnqueueTask(ctx, task)
 	require.NoError(t, err)
@@ -501,13 +501,13 @@ func TestQueueEnqueueDirectly(t *testing.T) {
 
 	ctx := context.Background()
 	task := &storage.TranscodeTask{
-		CameraID:    "cam-1",
-		RecordingID: "rec-1",
-		InputPath:   "/input.mp4",
-		InputFormat: "h265",
-		OutputPath:  "/output.mp4",
+		CameraID:     "cam-1",
+		RecordingID:  "rec-1",
+		InputPath:    "/input.mp4",
+		InputFormat:  "h265",
+		OutputPath:   "/output.mp4",
 		OutputFormat: "h264",
-		CreatedAt:   time.Now().UTC().Format("2006-01-02 15:04:05.999999999"),
+		CreatedAt:    time.Now().UTC().Format("2006-01-02 15:04:05.999999999"),
 	}
 
 	err := q.Enqueue(ctx, task)
@@ -587,9 +587,9 @@ func TestQueueReplaceOriginal(t *testing.T) {
 	q.config.ReplaceOriginal = true
 
 	task := &storage.TranscodeTask{
-		InputPath:   inputPath,
-		OutputPath:  outputPath,
-		RecordingID: "rec-001",
+		InputPath:    inputPath,
+		OutputPath:   outputPath,
+		RecordingID:  "rec-001",
 		OutputFormat: "h264",
 	}
 	q.replaceOriginal(task)
@@ -654,7 +654,7 @@ func TestReplaceOriginalCrashSafety(t *testing.T) {
 	// Simulate crash between step 1 (output→temp) and step 2 (input→backup)
 	// In this case, temp exists but input is still intact
 	inputPath := filepath.Join(tmpDir, "crash1-input.mp4")
-	tmpPath := filepath.Join(tmpDir, ".mibee-replace-tmp-crash1-output.mp4")
+	tmpPath := filepath.Join(tmpDir, ".aglus-replace-tmp-crash1-output.mp4")
 	require.NoError(t, os.WriteFile(inputPath, originalData, 0644))
 	require.NoError(t, os.WriteFile(tmpPath, transcodedData, 0644))
 
@@ -665,8 +665,8 @@ func TestReplaceOriginalCrashSafety(t *testing.T) {
 
 	// Simulate crash between step 2 (input→backup) and step 3 (temp→input)
 	// Backup exists, temp exists, input is gone
-	backupPath := filepath.Join(tmpDir, ".mibee-replace-bak-crash2-input.mp4")
-	tmpPath2 := filepath.Join(tmpDir, ".mibee-replace-tmp-crash2-output.mp4")
+	backupPath := filepath.Join(tmpDir, ".aglus-replace-bak-crash2-input.mp4")
+	tmpPath2 := filepath.Join(tmpDir, ".aglus-replace-tmp-crash2-output.mp4")
 	require.NoError(t, os.WriteFile(backupPath, originalData, 0644))
 	require.NoError(t, os.WriteFile(tmpPath2, transcodedData, 0644))
 
@@ -711,14 +711,14 @@ func TestReplaceOriginalNoRecordingID(t *testing.T) {
 	require.Equal(t, "new", string(data))
 }
 
-// helperAssertNoOrphanFiles checks that no .mibee-replace-* temp/backup files exist.
+// helperAssertNoOrphanFiles checks that no .aglus-replace-* temp/backup files exist.
 func helperAssertNoOrphanFiles(t *testing.T, dir string) {
 	t.Helper()
 	entries, err := os.ReadDir(dir)
 	require.NoError(t, err)
 	for _, entry := range entries {
 		name := entry.Name()
-		isOrphan := strings.HasPrefix(name, ".mibee-replace-")
+		isOrphan := strings.HasPrefix(name, ".aglus-replace-")
 		require.False(t, isOrphan, "found orphan temp/backup file: %s", name)
 	}
 }

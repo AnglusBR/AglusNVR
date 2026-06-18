@@ -14,7 +14,7 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/transcoding"
+	"github.com/seu-usuario/AglusNVR/internal/transcoding"
 )
 
 // EncoderType represents the encoder selection strategy.

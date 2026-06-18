@@ -14,10 +14,10 @@ import (
 	"github.com/bluenviron/gortsplib/v5/pkg/base"
 	"github.com/bluenviron/gortsplib/v5/pkg/format"
 
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/event"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/metrics"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/model"
-	"github.com/Mi-Bee-Studio/MiBeeNvr/internal/onvif"
+	"github.com/seu-usuario/AglusNVR/internal/event"
+	"github.com/seu-usuario/AglusNVR/internal/metrics"
+	"github.com/seu-usuario/AglusNVR/internal/model"
+	"github.com/seu-usuario/AglusNVR/internal/onvif"
 )
 
 var onvifRecLogger = slog.Default().With("component", "onvif-recorder")
@@ -281,7 +281,7 @@ func (r *ONVIFRecorder) probeHTTPMJPEG(ctx context.Context) (string, error) {
 	}
 
 	// Build candidate base URLs: probe the MJPEG preview port (81) first,
-	// then the ONVIF port. Some devices (ESP32-S3 MiBeeCam) separate MJPEG
+	// then the ONVIF port. Some devices (ESP32-S3 AglusCam) separate MJPEG
 	// preview onto port 81 to avoid blocking the main HTTP server on port 80.
 	host := onvifURL.Hostname()
 	baseURLs := []string{
@@ -338,7 +338,7 @@ func (r *ONVIFRecorder) guessMJPEGURL() string {
 	if u, err := url.Parse(r.rtspURL); err == nil && u.Path != "" {
 		path = u.Path
 	}
-	// ESP32 MiBeeCam and similar minimal ONVIF devices serve MJPEG on a separate
+	// ESP32 AglusCam and similar minimal ONVIF devices serve MJPEG on a separate
 	// port (81) from the ONVIF endpoint (80). Falling back to the ONVIF port
 	// causes a 404 death-loop (commit 25f58b6 regressed this).
 	// Use :81 as the fallback — probeHTTPMJPEG already tries the ONVIF port too.

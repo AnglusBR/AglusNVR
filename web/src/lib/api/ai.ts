@@ -20,7 +20,7 @@ export interface AiDetectionSettings {
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
-const STORAGE_KEY = 'mibee_nvr_ai_settings';
+const STORAGE_KEY = 'aglus_nvr_ai_settings';
 
 const DEFAULTS: AiDetectionSettings = {
   enabled: false,
@@ -163,7 +163,7 @@ export async function updateAiConfig(config: AiConfigUpdate): Promise<void> {
 
 // ─── Per-camera localStorage ──────────────────────────────────────────────────
 
-const PER_CAMERA_STORAGE_KEY = 'mibee_nvr_per_camera_ai';
+const PER_CAMERA_STORAGE_KEY = 'aglus_nvr_per_camera_ai';
 
 export interface PerCameraAiState {
   [cameraId: string]: {

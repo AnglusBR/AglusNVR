@@ -5,7 +5,11 @@ import { state } from './i18n';
  */
 export function formatDate(dateStr: string): string {
   const date = new Date(dateStr);
-  const lang = state.currentLang === 'zh' ? 'zh-CN' : 'en-US';
+  const lang = state.currentLang === 'zh'
+    ? 'zh-CN'
+    : state.currentLang === 'en'
+      ? 'en-US'
+      : 'pt-BR';
   return date.toLocaleString(lang, {
     month: 'short',
     day: 'numeric',
@@ -24,12 +28,21 @@ export function formatDuration(seconds: number): string {
   const mins = Math.floor((seconds % 3600) / 60);
   const secs = Math.floor(seconds % 60);
   const isZh = state.currentLang === 'zh';
+  const isPtBR = state.currentLang === 'pt-BR';
 
   if (hrs > 0) {
-    return isZh ? `${hrs}时 ${mins}分 ${secs}秒` : `${hrs}h ${mins}m ${secs}s`;
+    return isZh
+      ? `${hrs}时 ${mins}分 ${secs}秒`
+      : isPtBR
+        ? `${hrs}h ${mins}min ${secs}s`
+        : `${hrs}h ${mins}m ${secs}s`;
   }
   if (mins > 0) {
-    return isZh ? `${mins}分 ${secs}秒` : `${mins}m ${secs}s`;
+    return isZh
+      ? `${mins}分 ${secs}秒`
+      : isPtBR
+        ? `${mins}min ${secs}s`
+        : `${mins}m ${secs}s`;
   }
   return isZh ? `${secs}秒` : `${secs}s`;
 }
