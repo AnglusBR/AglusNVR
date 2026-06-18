@@ -207,7 +207,8 @@ install_binary() {
 
     if download "${base_url}/SHA256SUMS" "$checksums_tmp" 2>/dev/null; then
         local expected actual
-        expected="$(awk -v name="$asset" '$2 == name || $2 == "*" name { print $1; exit }' "$checksums_tmp")"
+        expected="$(tr -d '\r' <"$checksums_tmp" |
+            awk -v name="$asset" '$2 == name || $2 == "*" name { print $1; exit }')"
         [[ -n "$expected" ]] || die "O arquivo SHA256SUMS não contém ${asset}."
         actual="$(sha256sum "$binary_tmp" | awk '{print $1}')"
         [[ "$actual" == "$expected" ]] || die "A verificação SHA-256 do binário falhou."
