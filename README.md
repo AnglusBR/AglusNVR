@@ -45,15 +45,15 @@ Baixe o binário mais recente do [GitHub Releases](https://github.com/mms1688/Ag
 
 ```bash
 # AMD64 (maioria dos PCs e servidores)
-wget https://github.com/mms1688/AglusNVR/releases/latest/download/aglus-nvr-amd64
+wget https://github.com/AnglusBR/AglusNVR/releases/latest/download/aglus-nvr-amd64
 chmod +x aglus-nvr-amd64
 
 # ARM64 (Raspberry Pi 4/5 etc.)
-wget https://github.com/mms1688/AglusNVR/releases/latest/download/aglus-nvr-arm64
+wget https://github.com/AnglusBR/AglusNVR/releases/latest/download/aglus-nvr-arm64
 chmod +x aglus-nvr-arm64
 
 # ARMv7 (Raspberry Pi 2/3 etc.)
-wget https://github.com/mms1688/AglusNVR/releases/latest/download/aglus-nvr-armv7
+wget https://github.com/AnglusBR/AglusNVR/releases/latest/download/aglus-nvr-armv7
 chmod +x aglus-nvr-armv7
 ```
 
@@ -86,7 +86,7 @@ Para armazenar gravações em um drive externo, edite a montagem de volume em `d
 ### Opção 3: Construir a partir da Fonte
 
 ```bash
-git clone https://github.com/mms1688/AglusNVR.git
+git clone https://github.com/AnglusBR/AglusNVR.git
 cd AglusNVR
 make build
 ./aglus-nvr init --password sua-senha
@@ -264,4 +264,4 @@ Esta versão preserva a licença MIT e os créditos do projeto original.
 
 ## Licença
 
-[Licença MIT](LICENSE) — copyright original © 2026 Mi&Bee Studio
+[Licença MIT](LICENSE) — copyright original © 2026 Anglus Software
